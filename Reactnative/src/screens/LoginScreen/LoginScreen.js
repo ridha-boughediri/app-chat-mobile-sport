@@ -2,6 +2,7 @@ import { View, Image, StyleSheet, useWindowDimensions} from 'react-native';
 import React from 'react';
 import Logo from "../../../assets/image/Logo.png";
 import CustomInput from '../../components/CustomInput/CustomInput';
+import CustomButton from '../../components/CustomButon/CustomButton';
 
 
 export default function LoginScreen() {
@@ -12,17 +13,8 @@ export default function LoginScreen() {
       <Image source={Logo} style={[styles.logo,, {height: height * 0.10}]} resizeMode="contain" />
       <CustomInput />
       <CustomInput />
-     
 
-
-
-
-
-  
-
-
-
-
+      <CustomButton />
     </View>
   )
 }
