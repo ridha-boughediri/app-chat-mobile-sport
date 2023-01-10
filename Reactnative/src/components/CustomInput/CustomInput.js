@@ -1,26 +1,32 @@
-import { View,TextInput, StyleSheet } from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
+import { TextInput, View, StyleSheet } from 'react-native';
 
-export default function CustomInput() {
+const Input = ({ placeholder, value, onChangeText, style, name, onBlur, onFocus, onSubmitEditing, onEndEditinggit }) => {
   return (
-    <View >
+    <View style={style}>
       <TextInput
-          style={styles.input}
-          
-          placeholder="email"
-          keyboardType="email"
-/>
+        placeholder={placeholder}
+        value={value}
+        onChangeText={onChangeText}
+        style={styles.input}
+        name={name}
+
+        onBlur={onBlur}
+        onFocus={onFocus}
+        onSubmitEditing={onSubmitEditing}
+        onEndEditing={onEndEditing}
+      />
     </View>
-  )
-}
-
-
+  );
+};
 
 const styles = StyleSheet.create({
-input: {
-height: 40,
-margin: 12,
-borderWidth: 1,
-padding: 10,
-},
+  input: {
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    padding: 8
+  },
 });
+
+export default Input;
