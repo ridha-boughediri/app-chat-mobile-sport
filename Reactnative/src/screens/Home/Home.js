@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 
-const HomeScreen = ({navigation}) => {
+const HomeScreen = () => {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Image
@@ -12,10 +12,10 @@ const HomeScreen = ({navigation}) => {
         Le Premier tchat pour discuter Pronostique et suivi de ses equipe de sport americain favorites
       </Text>
       <View style={{ flexDirection: 'row', marginTop: 40 }}>
-        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('InscriptionScreen')}>
+        <TouchableOpacity style={styles.button} onPress={() => console.log('Inscription button pressed')}>
           <Text style={styles.buttonText}>Inscription</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('LoginScreen')}>
+        <TouchableOpacity style={styles.button} onPress={() => console.log('Connexion button pressed')}>
           <Text style={styles.buttonText}>Connexion</Text>
         </TouchableOpacity>
       </View>
