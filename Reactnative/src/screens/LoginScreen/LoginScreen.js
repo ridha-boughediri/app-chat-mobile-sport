@@ -5,6 +5,22 @@ const LoginScreen = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const handleLogin = async () => {
+    try{
+        let response = await fetch('http://10.10.27.150:8888/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email, password })
+        });
+        let data = await response.json();
+        console.log(data);
+    }catch(error){
+        console.error(error);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <TextInput
@@ -22,7 +38,7 @@ const LoginScreen = ({navigation}) => {
         placeholder='Mot de passe'
         secureTextEntry={true}
       />
-      <TouchableOpacity style={styles.button} onPress={() => console.log('Connect')}>
+      <TouchableOpacity style={styles.button} onPress={handleLogin}>
         <Text style={styles.buttonText}>Connexion</Text>
       </TouchableOpacity>
       <View style={styles.linksContainer}>
