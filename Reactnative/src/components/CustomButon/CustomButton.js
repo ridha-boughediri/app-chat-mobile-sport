@@ -1,7 +1,5 @@
 import { View, Text } from 'react-native'
 import React from 'react'
-import { Colors } from 'react-native/Libraries/NewAppScreen'
-
 export default function CustomButton() {
   return (
     <View >
@@ -10,6 +8,3 @@ export default function CustomButton() {
     </View>
   )
 }
-const styles = StyleSheet.create({
-
-  });
