@@ -10,7 +10,7 @@ const LoginScreen = ({ navigation }) => {
 
   const handleLogin = async () => {
     try {
-      let response = await axios.post('http://localhost:8888/auth/login', {
+      let response = await axios.post('http://10.10.27.150:8888/auth/login', {
         email: email,
         password: password
       });
@@ -18,6 +18,7 @@ const LoginScreen = ({ navigation }) => {
       let data = response.data;
       console.log(data.access_token);
       await AsyncStorage.setItem('access_token', data.access_token);
+      navigation.navigate("GroupsScreen")
     } catch (error) {
       console.error(error);
     }
