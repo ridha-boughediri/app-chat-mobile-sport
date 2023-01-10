@@ -7,7 +7,7 @@ const LoginScreen = ({navigation}) => {
 
   const handleLogin = async () => {
     try{
-        let response = await fetch('http://10.10.27.150:8888/auth/login', {
+        let response = await fetch('http://localhost:8888/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
