@@ -1,25 +1,36 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
 
-const LoginScreen = ({navigation}) => {
+const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [token, setToken] = useState('');
 
   const handleLogin = async () => {
-    try{
-        let response = await fetch('http://localhost:8888/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ email, password })
-        });
-        let data = await response.json();
-        console.log(data);
-    }catch(error){
-        console.error(error);
+    try {
+      let response = await axios.post('http://localhost:8888/auth/login', {
+        email: email,
+        password: password
+      });
+
+      let data = response.data;
+      console.log(data.access_token);
+      await AsyncStorage.setItem('access_token', data.access_token);
+    } catch (error) {
+      console.error(error);
     }
   };
+
+  useEffect(() => {
+    const getInfo = async () => {
+      const res = await AsyncStorage.getItem('access_token');
+      setToken(res);
+    };
+    getInfo();
+  }, []);
+
 
   return (
     <View style={styles.container}>
