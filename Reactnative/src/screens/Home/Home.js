@@ -6,9 +6,9 @@ const HomeScreen = ({navigation}) => {
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Image
         source={require('../../../assets/image/US_Sports_Insights-removebg-preview.png')}
-        style={{ width: 200, height: 200 }}
+        style={{ width: 300, height: 300 }}
       />
-      <Text style={{ fontSize: 18, marginTop: 20, marginStart: 10, marginEnd: 10}}>
+      <Text style={{ fontSize: 18, marginTop: 20, marginStart: 10, marginEnd: 10, textAlign: 'center'}}>
         Le Premier tchat pour discuter Pronostique et suivi de ses equipe  de sport americain favorites
       </Text>
       <View style={{ flexDirection: 'row', marginTop: 40 }}>
