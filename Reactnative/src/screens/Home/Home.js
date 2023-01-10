@@ -9,7 +9,7 @@ const HomeScreen = ({navigation}) => {
         style={{ width: 300, height: 300 }}
       />
       <Text style={{ fontSize: 18, marginTop: 20, marginStart: 10, marginEnd: 10, textAlign:"center"}}>
-        Le Premier tchat pour discuter Pronostique et suivi de ses equipe  de sport americain favorites
+        Le Premier tchat pour discuter Pronostique et suivi de ses equipe de sport americain favorites
       </Text>
       <View style={{ flexDirection: 'row', marginTop: 40 }}>
         <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('InscriptionScreen')}>
