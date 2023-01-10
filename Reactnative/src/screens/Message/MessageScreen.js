@@ -1,10 +1,10 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 
-export default function Groups() {
+export default function MessageScreen() {
   return (
     <View>
-      <Text>Groups</Text>
+      <Text>MessageScreen</Text>
     </View>
   )
 }

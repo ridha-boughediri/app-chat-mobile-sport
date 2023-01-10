@@ -1,10 +1,12 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 
-export default function AdminScreen() {
+const ProfilScreen = () => {
   return (
     <View>
-      <Text>AdminScreen</Text>
+      <Text>ProfilScreen</Text>
     </View>
   )
 }
+
+export default ProfilScreen

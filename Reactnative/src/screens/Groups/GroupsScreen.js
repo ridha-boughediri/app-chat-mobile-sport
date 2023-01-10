@@ -1,10 +1,10 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 
-export default function AdminScreen() {
+export default function GroupsScreen() {
   return (
     <View>
-      <Text>AdminScreen</Text>
+      <Text>Groups</Text>
     </View>
   )
 }
