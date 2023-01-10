@@ -25,7 +25,7 @@ const HomeScreen = ({navigation}) => {
 const styles =  {
     button: {
     padding: 10,
-    backgroundColor: '#4CAF50',
+    backgroundColor: '#0E64D2',
     borderRadius: 5,
     marginRight: 10
   },
