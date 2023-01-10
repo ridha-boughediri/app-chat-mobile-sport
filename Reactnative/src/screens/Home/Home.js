@@ -1,21 +1,21 @@
 import React from 'react';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 
-const HomeScreen = () => {
+const HomeScreen = ({navigation}) => {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Image
         source={require('../../../assets/image/US_Sports_Insights-removebg-preview.png')}
         style={{ width: 200, height: 200 }}
       />
-      <Text style={{ fontSize: 18, marginTop: 20 }}>
+      <Text style={{ fontSize: 18, marginTop: 20, marginStart: 10, marginEnd: 10}}>
         Le Premier tchat pour discuter Pronostique et suivi de ses equipe  de sport americain favorites
       </Text>
       <View style={{ flexDirection: 'row', marginTop: 40 }}>
-        <TouchableOpacity style={styles.button} onPress={() => console.log('Inscription button pressed')}>
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('InscriptionScreen')}>
           <Text style={styles.buttonText}>Inscription</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={() => console.log('Connexion button pressed')}>
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('LoginScreen')}>
           <Text style={styles.buttonText}>Connexion</Text>
         </TouchableOpacity>
       </View>
