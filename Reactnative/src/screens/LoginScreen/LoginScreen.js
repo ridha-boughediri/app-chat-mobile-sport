@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import { withSafeAreaInsets } from 'react-native-safe-area-context';
 
 const LoginScreen = ({navigation}) => {
   const [email, setEmail] = useState('');
@@ -7,6 +8,9 @@ const LoginScreen = ({navigation}) => {
 
   return (
     <View style={styles.container}>
+          <Image source={require('../../../assets/image/logo-black.png')}
+                 style= {styles.roundedImage}
+          />
       <TextInput
         style={styles.input}
         value={email}
@@ -48,12 +52,13 @@ const styles = StyleSheet.create({
     width: '100%',
     padding: 10,
     marginBottom: 10,
+    marginTop: 10,
     borderWidth: 1,
     borderColor: '#ccc',
     borderRadius: 5
   },
   button: {
-    backgroundColor: '#0E64D2',
+    backgroundColor: 'black',
     padding: 10,
     borderRadius: 5,
     width: '100%',
@@ -74,6 +79,11 @@ const styles = StyleSheet.create({
   },
   linkText: {
     color: '#1E90FF'
-  }
+  },
+  roundedImage: {
+    width: 200,
+    height: 200,
+    borderRadius: 100,
+  },
 });
 export default LoginScreen;
