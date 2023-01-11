@@ -1,60 +1,66 @@
-import React from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Input } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
 import CustomInput from '../../components/CustomInput/CustomInput';
 
 
 const InscriptionScreen = ({ navigation }) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [token, setToken] = useState('');
 
+  const handleLogin = async () => {
+    try {
+      let response = await axios.post('http://localhost:8888/auth/login', {
+        email: email,
+        password: password
+      });
+
+      let data = response.data;
+      console.log(data.access_token);
+      await AsyncStorage.setItem('access_token', data.access_token);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    const getInfo = async () => {
+      const res = await AsyncStorage.getItem('access_token');
+      setToken(res);
+    };
+    getInfo();
+  }, []);
 
 
   return (
     <View style={styles.container}>
-     <Text style={{ fontSize: 18, marginTop: 10, marginStart: 10, marginEnd: 10, textAlign: 'center'}}>
-     Créer  un compte
-     
-      </Text>
-
-
-      {/* <CustomInput /> */}
-
-      <Text style={{ fontSize: 10, marginTop: 5, marginStart: 10, marginEnd: 20, textAlign: 'center'}}>
-      Connecter vous et parler avec vos amis !
-      </Text>
-    
-     <TextInput
+      <TextInput
         style={styles.input}
-        // value={lastname}
-        // onChangeText={(text) => setEmail(text)}
-        placeholder='nom'
-        autoCapitalize='none'
-      />
-       <TextInput
-        style={styles.input}
-        // value={firstname}
-        // onChangeText={(text) => setEmail(text)}
-        placeholder='prenom'
-        autoCapitalize='none'
-      />
-       <TextInput
-        style={styles.input}
-        // value={email}
-        // onChangeText={(text) => setEmail(text)}
+        value={email}
+        onChangeText={(text) => setEmail(text)}
         placeholder='Email'
         autoCapitalize='none'
         keyboardType='email-address'
       />
-       <TextInput
+      <TextInput
         style={styles.input}
-        // value={email}
-        // onChangeText={(text) => setEmail(text)}
-        placeholder='Mot de passe '
-        autoCapitalize='none'
+        value={password}
+        onChangeText={(text) => setPassword(text)}
+        placeholder='Mot de passe'
+        secureTextEntry={true}
       />
-      <TouchableOpacity style={styles.button} >
-        <Text style={styles.buttonText}>Inscription</Text>
+
+      <TouchableOpacity style={styles.button} onPress={handleLogin}>
+        <Text style={styles.buttonText}>S'inscrire</Text>
       </TouchableOpacity>
+      <View style={styles.linksContainer}>
+        <TouchableOpacity style={styles.link} onPress={() => navigation.navigate('login')}>
+          <Text style={styles.linkText}>connexion </Text>
+        </TouchableOpacity>
      
-     
+      </View>
     </View>
   );
 };
@@ -64,7 +70,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 10
+    padding: 20
   },
   input: {
     width: '100%',

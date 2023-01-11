@@ -18,7 +18,7 @@ const App = () => {
     <NavigationContainer>
       <Drawer.Navigator initialRouteName='Home'>
         <Drawer.Screen name='Home' component={Home} ></Drawer.Screen>
-        <Drawer.Screen name='Groups' component={GroupsScreen} ></Drawer.Screen>
+        <Drawer.Screen name='Groupsssss' component={GroupsScreen} ></Drawer.Screen>
         <Drawer.Screen name='Profil' component={ProfilScreen} ></Drawer.Screen>
         <Drawer.Screen name='Message' component={MessageScreen} ></Drawer.Screen>
         <Drawer.Screen name='Admin' component={AdminScreen} ></Drawer.Screen>
