@@ -1,16 +1,57 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native';
-import { withSafeAreaInsets } from 'react-native-safe-area-context';
+import React, { useState, useEffect } from 'react';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, Pressable } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
+import { MaterialCommunityIcons } from '@expo/vector-icons/';
+import { root } from 'postcss';
 
-const LoginScreen = ({navigation}) => {
+const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [token, setToken] = useState('');
+  const [rightIcon, setRightIcon] = useState('eye');
+  const [passwordVisibility, setPasswordVisibility] = useState(true);
+
+  const handlePasswordVisibility = () => {
+    if (rightIcon === 'eye') {
+      setRightIcon('eye-off');
+      setPasswordVisibility(!passwordVisibility);
+    } else if (rightIcon === 'eye-off') {
+      setRightIcon('eye');
+      setPasswordVisibility(!passwordVisibility);
+    }
+  };
+  const handleLogin = async () => {
+    try {
+      let response = await axios.post('http://localhost:8888/auth/login', {
+        email: email,
+        password: password
+      });
+
+      let data = response.data;
+      console.log(data.access_token);
+      await AsyncStorage.setItem('access_token', data.access_token);
+      navigation.navigate("GroupsScreen")
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    const getInfo = async () => {
+      const res = await AsyncStorage.getItem('access_token');
+      setToken(res);
+    };
+    getInfo();
+  }, []);
+
 
   return (
     <View style={styles.container}>
-          <Image source={require('../../../assets/image/logo-black.png')}
-                 style= {styles.roundedImage}
-          />
+      <Image
+        source={require('../../../assets/image/US_Sports_Insights-removebg-preview.png')}
+        style={{ width: 300, height: 300 }}
+      />
       <TextInput
         style={styles.input}
         value={email}
@@ -19,14 +60,20 @@ const LoginScreen = ({navigation}) => {
         autoCapitalize='none'
         keyboardType='email-address'
       />
-      <TextInput
-        style={styles.input}
-        value={password}
-        onChangeText={(text) => setPassword(text)}
-        placeholder='Mot de passe'
-        secureTextEntry={true}
-      />
-      <TouchableOpacity style={styles.button} onPress={() => console.log('Connect')}>
+      <View
+        style={styles.input}>
+        <TextInput
+          style={styles.pass}
+          value={password}
+          onChangeText={(text) => setPassword(text)}
+          placeholder='Mot de passe'
+          secureTextEntry={passwordVisibility}
+        />
+        <Pressable onPress={handlePasswordVisibility}>
+          <MaterialCommunityIcons name={rightIcon} size={22} color="#232323" />
+        </Pressable>
+      </View>
+      <TouchableOpacity style={styles.button} onPress={handleLogin}>
         <Text style={styles.buttonText}>Connexion</Text>
       </TouchableOpacity>
       <View style={styles.linksContainer}>
@@ -55,12 +102,13 @@ const styles = StyleSheet.create({
     marginTop: 10,
     borderWidth: 1,
     borderColor: '#ccc',
-    borderRadius: 5
+    borderRadius: 15,
+    flexDirection: 'row',
   },
   button: {
     backgroundColor: 'black',
     padding: 10,
-    borderRadius: 5,
+    borderRadius: 10,
     width: '100%',
     alignItems: 'center'
   },
@@ -80,10 +128,8 @@ const styles = StyleSheet.create({
   linkText: {
     color: '#1E90FF'
   },
-  roundedImage: {
-    width: 200,
-    height: 200,
-    borderRadius: 100,
-  },
+  pass:{
+    width: '90%'
+  }
 });
 export default LoginScreen;
