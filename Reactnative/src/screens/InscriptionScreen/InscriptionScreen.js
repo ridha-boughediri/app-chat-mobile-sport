@@ -25,7 +25,7 @@ const InscriptionScreen = () => {
         secureTextEntry={true}
       />
       <TouchableOpacity style={styles.button} onPress={handleSubmit}>
-        <Text>Sign up</Text>
+        <Text>Inscription </Text>
       </TouchableOpacity>
     </View>
   );
