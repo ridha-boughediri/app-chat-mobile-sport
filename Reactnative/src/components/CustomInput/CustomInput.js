@@ -1,41 +1,82 @@
-import React from 'react'
-import { TextInput, View, StyleSheet } from 'react-native';
+import { StyleSheet, View, TextInput,Text } from "react-native";
+import COLORS from '../constants/color';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { useState } from "react";
+const  Input = ({
+  label,
+  iconName,
+  error,
+  password,
+  placeholder,
+  onChangeText,
+  value,
+  onFocus =() =>{},
+  ...props
+}) =>{
 
-const CustomInput = ({ label, inconName, error, password ,placeholder,placeholderTextColor, value, onChangeText, style, name, onBlur, onFocus, onSubmitEditing }) => {
+const [isFocused,setIsFocused] = useState(false);
+const [hidePassword, setHidePassword] = useState(password);
+
   return (
-    <View style={style}>
-      <Text>
-        {label}
-      </Text>
-      <TextInput
+    <View style={{marginBottom: 5}}>
+      <Text>{label}</Text>
       
-        placeholder={placeholder}
-        error={error}
-        placeholderTextColor={placeholderTextColor}
-        value={value}
-        onChangeText={onChangeText}
-        style={styles.input}
-        name={name}
-        password={password}
-        inconName={inconName}
-        onBlur={onBlur}
-        onFocus={onFocus}
-        onSubmitEditing={onSubmitEditing}
-        onEndEditing={onEndEditing}
-      />
+      <View style= {[styles.inputContainer,{borderColor: error?COLORS.red:isFocused ?COLORS.darkBlue:COLORS.lightlight}]}>
+        <Icon name={iconName} style={{fontSize:22, color: COLORS.darkBlue, marginRight: 10}}/>
+        <TextInput
+        secureTextEntry={hidePassword}
+        autoCorrect={false}
+        onFocus={()=>{
+          onFocus();
+          setIsFocused(true);
+        }}
+
+        onBlur={() =>{
+          setIsFocused(false);
+
+        }}
+
+
+
+        style={{color: COLORS.darkBlue, flex:1}}
+        {...props} />
+
+      </View>
+
+      {error && (
+        <Text style={{color:COLORS.red,fontSize: 15, marginTop: 7}}>{error}</Text>
+      
+      ) }
+
+      
     </View>
   );
-};
-
+}
 const styles = StyleSheet.create({
-  input: {
-    height: 40,
-    borderColor: 'gray',
+
+
+  inputContainer: {
+    borderColor: "gray",
+    width: "100%",
     borderWidth: 1,
-    padding: 8
+    borderRadius: 10,
+    padding: 10,
+    height:55 ,
+    backgroundColor:COLORS.light,
+    flexDirection: 'row',
+    paddingHorizontal : 15 ,
+    borderWidth: 0.5,
+    alignItems: 'center',
+
   },
+
+  label: {
+    marginVertical: 5,
+    fontSize: 14,
+    color: COLORS.grey,
+  },
+
+
 });
 
-export default CustomInput;
-
-
+export default Input;

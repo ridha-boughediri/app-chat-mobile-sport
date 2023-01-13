@@ -16,6 +16,7 @@ const Drawer = createDrawerNavigator();
 const App = () => {
   return (
     <NavigationContainer>
+      
       <Drawer.Navigator initialRouteName='Home'>
         <Drawer.Screen name='Home' component={Home} ></Drawer.Screen>
         <Drawer.Screen name='Groupsssss' component={GroupsScreen} ></Drawer.Screen>

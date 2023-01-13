@@ -1,55 +1,102 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text,StyleSheet } from 'react-native'
+// import React, { useState } from 'react'
+import Input from '../../components/CustomInput/CustomInput';
+import CustomButton from '../../components/CustomButon/CustomButton';
+// import { createUser } from '../../service/UserApi';
+// import { isAxiosError } from 'axios';
 
-const InscriptionScreen = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+const InscriptionScreen = ({navigation}) => {
 
-  const handleSubmit = () => {
-    // Do something with the email and password, such as sending a request to a server to create a new account
-  };
+  // console.log("clemnet",createUser)
+
+  // const [lastname,setLastname] = useState('');
+  // const [firstname,setFirstname] = useState('');
+  // const [email, setEmail] = useState('');
+  // const [password,setPasseword] = useState('');
+  // const [login,setLogin] = useState("");
+  // const [passwordRepeat, setPasswordRepeat] = useState('');
+
+  // // verifier la connnexion 
+
+  // const [isloadind,setIsloading] = useState(false);
+
+  // // error
+  // const [error,setError] = useState(false);
+
+  // // cest une error
+
+  // const [isError,setIsError] = useState(false);
+
+  // // mon groupe error pour validation
+
+  // const [errors, setErrors] = useState({
+  //   errorlastname:false,
+  //   errorfistname:false,
+  //   errorpassword:false,
+  //   errorpasswordReapeat:false
+  // })
+
+
+  // const checklastname = (lastname) =>{
+
+  //     if(!lastname || lastname.length !=0){
+
+  //     }
+
+  // }
+
+
+
 
   return (
-    <View style={styles.container}>
-      <Text>Email</Text>
-      <TextInput
-        style={styles.input}
-        value={email}
-        onChangeText={text => setEmail(text)}
+    <View>
+      <Text style = {styles.baseText} >Créer  un compte</Text>
+      <Text style = {styles.baseText2}>Connecter vous et parler avec vos amis !</Text>
+
+
+     
+<Input 
+      
+      label="email"
+      // error="Input email"
+      placeholder = "entrer votre adresse email"
+      iconName = "email-outline"
       />
-      <Text>Password</Text>
-      <TextInput
-        style={styles.input}
-        value={password}
-        onChangeText={text => setPassword(text)}
-        secureTextEntry={true}
+
+<Input 
+      
+      label="password"
+      // error="mot de passe "
+      placeholder = "entrer votre mot de passe"
+      iconName = "lock-outline"
+      password
       />
-      <TouchableOpacity style={styles.button} onPress={handleSubmit}>
-        <Text>Inscription </Text>
-      </TouchableOpacity>
+    
+
+      <CustomButton title="Inscription " backgroundColor="#0E64D2"  />
+
+
     </View>
-  );
-};
-
+ 
+  )
+}
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+  baseText: {
+    fontWeight: 'bold',
+    fontSize: 18,
+    marginTop: 20, 
+    marginStart: 10, 
+    marginEnd: 10, 
+    textAlign: 'center',
   },
-  input: {
-    width: 200,
-    height: 40,
-    borderWidth: 1,
-    borderColor: 'gray',
-    padding: 10,
-    margin: 10,
+  baseText2: {
+    fontWeight: 'normal',
+    fontSize: 15,
+    marginTop: 10, 
+    marginStart: 5, 
+    marginEnd: 5, 
+    textAlign: 'center',
   },
-  button: {
-    backgroundColor: 'blue',
-    padding: 10,
-    margin: 10,
-  },
-});
 
-export default InscriptionScreen;
+});
+export default InscriptionScreen
