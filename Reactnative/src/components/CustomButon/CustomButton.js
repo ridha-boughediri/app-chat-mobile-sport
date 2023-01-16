@@ -1,33 +1,30 @@
-import React from 'react'
-import { Text, TouchableOpacity, StyleSheet } from 'react-native'
+import React from 'react';
+import {TouchableOpacity, Text} from 'react-native';
+import Layouts from '../constants/Layout';
+const Button = ({title, onPress}) => {
 
 
+// console.warn("jesuis la ")
 
-
-const CustomButton = ({ title , onPress }) => {
   return (
-    <TouchableOpacity onPress={onPress} style={styles.appButtonContainer}>
-    <Text style={styles.appButtonText}>{title}</Text>
-  </TouchableOpacity>
-
-  )
+    <TouchableOpacity
+      onPress={onPress}
+      activeOpacity={0.7}
+      style={{
+        height: 55,
+        width: '100%',
+        backgroundColor: Layouts.blue,
+        marginVertical: 20,
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}>
+        {console.warn("jesuis la aussi ")
 }
+      <Text style={{color: Layouts.white, fontWeight: 'bold', fontSize: 18}}>
+        {title}
+      </Text>
+    </TouchableOpacity>
+  );
+};
 
-const styles = StyleSheet.create({
-  appButtonContainer: {
-    elevation: 8,
-    backgroundColor: "#0E64D2",
-    borderRadius: 10,
-    paddingVertical: 10,
-    paddingHorizontal: 12
-  },
-  appButtonText: {
-    fontSize: 18,
-    color: "#fff",
-    fontWeight: "bold",
-    alignSelf: "center",
-    textTransform: "uppercase"
-  }
-})
-
-export default CustomButton
+export default Button;

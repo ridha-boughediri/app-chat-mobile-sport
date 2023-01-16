@@ -1,82 +1,84 @@
-import { StyleSheet, View, TextInput,Text } from "react-native";
-import COLORS from '../constants/color';
+import { StyleSheet, View, TextInput,Text, Pressable, Image } from "react-native";
+import Layouts from '../constants/Layout';
+import { useState } from 'react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { useState } from "react";
-const  Input = ({
-  label,
-  iconName,
-  error,
-  password,
-  placeholder,
-  onChangeText,
-  value,
-  onFocus =() =>{},
-  ...props
-}) =>{
 
-const [isFocused,setIsFocused] = useState(false);
-const [hidePassword, setHidePassword] = useState(password);
+const  Input = ({label,placeholder,
+  iconName,
+  isPassword,
+  onChangeText,
+  value}) => {
+
+ // afficher le mot de passe
+
+
+ const [isPasswordvisible,setIsPasswordvisible] = useState(false);
+
+
+ const afficherLepass= () =>{
+    setIsPasswordvisible(!isPasswordvisible)
+ }
+
+
+
 
   return (
-    <View style={{marginBottom: 5}}>
-      <Text>{label}</Text>
-      
-      <View style= {[styles.inputContainer,{borderColor: error?COLORS.red:isFocused ?COLORS.darkBlue:COLORS.lightlight}]}>
-        <Icon name={iconName} style={{fontSize:22, color: COLORS.darkBlue, marginRight: 10}}/>
-        <TextInput
-        secureTextEntry={hidePassword}
-        autoCorrect={false}
-        onFocus={()=>{
-          onFocus();
-          setIsFocused(true);
-        }}
+    <View style={[  style.inputContainer,{alignItems: 'center', },]} >
+      <Text style={style.label}>{label}</Text>
+      <View >
+      <Icon name={iconName} style={{fontSize:22, color: Layouts.darkBlue, marginRight: 10}}/>
+       
+         <TextInput
+         secureTextEntry={isPassword && !isPasswordvisible}
+         placeholder={placeholder}
+         onChangeText={onChangeText}
+         value={value}
+       />
+        {/* ternair pr afficher le mot de passe que dans l input password */}
+        {isPassword ?( <Pressable onPress={afficherLepass}>
+            <Image source={require('../../../assets/icon/eye.png')} />
+         </Pressable>):null
+         }
 
-        onBlur={() =>{
-          setIsFocused(false);
-
-        }}
-
-
-
-        style={{color: COLORS.darkBlue, flex:1}}
-        {...props} />
-
-      </View>
-
-      {error && (
-        <Text style={{color:COLORS.red,fontSize: 15, marginTop: 7}}>{error}</Text>
-      
-      ) }
+       
 
       
+
+          
+      
+         </View> 
+          
+       
     </View>
   );
-}
-const styles = StyleSheet.create({
+};
 
 
-  inputContainer: {
-    borderColor: "gray",
-    width: "100%",
-    borderWidth: 1,
-    borderRadius: 10,
-    padding: 10,
-    height:55 ,
-    backgroundColor:COLORS.light,
-    flexDirection: 'row',
-    paddingHorizontal : 15 ,
-    borderWidth: 0.5,
-    alignItems: 'center',
 
-  },
+// style={[
+//   style.inputContainer,
+//   {
 
+//     alignItems: 'center',
+//   },
+// ]}>
+// {/* <Icon
+//   name={iconName}
+//   style={{color: Layouts.darkBlue, fontSize: 22, marginRight: 10}}
+// /> */}
+const style = StyleSheet.create({
   label: {
-    marginVertical: 5,
+    marginVertical: 3,
     fontSize: 14,
-    color: COLORS.grey,
+    color: Layouts.grey,
   },
-
-
+  inputContainer: {
+    height: 55,
+    backgroundColor: Layouts.light,
+    flexDirection: 'row',
+    paddingHorizontal: 30,
+    borderWidth: 0.5,
+  },
 });
 
 export default Input;

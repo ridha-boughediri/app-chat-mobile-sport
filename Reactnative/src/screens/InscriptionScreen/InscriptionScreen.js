@@ -1,102 +1,154 @@
-import { View, Text,StyleSheet } from 'react-native'
-// import React, { useState } from 'react'
+import React from 'react';
+import {
+  View,
+  Text,
+  SafeAreaView,
+  ScrollView,
+  TouchableOpacity
+} from 'react-native';
+import Layouts from '../../components/constants/Layout';
+import Button from '../../components/CustomButon/CustomButton';
 import Input from '../../components/CustomInput/CustomInput';
-import CustomButton from '../../components/CustomButon/CustomButton';
-// import { createUser } from '../../service/UserApi';
-// import { isAxiosError } from 'axios';
+import { useState } from 'react';
+import { URL_USER } from '../../service/config';
+
 
 const InscriptionScreen = ({navigation}) => {
 
-  // console.log("clemnet",createUser)
-
-  // const [lastname,setLastname] = useState('');
-  // const [firstname,setFirstname] = useState('');
-  // const [email, setEmail] = useState('');
-  // const [password,setPasseword] = useState('');
-  // const [login,setLogin] = useState("");
-  // const [passwordRepeat, setPasswordRepeat] = useState('');
-
-  // // verifier la connnexion 
-
-  // const [isloadind,setIsloading] = useState(false);
-
-  // // error
-  // const [error,setError] = useState(false);
-
-  // // cest une error
-
-  // const [isError,setIsError] = useState(false);
-
-  // // mon groupe error pour validation
-
-  // const [errors, setErrors] = useState({
-  //   errorlastname:false,
-  //   errorfistname:false,
-  //   errorpassword:false,
-  //   errorpasswordReapeat:false
-  // })
+ 
+// const url = URL_USER
 
 
-  // const checklastname = (lastname) =>{
+console.warn(URL_USER)
+ 
+// preparation de la data en mode inscription
 
-  //     if(!lastname || lastname.length !=0){
-
-  //     }
-
-  // }
+  const [values, setValues] = useState({
+    email: "",
+    password: "",
+    lastname: "",
+    firstname: "",
+    login: ""
+  })
 
 
 
+
+// envoi de la data 
+
+const onSubmit = async () => {
+  try {
+      if (!values?.email || !values?.lastname || !values?.firstname || !values?.login || !values?.password) {
+          Alert.alert('All fields are required');
+          return;
+      }
+
+      const response = await request({
+
+          url: `${URL_USER}/register`,
+          method: 'post',
+          data: values,
+          });
+          console.log('response :>> ', response);
+          } catch(error) {
+          console.log('error :>> ', error);
+          }
+} 
+// recuperation et demo de la data 
+const onChange = (key, value) => {
+  setValues(v => ({...v, [key]: value}))
+}
+
+
+  
 
   return (
-    <View>
-      <Text style = {styles.baseText} >Créer  un compte</Text>
-      <Text style = {styles.baseText2}>Connecter vous et parler avec vos amis !</Text>
+    <SafeAreaView style={{backgroundColor: Layouts.white, flex: 1}}>
+      <ScrollView
+        contentContainerStyle={{paddingTop: 5, paddingHorizontal: 10}}>
+        <Text style={{color: Layouts.black, fontSize: 24, fontWeight: 'bold'}}>
+        Créer  un compte
+        </Text>
+        <Text style={{color: Layouts.black, fontSize: 14, marginVertical: 10}}>
+        Connecter vous et parler avec vos amis !</Text>
+        <View style={{marginVertical: 5}}>
 
 
+        <Input
+           value={values.lastname}
+           onChangeText={(v)=>onChange('lastname', v)}
+
+           iconName="account-outline"
+           placeholder="nom"
+           
+
+         />
+        <Input
+         
+         value={values.lastname}
+         onChangeText={(v)=>onChange('lastname', v)}
+
+          iconName="account-outline"
+          // label="prenom"
+          placeholder="prenom"
+
+        /> 
+         <Input
+          value={values.login}
+          onChangeText={(v)=>onChange('login', v)}
+          iconName="account-box-outline"
+          // label="login"
+          placeholder="login"
+        
+        />
+          <Input
+            iconName="email-outline"
+
+            // label="Email"
+            placeholder="Enter your email address"
+            value={values.email}
+           onChangeText={(v)=>onChange('email', v)}
+         
+          />
+      
+          <Input
+          iconName="lock-outline"
      
-<Input 
+          placeholder="votre mot de passe"
+        
+          isPassword={true}
+          value={values.password}
+          onChangeText={(v)=>onChange('password', v)}
+
+            
+          /> 
+
+
       
-      label="email"
-      // error="Input email"
-      placeholder = "entrer votre adresse email"
-      iconName = "email-outline"
-      />
 
-<Input 
+           <Button title="Inscription "
+          // envoi de la donnée
+          onChangeText={(e)=> (console.warn("lebutton",e))}
+          onPress={onSubmit}
+          
+          
+          
+          />  
+
+
+        <TouchableOpacity  >
+          <Text >J 'ai deja une compote</Text>
+          <Text >Connexion</Text>
+
+        </TouchableOpacity>
+       
+
+  
       
-      label="password"
-      // error="mot de passe "
-      placeholder = "entrer votre mot de passe"
-      iconName = "lock-outline"
-      password
-      />
-    
+        </View>
+      </ScrollView>
+    </SafeAreaView>
+  );
+};
 
-      <CustomButton title="Inscription " backgroundColor="#0E64D2"  />
-
-
-    </View>
- 
-  )
-}
-const styles = StyleSheet.create({
-  baseText: {
-    fontWeight: 'bold',
-    fontSize: 18,
-    marginTop: 20, 
-    marginStart: 10, 
-    marginEnd: 10, 
-    textAlign: 'center',
-  },
-  baseText2: {
-    fontWeight: 'normal',
-    fontSize: 15,
-    marginTop: 10, 
-    marginStart: 5, 
-    marginEnd: 5, 
-    textAlign: 'center',
-  },
-
-});
-export default InscriptionScreen
+export default InscriptionScreen;
