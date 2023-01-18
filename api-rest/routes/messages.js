@@ -8,7 +8,6 @@ const db= require('../db.config')
 const messages = require('../models/messages')
 const checkTokenexist= require('../JWT/verif')
 
-const message = require('../models/messages')
  
  // mon middleware pour message selon la route
 

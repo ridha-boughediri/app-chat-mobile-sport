@@ -55,17 +55,6 @@ const  Input = ({label,placeholder,
 
 
 
-// style={[
-//   style.inputContainer,
-//   {
-
-//     alignItems: 'center',
-//   },
-// ]}>
-// {/* <Icon
-//   name={iconName}
-//   style={{color: Layouts.darkBlue, fontSize: 22, marginRight: 10}}
-// /> */}
 const style = StyleSheet.create({
   label: {
     marginVertical: 3,

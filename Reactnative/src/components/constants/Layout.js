@@ -6,6 +6,7 @@ const Layouts = {
     light: '#F3F4FB',
     darkBlue: '#7978B5',
     red: 'red',
+    groupeColor: '#575757',
 
     'paddingHorizontal' : 25,
     'paddingVertical': 70,

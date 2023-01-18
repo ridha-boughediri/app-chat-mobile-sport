@@ -3,7 +3,7 @@ const express = require('express')
 let router = express.Router()
 const checkTokenexist= require('../JWT/verif')
 
-const room = require('../models/room')
+const rooms = require('../models/room')
 
 
 const db = require('../db.config')
@@ -23,6 +23,14 @@ router.use((req,res,next)=>{
 
 
 router.get('/', checkTokenexist, (req, res) => {
+    db.room.findAll()
+        .then(rooms => res.json({ data: rooms }), res.status(200))
+        .catch(err => res.status(500).json({ message: 'Database Error', error: err }))
+})
+
+
+
+router.get('/', (req, res) => {
     db.room.findAll()
         .then(rooms => res.json({ data: rooms }), res.status(200))
         .catch(err => res.status(500).json({ message: 'Database Error', error: err }))

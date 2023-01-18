@@ -18,7 +18,9 @@ const Button = ({title, onPress}) => {
         justifyContent: 'center',
         alignItems: 'center',
       }}>
-        {console.warn("jesuis la aussi ")
+        {
+        // console.warn("jesuis la aussi ")
+
 }
       <Text style={{color: Layouts.white, fontWeight: 'bold', fontSize: 18}}>
         {title}

@@ -10,59 +10,88 @@ import Layouts from '../../components/constants/Layout';
 import Button from '../../components/CustomButon/CustomButton';
 import Input from '../../components/CustomInput/CustomInput';
 import { useState } from 'react';
-import { URL_USER } from '../../service/config';
+import axios from 'axios';
 
 
 const InscriptionScreen = ({navigation}) => {
 
- 
-// const url = URL_USER
 
-
-console.warn(URL_USER)
  
 // preparation de la data en mode inscription
 
-  const [values, setValues] = useState({
-    email: "",
-    password: "",
-    lastname: "",
-    firstname: "",
-    login: ""
-  })
 
+const [email,setEmail] = useState('');
+const [password, setPassword] = useState('');
+const [lastname,setLastname] = useState('');
+const [firstname,setFirstname] = useState('');
+const [login, setLogin] = useState('');
+
+
+// message alerte creation 
+
+const [alertos, setAlertos] = useState({ isOpen: false, type: '', message: '' })
 
 
 
 // envoi de la data 
 
-const onSubmit = async () => {
-  try {
-      if (!values?.email || !values?.lastname || !values?.firstname || !values?.login || !values?.password) {
-          Alert.alert('All fields are required');
-          return;
-      }
+const onSubmit = async() => {
 
-      const response = await request({
 
-          url: `${URL_USER}/register`,
-          method: 'post',
-          data: values,
-          });
-          console.log('response :>> ', response);
-          } catch(error) {
-          console.log('error :>> ', error);
-          }
-} 
-// recuperation et demo de la data 
-const onChange = (key, value) => {
-  setValues(v => ({...v, [key]: value}))
+// verification des inputes 
+if (!lastname.trim()) {
+    alert('Rentrer votre nom');
+    return;
+  }
+
+if (!firstname.trim()) {
+  alert('Rentrer votre prenom ');
+  return;
 }
+if (!login.trim()) {
+  alert('Rentrer votre login ');
+  return;
+}  
+if (!email.trim()) {
+  alert('Enter Email');
+  return;
+}
+if (!password.trim()) {
+  alert('Rentrer votre mot de passe ');
+  return;
+}
+//  SI tout est bien rempli
+  alert('Success vous rempli tous les champs ');
+  
+// envoi de la data vers le lien
+
+console.warn(email)
+
+try {
+  const response = await axios.post('http://10.10.4.237:8888/users/register', {
+    email: email,
+    password: password,
+    lastname: lastname,
+    firstname: firstname,
+    login: login
+  });
+  // const data = response.data;
+  console.log(response.status);
+  return response.json({ message: 'User Created'}), res.status(200);
+} catch (error) {
+  console.log(error.message);
+}
+
+} 
+
+
+
 
 
   
 
   return (
+    
     <SafeAreaView style={{backgroundColor: Layouts.white, flex: 1}}>
       <ScrollView
         contentContainerStyle={{paddingTop: 5, paddingHorizontal: 10}}>
@@ -75,18 +104,19 @@ const onChange = (key, value) => {
 
 
         <Input
-           value={values.lastname}
-           onChangeText={(v)=>onChange('lastname', v)}
+           value={lastname}
+           onChangeText={(v)=>setLastname(v)}
 
            iconName="account-outline"
            placeholder="nom"
            
 
          />
+
         <Input
          
-         value={values.lastname}
-         onChangeText={(v)=>onChange('lastname', v)}
+         value={firstname}
+         onChangeText={(v)=>setFirstname(v)}
 
           iconName="account-outline"
           // label="prenom"
@@ -94,8 +124,8 @@ const onChange = (key, value) => {
 
         /> 
          <Input
-          value={values.login}
-          onChangeText={(v)=>onChange('login', v)}
+          value={login}
+          onChangeText={(v)=>setLogin( v)}
           iconName="account-box-outline"
           // label="login"
           placeholder="login"
@@ -106,8 +136,8 @@ const onChange = (key, value) => {
 
             // label="Email"
             placeholder="Enter your email address"
-            value={values.email}
-           onChangeText={(v)=>onChange('email', v)}
+            value={email}
+           onChangeText={(v)=>setEmail(v)}
          
           />
       
@@ -117,23 +147,16 @@ const onChange = (key, value) => {
           placeholder="votre mot de passe"
         
           isPassword={true}
-          value={values.password}
-          onChangeText={(v)=>onChange('password', v)}
+          value={password}
+          onChangeText={(v)=>setPassword(v)}
 
             
           /> 
 
-
-      
-
-           <Button title="Inscription "
-          // envoi de la donnée
-          onChangeText={(e)=> (console.warn("lebutton",e))}
-          onPress={onSubmit}
-          
-          
-          
-          />  
+      <Button title="Inscription "
+    // envoi de la donnée
+    onPress={onSubmit} 
+    />  
 
 
         <TouchableOpacity  >

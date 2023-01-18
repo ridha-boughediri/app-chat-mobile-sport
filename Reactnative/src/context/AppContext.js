@@ -5,6 +5,7 @@ export const Context = createContext();
 
 function getInitialState() {
   const jwt = localStorage.getItem("jwt");
+  // secure store rzmplacer 
   return jwt || null
 }
 
