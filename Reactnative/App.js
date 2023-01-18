@@ -22,7 +22,6 @@ const App = () => {
         <Drawer.Screen name='Home' component={Home} ></Drawer.Screen>
         <Drawer.Screen name='Groups' component={GroupsScreen} ></Drawer.Screen>
         <Drawer.Screen name='Amis' component={AnnuaireScreen} ></Drawer.Screen>
-
         <Drawer.Screen name='Profil' component={ProfilScreen} ></Drawer.Screen>
         <Drawer.Screen name='Message' component={MessageScreen} ></Drawer.Screen>
         <Drawer.Screen name='Admin' component={AdminScreen} ></Drawer.Screen>
