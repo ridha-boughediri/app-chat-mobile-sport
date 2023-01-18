@@ -8,6 +8,7 @@ import MessageScreen from './src/screens/Message/MessageScreen';
 import AdminScreen from './src/screens/Admin/AdminScreen';
 import LoginScreen from './src/screens/LoginScreen/LoginScreen';
 import InscriptionScreen from './src/screens/InscriptionScreen/InscriptionScreen';
+import EditProfilScreen from './src/screens/Profil/EditProfilScreen/EditProfilScreen';
 // import AmiSreen from './src/screens/AmiSreen/AmiSreen';
 
 
@@ -20,6 +21,7 @@ const App = () => {
         <Drawer.Screen name='Home' component={Home} ></Drawer.Screen>
         <Drawer.Screen name='GroupsScreen' component={GroupsScreen} ></Drawer.Screen>
         <Drawer.Screen name='ProfilScreen' component={ProfilScreen} ></Drawer.Screen>
+        <Drawer.Screen name='EditProfilScreen' component={EditProfilScreen} ></Drawer.Screen>
         <Drawer.Screen name='MessageScreen' component={MessageScreen} ></Drawer.Screen>
         <Drawer.Screen name='AdminScreen' component={AdminScreen} ></Drawer.Screen>
         <Drawer.Screen name='LoginScreen' component={LoginScreen} ></Drawer.Screen>
