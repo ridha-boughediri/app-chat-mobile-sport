@@ -1,5 +1,6 @@
 import React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import Home from './src/screens/Home/Home';
 import GroupsScreen from './src/screens/Groups/GroupsScreen';
@@ -14,6 +15,7 @@ import AnnuaireScreen from './src/screens/Annuaire/AnnuaireScreen';
 
 
 const Drawer = createDrawerNavigator();
+const Tab = createBottomTabNavigator();
 
 const App = () => {
   return (
@@ -21,16 +23,10 @@ const App = () => {
       
       <Drawer.Navigator initialRouteName='Home'>
         <Drawer.Screen name='Home' component={Home} ></Drawer.Screen>
-        <Drawer.Screen name='GroupsScreen' component={GroupsScreen} ></Drawer.Screen>
-        <Drawer.Screen name='ProfilScreen' component={ProfilScreen} ></Drawer.Screen>
-        <Drawer.Screen name='EditProfilScreen' component={EditProfilScreen} ></Drawer.Screen>
-        <Drawer.Screen name='MessageScreen' component={MessageScreen} ></Drawer.Screen>
-        <Drawer.Screen name='AdminScreen' component={AdminScreen} ></Drawer.Screen>
-        <Drawer.Screen name='LoginScreen' component={LoginScreen} ></Drawer.Screen>
-        <Drawer.Screen name='InscriptionScreen' component={InscriptionScreen} ></Drawer.Screen>
         <Drawer.Screen name='Groups' component={GroupsScreen} ></Drawer.Screen>
         <Drawer.Screen name='Amis' component={AnnuaireScreen} ></Drawer.Screen>
         <Drawer.Screen name='Profil' component={ProfilScreen} ></Drawer.Screen>
+        <Drawer.Screen name='EditProfil' component={EditProfilScreen} ></Drawer.Screen>
         <Drawer.Screen name='Message' component={MessageScreen} ></Drawer.Screen>
         <Drawer.Screen name='Admin' component={AdminScreen} ></Drawer.Screen>
         <Drawer.Screen name='Login' component={LoginScreen} ></Drawer.Screen>
@@ -39,6 +35,10 @@ const App = () => {
 
       </Drawer.Navigator>
       
+      {/* <Tab.Navigator>
+        <Tab.Screen name="Home" component={Home} />
+        <Tab.Screen name="Settings" component={GroupsScreen} />
+      </Tab.Navigator> */}
 
     </NavigationContainer>
     

@@ -14,7 +14,7 @@ const ProfilScreen = ({navigation}) => {
       style={styles.profilPics}/>
         <View style={styles.infos}>
           <View style={styles.label}>
-          <Text style={{fontSize: 30}}>
+          <Text style={{fontSize: 30, fontFamily: 'Chalkduster'}}>
             Login
           </Text>
           </View>
@@ -22,7 +22,7 @@ const ProfilScreen = ({navigation}) => {
             Aurélus
           </Text>
           <View style={styles.label}>
-          <Text style={{fontSize: 30}}>
+          <Text style={{fontSize: 30, fontFamily: 'Chalkduster'}}>
             Prénom
           </Text>
           </View>
@@ -30,7 +30,7 @@ const ProfilScreen = ({navigation}) => {
             Aurélien
           </Text>
           <View style={styles.label}>
-          <Text style={{fontSize: 30}}>
+          <Text style={{fontSize: 30, fontFamily: 'Chalkduster'}}>
             Nom
           </Text>
           </View>
@@ -38,7 +38,7 @@ const ProfilScreen = ({navigation}) => {
             Adjimi
           </Text>
           <View style={styles.label}>
-          <Text style={{fontSize: 30}}>
+          <Text style={{fontSize: 30, fontFamily: 'Chalkduster'}}>
             Email
           </Text>
           </View>
@@ -46,23 +46,23 @@ const ProfilScreen = ({navigation}) => {
             aurelien.adjimi@coucou.fr
           </Text>
           <View style={styles.label}>
-          <Text style={{fontSize: 30}}>
-            Sport favori
+          <Text style={{fontSize: 30, fontFamily: 'Chalkduster'}}>
+            Sports favoris
           </Text>
           </View>
           <Text style={styles.infosUser}>
             Basketball
           </Text>
           <View style={styles.label}>
-          <Text style={{fontSize: 30}}>
-            Equipe favorite
+          <Text style={{fontSize: 30, fontFamily: 'Chalkduster'}}>
+            Equipes favorites
           </Text>
           </View>
           <Text style={styles.infosUser}>
            Chicago Bulls
           </Text>
-          <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('EditProfilScreen')}>
-            <Text>Modifiez votre profil</Text>
+          <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('EditProfil')}>
+            <Text style={{fontFamily: 'Chalkduster', fontSize: 11, textAlign: 'center', fontWeight: 'bold'}}>Modifiez votre profil</Text>
           </TouchableOpacity>
         </View>
     </View>
@@ -109,13 +109,13 @@ const styles = StyleSheet.create({
     borderBottomEndRadius: 10,
     borderTopStartRadius: 35,
     borderTopEndRadius: 35,
-    fontFamily: 'Cochin',
   },
 
   infosUser: {
     fontSize: 25,
     color: 'white',
     marginBottom: 10,
+    fontFamily: 'Copperplate',
   },
 
   button: {
