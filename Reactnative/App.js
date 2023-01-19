@@ -3,6 +3,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
 import Home from './src/screens/Home/Home';
 import GroupsScreen from './src/screens/Groups/GroupsScreen';
+import GeneralScreen from './src/screens/General/General';
 import ProfilScreen from './src/screens/Profil/ProfilScreen';
 import MessageScreen from './src/screens/Message/MessageScreen';
 import AdminScreen from './src/screens/Admin/AdminScreen';
@@ -27,6 +28,7 @@ const App = () => {
         <Drawer.Screen name='Admin' component={AdminScreen} ></Drawer.Screen>
         <Drawer.Screen name='Login' component={LoginScreen} ></Drawer.Screen>
         <Drawer.Screen name='Inscription' component={InscriptionScreen} ></Drawer.Screen>
+        <Drawer.Screen name='General' component={GeneralScreen} ></Drawer.Screen>
         {/* <Drawer.Screen name='AmiScreen' component={AmiScreen} ></Drawer.Screen> */}
 
       </Drawer.Navigator>
