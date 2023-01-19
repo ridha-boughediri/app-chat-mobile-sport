@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
     borderBottomEndRadius: 10,
     borderTopStartRadius: 35,
     borderTopEndRadius: 35,
-    fontFamily: 'Graduate', cursive,
+    fontFamily: 'Graduate_Regular',
   },
 
   infosUser: {
