@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
     borderBottomEndRadius: 10,
     borderTopStartRadius: 35,
     borderTopEndRadius: 35,
-    fontFamily: 'Graduate_Regular',
+    fontFamily: 'Cochin',
   },
 
   infosUser: {
