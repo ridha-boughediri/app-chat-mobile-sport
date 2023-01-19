@@ -9,7 +9,7 @@ const db = require('../db.config')
 
 
 const checkTokenexist= require('../JWT/verif')
-const Sports = require('../models/sport')
+
 
 // mon middleware pour user selon la route
 
@@ -23,7 +23,11 @@ router.use((req,res,next)=>{
 
 })
 
-
+router.get('/', (req, res) => {
+    db.user.findAll()
+        .then(users => res.json({ data: users }), res.status(200))
+        .catch(err => res.status(500).json({ message: 'Database Error', error: err }))
+});
 
 router.get('/',checkTokenexist, (req, res) => {
     db.user.findAll()
@@ -59,7 +63,7 @@ router.get('/:id',checkTokenexist, async (req, res) => {
     }
 })
 
-router.post('/', async (req, res) => {
+router.post('/register', async (req, res) => {
 
     const { lastname, firstname, login, email, password } = req.body
 

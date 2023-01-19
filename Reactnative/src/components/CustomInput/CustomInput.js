@@ -1,31 +1,72 @@
-import React, { useState } from 'react';
-import { TextInput, View, StyleSheet } from 'react-native';
+import { StyleSheet, View, TextInput,Text, Pressable, Image } from "react-native";
+import Layouts from '../constants/Layout';
+import { useState } from 'react';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-const Input = ({ placeholder, value, onChangeText, style, name, onBlur, onFocus, onSubmitEditing, onEndEditinggit }) => {
+const  Input = ({label,placeholder,
+  iconName,
+  isPassword,
+  onChangeText,
+  value}) => {
+
+ // afficher le mot de passe
+
+
+ const [isPasswordvisible,setIsPasswordvisible] = useState(false);
+
+
+ const afficherLepass= () =>{
+    setIsPasswordvisible(!isPasswordvisible)
+ }
+
+
+
+
   return (
-    <View style={style}>
-      <TextInput
-        placeholder={placeholder}
-        value={value}
-        onChangeText={onChangeText}
-        style={styles.input}
-        name={name}
+    <View style={[  style.inputContainer,{alignItems: 'center', },]} >
+      <Text style={style.label}>{label}</Text>
+      <View >
+      <Icon name={iconName} style={{fontSize:22, color: Layouts.darkBlue, marginRight: 10}}/>
+       
+         <TextInput
+         secureTextEntry={isPassword && !isPasswordvisible}
+         placeholder={placeholder}
+         onChangeText={onChangeText}
+         value={value}
+       />
+        {/* ternair pr afficher le mot de passe que dans l input password */}
+        {isPassword ?( <Pressable onPress={afficherLepass}>
+            <Image source={require('../../../assets/icon/eye.png')} />
+         </Pressable>):null
+         }
 
-        onBlur={onBlur}
-        onFocus={onFocus}
-        onSubmitEditing={onSubmitEditing}
-        onEndEditing={onEndEditing}
-      />
+       
+
+      
+
+          
+      
+         </View> 
+          
+       
     </View>
   );
 };
 
-const styles = StyleSheet.create({
-  input: {
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
-    padding: 8
+
+
+const style = StyleSheet.create({
+  label: {
+    marginVertical: 3,
+    fontSize: 14,
+    color: Layouts.grey,
+  },
+  inputContainer: {
+    height: 55,
+    backgroundColor: Layouts.light,
+    flexDirection: 'row',
+    paddingHorizontal: 30,
+    borderWidth: 0.5,
   },
 });
 

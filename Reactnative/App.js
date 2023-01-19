@@ -9,6 +9,7 @@ import AdminScreen from './src/screens/Admin/AdminScreen';
 import LoginScreen from './src/screens/LoginScreen/LoginScreen';
 import InscriptionScreen from './src/screens/InscriptionScreen/InscriptionScreen';
 import EditProfilScreen from './src/screens/Profil/EditProfilScreen/EditProfilScreen';
+import AnnuaireScreen from './src/screens/Annuaire/AnnuaireScreen';
 // import AmiSreen from './src/screens/AmiSreen/AmiSreen';
 
 
@@ -17,6 +18,7 @@ const Drawer = createDrawerNavigator();
 const App = () => {
   return (
     <NavigationContainer>
+      
       <Drawer.Navigator initialRouteName='Home'>
         <Drawer.Screen name='Home' component={Home} ></Drawer.Screen>
         <Drawer.Screen name='GroupsScreen' component={GroupsScreen} ></Drawer.Screen>
@@ -26,6 +28,13 @@ const App = () => {
         <Drawer.Screen name='AdminScreen' component={AdminScreen} ></Drawer.Screen>
         <Drawer.Screen name='LoginScreen' component={LoginScreen} ></Drawer.Screen>
         <Drawer.Screen name='InscriptionScreen' component={InscriptionScreen} ></Drawer.Screen>
+        <Drawer.Screen name='Groups' component={GroupsScreen} ></Drawer.Screen>
+        <Drawer.Screen name='Amis' component={AnnuaireScreen} ></Drawer.Screen>
+        <Drawer.Screen name='Profil' component={ProfilScreen} ></Drawer.Screen>
+        <Drawer.Screen name='Message' component={MessageScreen} ></Drawer.Screen>
+        <Drawer.Screen name='Admin' component={AdminScreen} ></Drawer.Screen>
+        <Drawer.Screen name='Login' component={LoginScreen} ></Drawer.Screen>
+        <Drawer.Screen name='Inscription' component={InscriptionScreen} ></Drawer.Screen>
         {/* <Drawer.Screen name='AmiScreen' component={AmiScreen} ></Drawer.Screen> */}
 
       </Drawer.Navigator>

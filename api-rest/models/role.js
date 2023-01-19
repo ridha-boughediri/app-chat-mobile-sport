@@ -6,7 +6,7 @@ const bcrypt = require('bcrypt')
 /*******************************/
 /*** Définition du modèle Role */
 module.exports = (sequelize) => {
-    const Role = sequelize.define('Role', {
+    const Role = sequelize.define('role', {
        
             id: {
                 type: DataTypes.INTEGER(10),

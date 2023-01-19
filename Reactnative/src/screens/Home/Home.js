@@ -12,10 +12,10 @@ const HomeScreen = ({navigation}) => {
         Le Premier tchat pour discuter Pronostique et suivi de ses equipe  de sport americain favorites
       </Text>
       <View style={{ flexDirection: 'row', marginTop: 40 }}>
-        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('InscriptionScreen')}>
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Inscription')}>
           <Text style={styles.buttonText}>Inscription</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('LoginScreen')}>
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Login')}>
           <Text style={styles.buttonText}>Connexion</Text>
         </TouchableOpacity>
       </View>
