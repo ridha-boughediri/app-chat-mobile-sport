@@ -1,6 +1,7 @@
 import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity } from 'react-native'
 import React, {useState} from 'react'
 import * as ImagePicker from 'expo-image-picker';
+import { assets } from '../../../react-native.config';
 
 const ProfilScreen = ({navigation}) => {
 
@@ -101,23 +102,24 @@ const styles = StyleSheet.create({
     backgroundColor: '#fbb034',
     padding: 5,
     borderWidth: 2,
-    width: '100%',
+    width: '75%',
     alignItems: 'center',
     borderColor: 'white',
     borderBottomStartRadius: 10,
     borderBottomEndRadius: 10,
     borderTopStartRadius: 35,
     borderTopEndRadius: 35,
+    fontFamily: 'Graduate', cursive,
   },
 
   infosUser: {
-    fontSize: 20,
+    fontSize: 25,
     color: 'white',
     marginBottom: 10,
   },
 
   button: {
-    width: '100%',
+    width: '50%',
     padding: 20,
     backgroundColor: '#fbb034',
     marginBottom: 50,
