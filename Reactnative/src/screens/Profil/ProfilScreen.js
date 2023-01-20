@@ -47,7 +47,7 @@ const ProfilScreen = ({navigation}) => {
           </Text>
           <View style={styles.label}>
           <Text style={{fontSize: 30, fontFamily: 'Chalkduster'}}>
-            Sports favoris
+            Sport(s)
           </Text>
           </View>
           <Text style={styles.infosUser}>
@@ -55,7 +55,7 @@ const ProfilScreen = ({navigation}) => {
           </Text>
           <View style={styles.label}>
           <Text style={{fontSize: 30, fontFamily: 'Chalkduster'}}>
-            Equipes favorites
+            Equipes(s)
           </Text>
           </View>
           <Text style={styles.infosUser}>

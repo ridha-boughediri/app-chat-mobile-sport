@@ -4,7 +4,9 @@ import {
   Text,
   SafeAreaView,
   ScrollView,
-  TouchableOpacity
+  TouchableOpacity,
+  StyleSheet,
+  TextInput,
 } from 'react-native';
 import Layouts from '../../components/constants/Layout';
 import Button from '../../components/CustomButon/CustomButton';
@@ -92,86 +94,137 @@ try {
 
   return (
     
-    <SafeAreaView style={{backgroundColor: Layouts.white, flex: 1}}>
-      <ScrollView
-        contentContainerStyle={{paddingTop: 5, paddingHorizontal: 10}}>
-        <Text style={{color: Layouts.black, fontSize: 24, fontWeight: 'bold'}}>
-        Créer  un compte
-        </Text>
-        <Text style={{color: Layouts.black, fontSize: 14, marginVertical: 10}}>
-        Connecter vous et parler avec vos amis !</Text>
-        <View style={{marginVertical: 5}}>
+<SafeAreaView style={{backgroundColor: 'black', flex: 1}}>
+  <ScrollView>
+    <View style={styles.container}>
 
+      <Text style={styles.headTxt}>
+        Créez  un compte
+      </Text>
 
-        <Input
-           value={lastname}
-           onChangeText={(v)=>setLastname(v)}
+      <Text style={{color: 'white', fontSize: 14, fontFamily: 'Copperplate'}}>
+        Pour discuter de sports américains avec des passionés !
+      </Text>
 
-           iconName="account-outline"
-           placeholder="nom"
-           
+    <View style={styles.form}>
 
-         />
-
-        <Input
-         
-         value={firstname}
-         onChangeText={(v)=>setFirstname(v)}
-
+      <TextInput
+          style={styles.input}
+          value={lastname}
+          onChangeText={(v)=>setFirstname(v)}
           iconName="account-outline"
-          // label="prenom"
-          placeholder="prenom"
+          placeholder="Prénom"
+          placeholderTextColor={'white'} 
+      />
 
-        /> 
-         <Input
+      <TextInput
+          style={styles.input}
+          value={firstname}
+          onChangeText={(v)=>setLastname(v)}
+          iconName="account-outline"
+          placeholder="Nom"
+          placeholderTextColor={'white'} 
+      /> 
+
+      <TextInput
+          style={styles.input}
           value={login}
           onChangeText={(v)=>setLogin( v)}
           iconName="account-box-outline"
-          // label="login"
-          placeholder="login"
-        
-        />
-          <Input
-            iconName="email-outline"
+          placeholder="Login"  
+          placeholderTextColor={'white'}       
+      />
 
-            // label="Email"
-            placeholder="Enter your email address"
-            value={email}
-           onChangeText={(v)=>setEmail(v)}
-         
-          />
+      <TextInput
+          style={styles.input}
+          iconName="email-outline"
+          placeholder="E-mail"
+          placeholderTextColor={'white'} 
+          value={email}
+          onChangeText={(v)=>setEmail(v)}        
+      />
       
-          <Input
-          iconName="lock-outline"
-     
-          placeholder="votre mot de passe"
-        
+      <TextInput
+          style={styles.input}
+          iconName="lock-outline"    
+          placeholder="Mot de passe"
+          placeholderTextColor={'white'}       
           isPassword={true}
           value={password}
-          onChangeText={(v)=>setPassword(v)}
+          onChangeText={(v)=>setPassword(v)}           
+      /> 
 
-            
-          /> 
+      <TouchableOpacity style={styles.button} onPress={onSubmit}>
+        <Text style={{fontFamily: 'Chalkduster', fontSize: 11, textAlign: 'center', fontWeight: 'bold'}}>
+          Inscription
+        </Text>
+      </TouchableOpacity>  
+    </View>
 
-      <Button title="Inscription "
-    // envoi de la donnée
-    onPress={onSubmit} 
-    />  
+  <View style={styles.footTxt}>
+    <Text style={{color: 'white'}}>Vous avez déjà un compte ? </Text>
+      <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+        <Text style={{color: '#fbb034'}}>Connectez-vous !</Text>
+      </TouchableOpacity>
+  </View>   
 
+    </View>
 
-        <TouchableOpacity  >
-          <Text >J 'ai deja une compote</Text>
-          <Text >Connexion</Text>
+  </ScrollView>
 
-        </TouchableOpacity>
-       
-
-  
-      
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+</SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    width: '100%',
+    height: '100%',
+  },
+
+  headTxt: {
+    color: 'white', 
+    marginTop: 20,
+    fontSize: 24, 
+    fontWeight: 'bold', 
+    fontFamily: 'Copperplate',
+    alignItems: 'left',
+  },
+
+  form: {
+    width: '75%',
+    marginTop: 20,
+    marginLeft: 50,
+  },
+
+  input: {
+    width: '100%',
+    alignItems: 'center',
+    padding: 10,
+    marginBottom: 10,
+    marginTop: 10,
+    borderWidth: 1,
+    borderColor: '#fbb034',
+    borderRadius: 15,
+    textAlign: 'center',
+    color: 'white',
+  },
+
+  button: {
+    width: '50%',
+    padding: 20,
+    backgroundColor: '#fbb034',
+    marginBottom: 50,
+    marginTop: 50,
+    marginLeft: 70,
+    borderWidth: 2,
+    borderColor: 'white',
+    borderRadius: 30,
+  },
+
+  footTxt: {
+    flexDirection: 'row',
+  },
+})
 
 export default InscriptionScreen;
