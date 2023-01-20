@@ -155,7 +155,7 @@ try {
       /> 
 
       <TouchableOpacity style={styles.button} onPress={onSubmit}>
-        <Text style={{fontFamily: 'Chalkduster', fontSize: 11, textAlign: 'center', fontWeight: 'bold'}}>
+        <Text style={{ fontSize: 11, textAlign: 'center', fontWeight: 'bold'}}>
           Inscription
         </Text>
       </TouchableOpacity>  
@@ -178,8 +178,10 @@ try {
 
 const styles = StyleSheet.create({
   container: {
-    width: '100%',
-    height: '100%',
+    flex: 1,
+    alignItems: 'center',
+    padding: 20,
+    backgroundColor: 'black',
   },
 
   headTxt: {
@@ -192,9 +194,8 @@ const styles = StyleSheet.create({
   },
 
   form: {
-    width: '75%',
+    width: '100%',
     marginTop: 20,
-    marginLeft: 50,
   },
 
   input: {
@@ -211,15 +212,13 @@ const styles = StyleSheet.create({
   },
 
   button: {
-    width: '50%',
-    padding: 20,
+    width: '100%',
+    padding: 10,
     backgroundColor: '#fbb034',
     marginBottom: 50,
     marginTop: 50,
-    marginLeft: 70,
     borderWidth: 2,
-    borderColor: 'white',
-    borderRadius: 30,
+    borderRadius: 10,
   },
 
   footTxt: {

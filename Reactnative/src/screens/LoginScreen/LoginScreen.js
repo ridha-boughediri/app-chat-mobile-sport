@@ -49,29 +49,29 @@ const LoginScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Image
-        source={require('../../../assets/image/US_Sports_Insights-removebg-preview.png')}
-        style={{ width: 300, height: 300 }}
-      />
+      <Text style={styles.headTxt}>
+        Connectez-vous pour avoir accès aux espaces de chat !
+      </Text>
       <TextInput
         style={styles.input}
         value={email}
         onChangeText={(text) => setEmail(text)}
         placeholder='Email'
+        placeholderTextColor={'white'} 
         autoCapitalize='none'
         keyboardType='email-address'
       />
-      <View
-        style={styles.input}>
+      <View style={styles.pass}>
         <TextInput
-          style={styles.pass}
+          style={styles.input}
           value={password}
           onChangeText={(text) => setPassword(text)}
           placeholder='Mot de passe'
+          placeholderTextColor={'white'} 
           secureTextEntry={passwordVisibility}
         />
-        <Pressable onPress={handlePasswordVisibility}>
-          <MaterialCommunityIcons name={rightIcon} size={22} color="#232323" />
+        <Pressable style={styles.icon} onPress={handlePasswordVisibility}>
+          <MaterialCommunityIcons name={rightIcon} size={22} color="#fbb034" />
         </Pressable>
       </View>
       <TouchableOpacity style={styles.button} onPress={handleLogin}>
@@ -93,44 +93,66 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
-    padding: 20
+    padding: 20,
+    backgroundColor: 'black',
   },
+
+  headTxt: {
+    color: 'white',
+    fontSize: 20,
+    fontFamily: 'Copperplate',
+    marginTop: '5%',
+    marginBottom: '35%',
+  },
+
   input: {
     width: '100%',
+    alignItems: 'center',
     padding: 10,
     marginBottom: 10,
     marginTop: 10,
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: '#fbb034',
     borderRadius: 15,
-    flexDirection: 'row',
+    textAlign: 'center',
+    color: 'white',
   },
+
   button: {
-    backgroundColor: 'black',
+    backgroundColor: '#fbb034',
     padding: 10,
     borderRadius: 10,
     width: '100%',
     alignItems: 'center'
   },
+
   buttonText: {
     color: '#fff',
-    fontWeight: 'bold'
   },
+
   linksContainer: {
     flexDirection: 'row',
     marginTop: 10,
     justifyContent: 'space-between',
     width: '100%'
   },
+
   link: {
     alignItems: 'center'
   },
+
   linkText: {
-    color: '#1E90FF'
+    color: '#fbb034'
   },
+
   pass:{
-    width: '90%'
-  }
+    width: '100%',
+    flexDirection: 'row',
+  },
+
+  icon: {
+    marginTop: 20,
+    marginLeft: -30
+  },
 });
 export default LoginScreen;
