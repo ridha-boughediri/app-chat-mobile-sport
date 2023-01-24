@@ -40,7 +40,7 @@ const styles =  {
     padding: 25,
     textAlign: 'center', 
     color: 'white',
-    fontFamily: 'Copperplate',
+    // fontFamily: 'Copperplate',
     borderWidth: 3,
     borderColor: '#fbb034',
     borderRadius: 30,
@@ -63,7 +63,7 @@ const styles =  {
   buttonText: {
     color: '#fbb034',
     fontWeight: 'bold',
-    fontFamily: 'Copperplate',
+    // fontFamily: 'Copperplate',
   },
 
   button2: {
@@ -77,7 +77,7 @@ const styles =  {
   buttonText2: {
     color: '#fff',
     fontWeight: 'bold',
-    fontFamily: 'Copperplate',
+    // fontFamily: 'Copperplate',
   },
 }
 export default HomeScreen;

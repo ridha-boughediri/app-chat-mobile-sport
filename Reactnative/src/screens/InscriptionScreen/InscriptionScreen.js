@@ -15,164 +15,166 @@ import { useState } from 'react';
 import axios from 'axios';
 
 
-const InscriptionScreen = ({navigation}) => {
-
-
- 
-// preparation de la data en mode inscription
-
-
-const [email,setEmail] = useState('');
-const [password, setPassword] = useState('');
-const [lastname,setLastname] = useState('');
-const [firstname,setFirstname] = useState('');
-const [login, setLogin] = useState('');
-
-
-// message alerte creation 
-
-const [alertos, setAlertos] = useState({ isOpen: false, type: '', message: '' })
+const InscriptionScreen = ({ navigation }) => {
 
 
 
-// envoi de la data 
-
-const onSubmit = async() => {
+  // preparation de la data en mode inscription
 
 
-// verification des inputes 
-if (!lastname.trim()) {
-    alert('Rentrer votre nom');
-    return;
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [lastname, setLastname] = useState('');
+  const [firstname, setFirstname] = useState('');
+  const [login, setLogin] = useState('');
+
+
+  // message alerte creation 
+
+  const [alertos, setAlertos] = useState({ isOpen: false, type: '', message: '' })
+
+
+
+  // envoi de la data 
+
+  const onSubmit = async ({ navigation }) => {
+
+
+    // verification des inputes 
+    if (!lastname.trim()) {
+      alert('Rentrer votre nom');
+      return;
+    }
+
+    if (!firstname.trim()) {
+      alert('Rentrer votre prenom ');
+      return;
+    }
+    if (!login.trim()) {
+      alert('Rentrer votre login ');
+      return;
+    }
+    if (!email.trim()) {
+      alert('Enter Email');
+      return;
+    }
+    if (!password.trim()) {
+      alert('Rentrer votre mot de passe ');
+      return;
+    }
+    //  SI tout est bien rempli
+    alert('Success vous rempli tous les champs ');
+
+    // envoi de la data vers le lien
+
+    console.log(email)
+
+    try {
+      const response = await axios.post('http://10.10.57.45:8888/users/register', {
+        email: email,
+        password: password,
+        lastname: lastname,
+        firstname: firstname,
+        login: login
+      });
+      // const data = response.data;
+      console.log(response.status);
+      navigation.navigate("login")
+      return response.json({ message: 'User Created' });
+      
+    } catch (error) {
+      console.log(error.message);
+    }
+
   }
 
-if (!firstname.trim()) {
-  alert('Rentrer votre prenom ');
-  return;
-}
-if (!login.trim()) {
-  alert('Rentrer votre login ');
-  return;
-}  
-if (!email.trim()) {
-  alert('Enter Email');
-  return;
-}
-if (!password.trim()) {
-  alert('Rentrer votre mot de passe ');
-  return;
-}
-//  SI tout est bien rempli
-  alert('Success vous rempli tous les champs ');
-  
-// envoi de la data vers le lien
-
-console.warn(email)
-
-try {
-  const response = await axios.post('http://10.10.57.98:8888/users/register', {
-    email: email,
-    password: password,
-    lastname: lastname,
-    firstname: firstname,
-    login: login
-  });
-  // const data = response.data;
-  console.log(response.status);
-  return response.json({ message: 'User Created'}), res.status(200);
-} catch (error) {
-  console.log(error.message);
-}
-
-} 
 
 
 
 
 
-  
 
   return (
-    
-<SafeAreaView style={{backgroundColor: 'black', flex: 1}}>
-  <ScrollView>
-    <View style={styles.container}>
 
-      <Text style={styles.headTxt}>
-        Créez  un compte
-      </Text>
+    <SafeAreaView style={{ backgroundColor: 'black', flex: 1 }}>
+      <ScrollView>
+        <View style={styles.container}>
 
-      <Text style={{color: 'white', fontSize: 14, fontFamily: 'Copperplate'}}>
-        Pour discuter de sports américains avec des passionés !
-      </Text>
+          <Text style={styles.headTxt}>
+            Créez  un compte
+          </Text>
 
-    <View style={styles.form}>
+          <Text style={{ color: 'white', fontSize: 14 }}>
+            Pour discuter de sports américains avec des passionés !
+          </Text>
 
-      <TextInput
-          style={styles.input}
-          value={lastname}
-          onChangeText={(v)=>setFirstname(v)}
-          iconName="account-outline"
-          placeholder="Prénom"
-          placeholderTextColor={'white'} 
-      />
+          <View style={styles.form}>
 
-      <TextInput
-          style={styles.input}
-          value={firstname}
-          onChangeText={(v)=>setLastname(v)}
-          iconName="account-outline"
-          placeholder="Nom"
-          placeholderTextColor={'white'} 
-      /> 
+            <TextInput
+              style={styles.input}
+              value={lastname}
+              onChangeText={(v) => setLastname(v)}
+              iconName="account-outline"
+              placeholder="Prénom"
+              placeholderTextColor={'white'}
+            />
 
-      <TextInput
-          style={styles.input}
-          value={login}
-          onChangeText={(v)=>setLogin( v)}
-          iconName="account-box-outline"
-          placeholder="Login"  
-          placeholderTextColor={'white'}       
-      />
+            <TextInput
+              style={styles.input}
+              value={firstname}
+              onChangeText={(v) => setFirstname(v)}
+              iconName="account-outline"
+              placeholder="Nom"
+              placeholderTextColor={'white'}
+            />
 
-      <TextInput
-          style={styles.input}
-          iconName="email-outline"
-          placeholder="E-mail"
-          placeholderTextColor={'white'} 
-          value={email}
-          onChangeText={(v)=>setEmail(v)}        
-      />
-      
-      <TextInput
-          style={styles.input}
-          iconName="lock-outline"    
-          placeholder="Mot de passe"
-          placeholderTextColor={'white'}       
-          isPassword={true}
-          value={password}
-          onChangeText={(v)=>setPassword(v)}           
-      /> 
+            <TextInput
+              style={styles.input}
+              value={login}
+              onChangeText={(v) => setLogin(v)}
+              iconName="account-box-outline"
+              placeholder="Login"
+              placeholderTextColor={'white'}
+            />
 
-      <TouchableOpacity style={styles.button} onPress={onSubmit}>
-        <Text style={{ fontSize: 11, textAlign: 'center', fontWeight: 'bold'}}>
-          Inscription
-        </Text>
-      </TouchableOpacity>  
-    </View>
+            <TextInput
+              style={styles.input}
+              iconName="email-outline"
+              placeholder="E-mail"
+              placeholderTextColor={'white'}
+              value={email}
+              onChangeText={(v) => setEmail(v)}
+            />
 
-  <View style={styles.footTxt}>
-    <Text style={{color: 'white'}}>Vous avez déjà un compte ? </Text>
-      <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-        <Text style={{color: '#fbb034'}}>Connectez-vous !</Text>
-      </TouchableOpacity>
-  </View>   
+            <TextInput
+              style={styles.input}
+              iconName="lock-outline"
+              placeholder="Mot de passe"
+              placeholderTextColor={'white'}
+              isPassword={true}
+              value={password}
+              onChangeText={(v) => setPassword(v)}
+            />
 
-    </View>
+            <TouchableOpacity style={styles.button} onPress={onSubmit}>
+              <Text style={{ fontSize: 11, textAlign: 'center', fontWeight: 'bold' }}>
+                Inscription
+              </Text>
+            </TouchableOpacity>
+          </View>
 
-  </ScrollView>
+          <View style={styles.footTxt}>
+            <Text style={{ color: 'white' }}>Vous avez déjà un compte ? </Text>
+            <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+              <Text style={{ color: '#fbb034' }}>Connectez-vous !</Text>
+            </TouchableOpacity>
+          </View>
 
-</SafeAreaView>
+        </View>
+
+      </ScrollView>
+
+    </SafeAreaView>
   );
 };
 
@@ -185,12 +187,11 @@ const styles = StyleSheet.create({
   },
 
   headTxt: {
-    color: 'white', 
+    color: 'white',
     marginTop: 20,
-    fontSize: 24, 
-    fontWeight: 'bold', 
-    fontFamily: 'Copperplate',
-    alignItems: 'left',
+    fontSize: 24,
+    fontWeight: 'bold',
+    // fontFamily: 'Copperplate',
   },
 
   form: {

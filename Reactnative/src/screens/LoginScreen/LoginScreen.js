@@ -24,13 +24,12 @@ const LoginScreen = ({ navigation }) => {
   };
   const handleLogin = async () => {
     try {
-      let response = await axios.post('http://192.168.1.79:8888/auth/login', {
+      let response = await axios.post('http://10.10.57.45:8888/auth/login', {
         email: email,
         password: password
       });
 
       let data = response.data;
-      console.log(data.access_token);
       await AsyncStorage.setItem('access_token', data.access_token);
       navigation.navigate("Groups")
     } catch (error) {
@@ -42,6 +41,7 @@ const LoginScreen = ({ navigation }) => {
     const getInfo = async () => {
       const res = await AsyncStorage.getItem('access_token');
       setToken(res);
+      console.log('token :'+res)
     };
     getInfo();
   }, []);
@@ -78,7 +78,7 @@ const LoginScreen = ({ navigation }) => {
         <Text style={styles.buttonText}>Connexion</Text>
       </TouchableOpacity>
       <View style={styles.linksContainer}>
-        <TouchableOpacity style={styles.link} onPress={() => navigation.navigate('InscriptionScreen')}>
+        <TouchableOpacity style={styles.link} onPress={() => navigation.navigate('Inscription')}>
           <Text style={styles.linkText}>S'inscrire</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.link} onPress={() => console.log('Mot de passe oublié')}>
@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
   headTxt: {
     color: 'white',
     fontSize: 20,
-    fontFamily: 'Copperplate',
+    // fontFamily: 'Copperplate',
     marginTop: '5%',
     marginBottom: '35%',
   },
