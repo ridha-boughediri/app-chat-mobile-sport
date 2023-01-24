@@ -190,7 +190,6 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     fontFamily: 'Copperplate',
-    alignItems: 'left',
   },
 
   form: {
