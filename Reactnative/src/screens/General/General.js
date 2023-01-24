@@ -6,9 +6,17 @@ import { request } from '../../service/request';
 const GeneralScreen = () => {
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
-    const socket = io('http://10.10.57.45:8888', {transports: ['websocket']});
+    const socket = io('http://10.10.57.45:8888', { transports: ['websocket'] });
 
     useEffect(() => {
+        request('messages/user', 'get', '')
+            .then(response => {
+                const values = response.data.map(message => {
+                    
+                    return { content: message.content, user_id: message.user.login }
+                })
+                setMessages(values)
+            })
         socket.on('message', (data) => {
             console.log(`Received message: ${data}`);
             setMessages((prevMessages) => [...prevMessages, data]);
@@ -19,12 +27,13 @@ const GeneralScreen = () => {
     }, []);
     const handleSend = () => {
         if (socket) {
-            
+
             console.log(`Sending message: ${message}`);
             socket.emit('message', message);
-            request('messages/','post',{"content":message})
+        
+            request('messages/', 'post', { "content": message })
             setMessage('');
-           
+
         }
     };
 
@@ -33,7 +42,12 @@ const GeneralScreen = () => {
             <FlatList
                 style={styles.list}
                 data={messages}
-                renderItem={({ item }) => <Text style={styles.item}>{item}</Text>}
+                renderItem={({ item }) => (
+                    <View>
+                        <Text style={styles.message}>{item.content}</Text>
+                        <Text style={styles.userId}>{item.user_id}</Text>
+                    </View>
+                )}
                 keyExtractor={(item, index) => index.toString()}
             />
             <View style={styles.inputContainer}>
@@ -64,6 +78,16 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         padding: 10,
+    },
+    message: {
+        padding: 10,
+        fontSize: 18,
+        fontWeight: 'bold',
+    },
+    userId: {
+        padding: 5,
+        fontSize: 14,
+        color: 'gray',
     },
     input: {
         flex: 1,

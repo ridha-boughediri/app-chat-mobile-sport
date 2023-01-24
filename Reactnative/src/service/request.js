@@ -9,8 +9,9 @@ export const request = async (url, method, data) => {
             return axios({
                 headers: { 'authorization': token },
                 method: method,
-                
                 url: `${URL_USER}${url}`
+            }).then(response => {
+                return response.data
             });
         } else if (method === 'post') {
             return axios({

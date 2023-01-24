@@ -1,23 +1,23 @@
 const express = require('express')
- const io= require('socket.io')
+const io = require('socket.io')
 const { user } = require('../db.config')
 let router = express.Router()
 const jwt = require('jsonwebtoken')
 
-const db= require('../db.config')
+const db = require('../db.config')
 const messages = require('../models/messages')
-const checkTokenexist= require('../JWT/verif')
-
- 
- // mon middleware pour message selon la route
+const checkTokenexist = require('../JWT/verif')
 
 
- router.use((req,res,next)=>{
+// mon middleware pour message selon la route
+
+
+router.use((req, res, next) => {
     const event = new Date()
-    
+
     console.log('Mesage Time:', event.toString())
     next()
-    
+
 
 })
 
@@ -30,6 +30,11 @@ router.get('/', (req, res) => {
         .catch(err => res.status(500).json({ message: 'Database Error', error: err }))
 })
 
+router.get('/user', (req, res) => {
+    db.message.findAll({ include: { model: db.user, attributes: ['login'] } })
+        .then(messages => res.json({ data: messages }))
+        .catch(err => res.status(500).json({ message: 'Database Error', error: err }))
+})
 
 router.get('/:id', async (req, res) => {
     let messageId = parseInt(req.params.id)
@@ -39,39 +44,39 @@ router.get('/:id', async (req, res) => {
         return res.json(400).json({ message: 'Missing Parameter' })
     }
 
-    try{
+    try {
         // Récupération de l'message et vérification
-        let message = await db.message.findOne({ where: { id: messageId },include:{model:user}})
+        let message = await db.message.findOne({ where: { id: messageId }, include: { model: user } })
         if (message === null) {
             return res.status(404).json({ message: 'This message does not exist !' })
         }
 
         return res.json({ data: message }), res.status(200)
-    }catch(err){
+    } catch (err) {
         return res.status(500).json({ message: 'Database Error', error: err })
-    }    
+    }
 })
 
 router.post('/', checkTokenexist, async (req, res) => {
-    const { content } = req.body
+    const { content,user_id } = req.body
 
     // Validation des données reçues
-    if (!content) {
+    if (!content || !user_id) {
         return res.status(400).json({ message: 'Missing Data' })
     }
 
-    try{
+    try {
         // Céation de l'message
         let messages = await db.message.create(req.body)
 
-         return res.json({ message: 'message Created', data: messages }), res.status(200)
-     }
-        
-    catch(err){
-        if(err.name == 'SequelizeDatabaseError'){
+        return res.json({ message: 'message Created', data: messages }), res.status(200)
+    }
+
+    catch (err) {
+        if (err.name == 'SequelizeDatabaseError') {
             res.status(500).json({ message: 'Database Error', error: err })
         }
-        res.status(500).json({ message: 'Hash Process Error', error: err})        
+        res.status(500).json({ message: 'Hash Process Error', error: err })
     }
 })
 
@@ -85,17 +90,17 @@ router.patch('/:id', checkTokenexist, async (req, res) => {
     //     return res.status(400).json({ message: 'Missing parameter' })
     // }
 
-    try{
+    try {
         // Recherche de l'message et vérification
-        let message = await db.message.findOne({ where: {id: messageId}, raw: true})
-        if(message === null){
-            return res.status(404).json({ message: 'This message does not exist !'})
+        let message = await db.message.findOne({ where: { id: messageId }, raw: true })
+        if (message === null) {
+            return res.status(404).json({ message: 'This message does not exist !' })
         }
 
         // Mise à jour de l'message
-        await db.message.update(req.body, { where: {id: messageId}})
-        return res.json({ message: 'message Updated'}), res.status(200)
-    }catch(err){
+        await db.message.update(req.body, { where: { id: messageId } })
+        return res.json({ message: 'message Updated' }), res.status(200)
+    } catch (err) {
         return res.status(500).json({ message: 'Database Error', error: err })
     }
 })
@@ -103,7 +108,7 @@ router.patch('/:id', checkTokenexist, async (req, res) => {
 
 
 
-router.delete('/:id',checkTokenexist,  (req, res) => {
+router.delete('/:id', checkTokenexist, (req, res) => {
     let messageId = parseInt(req.params.id)
 
     // Vérification si le champ id est présent et cohérent
@@ -112,7 +117,7 @@ router.delete('/:id',checkTokenexist,  (req, res) => {
     }
 
     // Suppression de l'utilisateur
-    db.message.destroy({ where: {id: messageId}, force: true})
+    db.message.destroy({ where: { id: messageId }, force: true })
         .then(() => res.status(204).json({}))
         .catch(err => res.status(500).json({ message: 'Database Error', error: err }))
 })
