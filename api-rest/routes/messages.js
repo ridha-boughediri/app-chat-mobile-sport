@@ -61,7 +61,7 @@ router.post('/', checkTokenexist, async (req, res) => {
     const { content,user_id } = req.body
 
     // Validation des données reçues
-    if (!content || !user_id) {
+    if ( content==undefined || user_id==null) {
         return res.status(400).json({ message: 'Missing Data' })
     }
 

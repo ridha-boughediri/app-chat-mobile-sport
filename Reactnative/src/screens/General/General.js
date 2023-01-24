@@ -1,37 +1,48 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { View, TextInput, Button, FlatList, Text, StyleSheet } from 'react-native';
 import io from 'socket.io-client';
 import { request } from '../../service/request';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import jwt from 'jwt-decode'
 
 const GeneralScreen = () => {
+    const yourRef = useRef(null);
+
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
     const socket = io('http://10.10.57.45:8888', { transports: ['websocket'] });
 
     useEffect(() => {
+
+        socket.on('message', (data) => {
+            console.log(`Received message: ${data}`);
+            setMessages((messages) => [...messages, data]);
+        });
         request('messages/user', 'get', '')
             .then(response => {
                 const values = response.data.map(message => {
-                    
+
                     return { content: message.content, user_id: message.user.login }
                 })
                 setMessages(values)
             })
-        socket.on('message', (data) => {
-            console.log(`Received message: ${data}`);
-            setMessages((prevMessages) => [...prevMessages, data]);
-        });
         return () => {
             socket.disconnect();
         };
     }, []);
-    const handleSend = () => {
+    const handleSend = async () => {
         if (socket) {
 
             console.log(`Sending message: ${message}`);
-            socket.emit('message', message);
-        
-            request('messages/', 'post', { "content": message })
+            var token = await AsyncStorage.getItem('access_token')
+            var decoded = jwt(token);
+            console.log(decoded)
+            const mess = {
+                'content': message,
+                'user_id': decoded.username
+            }
+            socket.emit('message', mess);
+            request('messages/', 'post', { "content": message, 'user_id': decoded.id })
             setMessage('');
 
         }
@@ -41,6 +52,9 @@ const GeneralScreen = () => {
         <View style={styles.container}>
             <FlatList
                 style={styles.list}
+                ref={yourRef}
+                onContentSizeChange={() => yourRef.current.scrollToEnd()}
+                onLayout={() => yourRef.current.scrollToEnd()}
                 data={messages}
                 renderItem={({ item }) => (
                     <View>

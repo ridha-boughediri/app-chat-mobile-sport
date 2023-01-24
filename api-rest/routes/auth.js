@@ -61,6 +61,7 @@ router.post('/login',async(req, res) => {
                                 // les infos que je veux envoyés
 
                                 id:user.id,
+                                username:user.login,
                                 lastname:user.lastname, 
                                 firstname:user.firstname, 
                                 email:user.email,
