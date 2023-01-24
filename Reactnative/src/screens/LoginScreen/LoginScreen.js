@@ -78,7 +78,7 @@ const LoginScreen = ({ navigation }) => {
         <Text style={styles.buttonText}>Connexion</Text>
       </TouchableOpacity>
       <View style={styles.linksContainer}>
-        <TouchableOpacity style={styles.link} onPress={() => navigation.navigate('InscriptionScreen')}>
+        <TouchableOpacity style={styles.link} onPress={() => navigation.navigate('Inscription')}>
           <Text style={styles.linkText}>S'inscrire</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.link} onPress={() => console.log('Mot de passe oublié')}>
