@@ -5,7 +5,7 @@ import io from 'socket.io-client';
 const GeneralScreen = () => {
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
-    const socket = io('http://192.168.1.79:8888', {transports: ['websocket']});
+    const socket = io('http://10.10.57.45:8888', {transports: ['websocket']});
 
     useEffect(() => {
         socket.on('message', (data) => {

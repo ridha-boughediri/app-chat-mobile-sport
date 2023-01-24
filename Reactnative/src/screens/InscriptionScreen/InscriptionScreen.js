@@ -70,7 +70,7 @@ if (!password.trim()) {
 console.warn(email)
 
 try {
-  const response = await axios.post('http://192.168.1.79:8888/users/register', {
+  const response = await axios.post('http://10.10.57.45:8888/users/register', {
     email: email,
     password: password,
     lastname: lastname,
