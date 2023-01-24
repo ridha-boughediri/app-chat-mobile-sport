@@ -37,7 +37,7 @@ const InscriptionScreen = ({ navigation }) => {
 
   // envoi de la data 
 
-  const onSubmit = async () => {
+  const onSubmit = async ({ navigation }) => {
 
 
     // verification des inputes 
@@ -79,7 +79,9 @@ const InscriptionScreen = ({ navigation }) => {
       });
       // const data = response.data;
       console.log(response.status);
+      navigation.navigate("login")
       return response.json({ message: 'User Created' });
+      
     } catch (error) {
       console.log(error.message);
     }
@@ -102,7 +104,7 @@ const InscriptionScreen = ({ navigation }) => {
             Créez  un compte
           </Text>
 
-          <Text style={{ color: 'white', fontSize: 14, fontFamily: 'Copperplate' }}>
+          <Text style={{ color: 'white', fontSize: 14 }}>
             Pour discuter de sports américains avec des passionés !
           </Text>
 
@@ -189,7 +191,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     fontSize: 24,
     fontWeight: 'bold',
-    fontFamily: 'Copperplate',
+    // fontFamily: 'Copperplate',
   },
 
   form: {

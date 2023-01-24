@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
   headTxt: {
     color: 'white',
     fontSize: 20,
-    fontFamily: 'Copperplate',
+    // fontFamily: 'Copperplate',
     marginTop: '5%',
     marginBottom: '35%',
   },

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, TextInput, Button, FlatList, Text, StyleSheet } from 'react-native';
 import io from 'socket.io-client';
+import { request } from '../../service/request';
 
 const GeneralScreen = () => {
     const [message, setMessage] = useState('');
@@ -18,9 +19,11 @@ const GeneralScreen = () => {
     }, []);
     const handleSend = () => {
         if (socket) {
+            
             console.log(`Sending message: ${message}`);
             socket.emit('message', message);
             setMessage('');
+            request('messages','post',message)
         }
     };
 
