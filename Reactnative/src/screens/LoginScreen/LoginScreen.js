@@ -30,7 +30,6 @@ const LoginScreen = ({ navigation }) => {
       });
 
       let data = response.data;
-      console.log(data.access_token);
       await AsyncStorage.setItem('access_token', data.access_token);
       navigation.navigate("Groups")
     } catch (error) {
@@ -42,6 +41,7 @@ const LoginScreen = ({ navigation }) => {
     const getInfo = async () => {
       const res = await AsyncStorage.getItem('access_token');
       setToken(res);
+      console.log('token :'+res)
     };
     getInfo();
   }, []);

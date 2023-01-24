@@ -22,8 +22,9 @@ const GeneralScreen = () => {
             
             console.log(`Sending message: ${message}`);
             socket.emit('message', message);
+            request('messages/','post',{"content":message})
             setMessage('');
-            request('messages','post',message)
+           
         }
     };
 

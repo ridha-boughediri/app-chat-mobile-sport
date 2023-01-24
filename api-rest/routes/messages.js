@@ -63,9 +63,7 @@ router.post('/', checkTokenexist, async (req, res) => {
     try{
         // Céation de l'message
         let messages = await db.message.create(req.body)
-        // io.on("connection", (socket)=>{
-        //     socket.emit(req.body);
-        // }) 
+
          return res.json({ message: 'message Created', data: messages }), res.status(200)
      }
         
