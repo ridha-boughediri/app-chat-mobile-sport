@@ -70,7 +70,7 @@ const InscriptionScreen = ({ navigation }) => {
     console.log(email)
 
     try {
-      const response = await axios.post('http://10.10.57.45:8888/users/register', {
+      const response = await axios.post('http://10.10.60.118:8888/users/register', {
         email: email,
         password: password,
         lastname: lastname,

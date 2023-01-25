@@ -10,7 +10,7 @@ const GeneralScreen = () => {
 
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
-    const socket = io('http://10.10.57.45:8888', { transports: ['websocket'] });
+    const socket = io('http://10.10.60.118:8888', { transports: ['websocket'] });
 
     useEffect(() => {
 
@@ -36,7 +36,6 @@ const GeneralScreen = () => {
             console.log(`Sending message: ${message}`);
             var token = await AsyncStorage.getItem('access_token')
             var decoded = jwt(token);
-            console.log(decoded)
             const mess = {
                 'content': message,
                 'user_id': decoded.username
