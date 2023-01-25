@@ -7,6 +7,7 @@ const jwt = require('jsonwebtoken')
 const db = require('../db.config')
 const messages = require('../models/messages')
 const checkTokenexist = require('../JWT/verif')
+const checkId = require('../JWT/checkAdmin')
 
 
 // mon middleware pour message selon la route
@@ -58,10 +59,10 @@ router.get('/:id', async (req, res) => {
 })
 
 router.post('/', checkTokenexist, async (req, res) => {
-    const { content,user_id } = req.body
+    const { content, user_id } = req.body
 
     // Validation des données reçues
-    if ( content==undefined || user_id==null) {
+    if (content == undefined || user_id == null) {
         return res.status(400).json({ message: 'Missing Data' })
     }
 
@@ -108,7 +109,7 @@ router.patch('/:id', checkTokenexist, async (req, res) => {
 
 
 
-router.delete('/:id', checkTokenexist, (req, res) => {
+router.delete('/:id', checkTokenexist, checkId, (req, res) => {
     let messageId = parseInt(req.params.id)
 
     // Vérification si le champ id est présent et cohérent

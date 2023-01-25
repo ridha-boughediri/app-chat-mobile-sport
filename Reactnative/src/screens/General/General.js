@@ -40,8 +40,12 @@ const GeneralScreen = () => {
                 'content': message,
                 'user_id': decoded.username
             }
-            socket.emit('message', mess);
             request('messages/', 'post', { "content": message, 'user_id': decoded.id })
+            .then(response=>{
+                socket.emit('message', mess);
+            }).catch(err=>{
+                alert(err.response.data.message)
+            })
             setMessage('');
 
         }

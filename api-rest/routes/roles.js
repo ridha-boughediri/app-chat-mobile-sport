@@ -9,6 +9,7 @@ const role = require('../models/role')
 const db = require('../db.config')
 // const User = require('../models/user')
 const { user } = require('../db.config')
+const checkId = require('../JWT/checkAdmin')
 
 // mon middleware pour role selon la route
 
@@ -24,7 +25,7 @@ router.use((req,res,next)=>{
 
 
 
-router.get('/', checkTokenexist, (req, res) => {
+router.get('/', checkTokenexist,checkId, (req, res) => {
     db.role.findAll()
         .then(roles => res.json({ data: roles }))
         .catch(err => res.status(500).json({ message: 'Database Error', error: err }))
@@ -32,7 +33,7 @@ router.get('/', checkTokenexist, (req, res) => {
 
 
 
-router.get('/:id', checkTokenexist, async (req, res) => {
+router.get('/:id', checkTokenexist,checkId, async (req, res) => {
     let roleId = parseInt(req.params.id)
 
     // Vérification si le champ id est présent et cohérent
@@ -53,7 +54,7 @@ router.get('/:id', checkTokenexist, async (req, res) => {
     }
 })
 
-router.post('',checkTokenexist, async (req, res) => {
+router.post('',checkTokenexist,checkId, async (req, res) => {
     const { role,num_role} = req.body
 
 
@@ -86,7 +87,7 @@ router.post('',checkTokenexist, async (req, res) => {
 
 
 
-router.patch('/:id',checkTokenexist, async (req, res) => {
+router.patch('/:id',checkTokenexist,checkId, async (req, res) => {
     let roleId = parseInt(req.params.id)
 
     // Vérification si le champ id est présent et cohérent
@@ -115,7 +116,7 @@ router.patch('/:id',checkTokenexist, async (req, res) => {
 
 
 
-router.delete('/:id',checkTokenexist, (req, res) => {
+router.delete('/:id',checkTokenexist,checkId, (req, res) => {
     let roleId = parseInt(req.params.id)
 
     // Vérification si le champ id est présent et cohérent

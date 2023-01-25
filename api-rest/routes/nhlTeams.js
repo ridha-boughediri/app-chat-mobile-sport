@@ -8,6 +8,7 @@ const nhlTeams = require('../models/nhl_teams')
 
 
 const db= require('../db.config')
+const checkId = require('../JWT/checkAdmin')
 
 
 // mon middleware pour NHL selon la route
@@ -52,7 +53,7 @@ router.get('/:id', async (req, res) => {
     }    
 })
 
-router.post('',checkTokenexist, async (req, res) => {
+router.post('',checkTokenexist,checkId, async (req, res) => {
     const { name, acronyme, uri_logo, arena, conference } = req.body
 
     // Validation des données reçues
@@ -82,7 +83,7 @@ router.post('',checkTokenexist, async (req, res) => {
 
 
 
-router.patch('/:id',checkTokenexist, async (req, res) => {
+router.patch('/:id',checkTokenexist,checkId, async (req, res) => {
     let nhlTeamsId = parseInt(req.params.id)
 
     // Vérification si le champ id est présent et cohérent

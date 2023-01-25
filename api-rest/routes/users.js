@@ -9,6 +9,7 @@ const db = require('../db.config')
 
 
 const checkTokenexist= require('../JWT/verif')
+const checkId = require('../JWT/checkAdmin')
 
 
 // mon middleware pour user selon la route
@@ -122,7 +123,7 @@ router.patch('/:id',checkTokenexist, async (req, res) => {
 })
 
 
-router.delete('/:id',checkTokenexist, (req, res) => {
+router.delete('/:id',checkTokenexist,checkId, (req, res) => {
     let userId = parseInt(req.params.id)
 
     // Vérification si le champ id est présent et cohérent
