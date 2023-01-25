@@ -56,7 +56,7 @@ router.post('/login',async(req, res) => {
                                 return res.status(401).json({message:"mot de passe incorect"})
                             }
                             // generer le jwt token
-                            const putaindetoken = jwt.sign({
+                            const thetoken = jwt.sign({
 
                                 // les infos que je veux envoyés
 
@@ -70,7 +70,7 @@ router.post('/login',async(req, res) => {
 
 
                             },process.env.JWT_SECRET, {expiresIn: process.env.JWT_DURING})
-                            return res.json({access_token:putaindetoken})
+                            return res.json({access_token:thetoken})
 
                         })
                         .catch(err=> res.status(500).json({message:"Database Error",error:err}))
