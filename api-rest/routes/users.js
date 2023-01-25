@@ -8,19 +8,19 @@ let router = express.Router()
 const db = require('../db.config')
 
 
-const checkTokenexist= require('../JWT/verif')
+const checkTokenexist = require('../JWT/verif')
 const checkId = require('../JWT/checkAdmin')
 
 
 // mon middleware pour user selon la route
 
 
-router.use((req,res,next)=>{
+router.use((req, res, next) => {
     const event = new Date()
-    
+
     console.log('User Time:', event.toString())
     next()
-    
+
 
 })
 
@@ -30,20 +30,20 @@ router.get('/', (req, res) => {
         .catch(err => res.status(500).json({ message: 'Database Error', error: err }))
 });
 
-router.get('/',checkTokenexist, (req, res) => {
+router.get('/', checkTokenexist, (req, res) => {
     db.user.findAll()
         .then(users => res.json({ data: users }), res.status(200))
         .catch(err => res.status(500).json({ message: 'Database Error', error: err }))
 });
 
 router.get('/firstlast', (req, res) => {
-    db.user.findAll({attributes: ['firstname', 'lastname','uri_avatar']})
-    .then(users => res.json({data: users}), res.status(200))
-    .catch(err => res.status(500).json({message: 'Database Error', error: err}))
+    db.user.findAll({ attributes: ['firstname', 'lastname', 'uri_avatar'] })
+        .then(users => res.json({ data: users }), res.status(200))
+        .catch(err => res.status(500).json({ message: 'Database Error', error: err }))
 });
 
 
-router.get('/:id',checkTokenexist, async (req, res) => {
+router.get('/:id', checkTokenexist, async (req, res) => {
     let userId = parseInt(req.params.id)
 
     // Vérification si le champ id est présent et cohérent
@@ -53,7 +53,7 @@ router.get('/:id',checkTokenexist, async (req, res) => {
 
     try {
         // Récupération de l'utilisateur et vérification
-        let user = await db.user.findOne({ where: { id: userId }, attributes: ['login','email','password','firstname','lastname','uri_avatar','sport_id','nbateam_id','nflteam_id','nhlteam_id'] })
+        let user = await db.user.findOne({ where: { id: userId }, attributes: ['login', 'email', 'password', 'firstname', 'lastname', 'uri_avatar', 'sport_id', 'nbateam_id', 'nflteam_id', 'nhlteam_id'] })
         if (user === null) {
             return res.status(404).json({ message: 'This user does not exist !' })
         }
@@ -66,8 +66,7 @@ router.get('/:id',checkTokenexist, async (req, res) => {
 
 router.post('/register', async (req, res) => {
 
-    const { lastname, firstname, login, email, password } = req.body
-
+    const { lastname, firstname, login, email, password, role_id } = req.body
     // Validation des données reçues
     if (!lastname || !firstname || !login || !email || !password) {
         return res.status(400).json({ message: 'Missing Data' })
@@ -90,16 +89,16 @@ router.post('/register', async (req, res) => {
 
     } catch (err) {
         if (err.name == 'SequelizeDatabaseError') {
-            res.status(500).json({ message: 'Database Error', error: err })
+           return res.status(500).json({ message: 'Database Error', error: err })
         }
-        res.status(500).json({ message: 'Hash Process Error', error: err })
+        return res.status(500).json({ message: 'Hash Process Error', error: err })
     }
 
 })
 
 
 
-router.patch('/:id',checkTokenexist, async (req, res) => {
+router.patch('/:id', checkTokenexist, async (req, res) => {
     let userId = parseInt(req.params.id)
 
     // Vérification si le champ id est présent et cohérent
@@ -123,7 +122,7 @@ router.patch('/:id',checkTokenexist, async (req, res) => {
 })
 
 
-router.delete('/:id',checkTokenexist,checkId, (req, res) => {
+router.delete('/:id', checkTokenexist, checkId, (req, res) => {
     let userId = parseInt(req.params.id)
 
     // Vérification si le champ id est présent et cohérent
@@ -132,7 +131,7 @@ router.delete('/:id',checkTokenexist,checkId, (req, res) => {
     }
 
     // Suppression de l'utilisateur
-    db.user.destroy({ where: {id: userId}, force: true})
+    db.user.destroy({ where: { id: userId }, force: true })
         .then(() => res.status(204).json({}))
         .catch(err => res.status(500).json({ message: 'Database Error', error: err }))
 })
