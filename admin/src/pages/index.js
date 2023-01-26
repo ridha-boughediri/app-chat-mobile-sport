@@ -50,8 +50,6 @@ export default function Home() {
     if (!email || !password) {
       alert('Veuillez remplir tout les champs')
     } else {
-
-      console.log(email, password);
       checkRole();
     }
   };
