@@ -7,19 +7,57 @@ import TextField from '@mui/material/TextField';
 import { Stack } from '@mui/system';
 import { Button } from '@mui/material';
 import { useState } from 'react'
-
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
+import jwt from 'jwt-decode';
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const data = { email: email, password: password };
+  const router = useRouter();
+
+
+  const checkRole = async () => {
+    const response = await fetch('http://10.10.62.94:8888/auth/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+    const json = await response.json();
+    localStorage.setItem('token', json.access_token);
+    const token = localStorage.getItem('token');
+    if (token != undefined) {
+      const decode = jwt(json.access_token);
+      if (decode.role_id === 2) {
+        router.push('/dashboardadmin');
+      }
+      else {
+        alert('Vous n\'êtes pas admin')
+      }
+    }
+  };
+
+
+
+
   const handleSubmit = (e) => {
-    e.preventDefault()
-    console.log(email, password)
-    // Your code here to handle the form submission
-  }
+    e.preventDefault();
+    if (!email || !password) {
+      alert('Veuillez remplir tout les champs')
+    } else {
+
+      console.log(email, password);
+      checkRole();
+    }
+  };
+
+
+
   return (
     <>
       <Head>
@@ -58,7 +96,7 @@ export default function Home() {
               variant="standard"
               onChange={e => setPassword(e.target.value)}
             />
-            <Button onClick={handleSubmit} variant="contained">S'enregistrer</Button>
+            <Button onClick={handleSubmit} variant="contained">Se connecter</Button>
 
           </Stack>
         </Box>

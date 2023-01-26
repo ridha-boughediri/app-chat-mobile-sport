@@ -5,6 +5,7 @@ const io = require('socket.io')(http)
 const router = require('./routes/users')
 const bodyParser = require('body-parser')
 var path = require('path')
+const cors = require('cors')
 
 let DB = require('./db.config')
 
@@ -18,7 +19,9 @@ const routePriveM = require('./routes/privateMessage')
 const routeLogin = require('./routes/auth')
 
 const routeRole = require('./routes/roles')
-
+app.use(cors({
+    origin: '*'
+}));
 app.use(bodyParser.json())
 
 app.use('/rooms', routeRooms)
