@@ -26,11 +26,7 @@ import GroupTwoToneIcon from '@mui/icons-material/GroupTwoTone';
 import Groups2TwoToneIcon from '@mui/icons-material/Groups2TwoTone';
 import { useRouter } from 'next/router';
 import { useState } from 'react'
-import Card from '@mui/material/Card';
-import Stack from '@mui/material/Stack';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import Button from '@mui/material/Button';
+
 
 const drawerWidth = 240;
 
@@ -53,14 +49,7 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
         }),
     }),
 );
-const bull = (
-    <Box
-        component="span"
-        sx={{ display: 'inline-block', mx: '2px', transform: 'scale(0.8)' }}
-    >
-        •
-    </Box>
-);
+
 const AppBar = styled(MuiAppBar, {
     shouldForwardProp: (prop) => prop !== 'open',
 })(({ theme, open }) => ({
@@ -121,7 +110,7 @@ export default function PersistentDrawerLeft() {
     }
     return (
         <>    <Head>
-            <title>Dashborad</title>
+            <title>Messages</title>
             <link rel="icon" href="/favicon.ico" />
         </Head>
             <Box sx={{ display: 'flex' }}>
@@ -187,69 +176,35 @@ export default function PersistentDrawerLeft() {
                         ))}
                     </List>
                 </Drawer>
-                <DrawerHeader />
                 <Main open={open} className={styles.main}>
-
-
-                    <Stack
-                        direction="row"
-                        justifyContent="space-evenly"
-                        alignItems="center"
-                        spacing={12}
-                    >
-                        <Card sx={{ minWidth: 350 }}>
-                            <CardContent>
-                                <Typography variant="h5" component="div">
-                                    
-                                </Typography>
-                                <Typography variant="body2">
-                                    utilisateurs Inscrits
-                                </Typography>
-                            </CardContent>
-                        </Card>
-                        <Card sx={{ minWidth: 275 }}>
-                            <CardContent>
-                                <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                                    Word of the Day
-                                </Typography>
-                                <Typography variant="h5" component="div">
-                                    be{bull}nev{bull}o{bull}lent
-                                </Typography>
-                                <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                                    adjective
-                                </Typography>
-                                <Typography variant="body2">
-                                    well meaning and kindly.
-                                    <br />
-                                    {'"a benevolent smile"'}
-                                </Typography>
-                            </CardContent>
-                            <CardActions>
-                                <Button size="small">Learn More</Button>
-                            </CardActions>
-                        </Card>
-                        <Card sx={{ minWidth: 275 }}>
-                            <CardContent>
-                                <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                                    Word of the Day
-                                </Typography>
-                                <Typography variant="h5" component="div">
-                                    be{bull}nev{bull}o{bull}lent
-                                </Typography>
-                                <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                                    adjective
-                                </Typography>
-                                <Typography variant="body2">
-                                    well meaning and kindly.
-                                    <br />
-                                    {'"a benevolent smile"'}
-                                </Typography>
-                            </CardContent>
-                            <CardActions>
-                                <Button size="small">Learn More</Button>
-                            </CardActions>
-                        </Card>
-                    </Stack>
+                    <DrawerHeader />
+                    <Typography paragraph>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                        tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non
+                        enim praesent elementum facilisis leo vel. Risus at ultrices mi tempus
+                        imperdiet. Semper risus in hendrerit gravida rutrum quisque non tellus.
+                        Convallis convallis tellus id interdum velit laoreet id donec ultrices.
+                        Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl suscipit
+                        adipiscing bibendum est ultricies integer quis. Cursus euismod quis viverra
+                        nibh cras. Metus vulputate eu scelerisque felis imperdiet proin fermentum
+                        leo. Mauris commodo quis imperdiet massa tincidunt. Cras tincidunt lobortis
+                        feugiat vivamus at augue. At augue eget arcu dictum varius duis at
+                        consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa
+                        sapien faucibus et molestie ac.
+                    </Typography>
+                    <Typography paragraph>
+                        Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper
+                        eget nulla facilisi etiam dignissim diam. Pulvinar elementum integer enim
+                        neque volutpat ac tincidunt. Ornare suspendisse sed nisi lacus sed viverra
+                        tellus. Purus sit amet volutpat consequat mauris. Elementum eu facilisis
+                        sed odio morbi. Euismod lacinia at quis risus sed vulputate odio. Morbi
+                        tincidunt ornare massa eget egestas purus viverra accumsan in. In hendrerit
+                        gravida rutrum quisque non tellus orci ac. Pellentesque nec nam aliquam sem
+                        et tortor. Habitant morbi tristique senectus et. Adipiscing elit duis
+                        tristique sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis
+                        eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
+                        posuere sollicitudin aliquam ultrices sagittis orci a.
+                    </Typography>
                 </Main>
             </Box>
         </>
