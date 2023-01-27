@@ -11,6 +11,7 @@ const user=require('../models/user')
 
 
 const db = require('../db.config')
+const checkId = require('../JWT/checkAdmin')
 
 
 // mon middleware pour sport selon la route
@@ -61,7 +62,7 @@ router.get('/:id', async (req, res) => {
     }    
 })
 
-router.post('/',checkTokenexist, async (req, res) => {
+router.post('/',checkTokenexist,checkId, async (req, res) => {
     const { name, league_name } = req.body
 
     // Validation des données reçues
@@ -92,7 +93,7 @@ router.post('/',checkTokenexist, async (req, res) => {
 
 
 
-router.patch('/:id',checkTokenexist, async (req, res) => {
+router.patch('/:id',checkTokenexist,checkId, async (req, res) => {
     let sportId = parseInt(req.params.id)
 
     // Vérification si le champ id est présent et cohérent
@@ -115,7 +116,7 @@ router.patch('/:id',checkTokenexist, async (req, res) => {
     }
 })
 
-router.delete('/:id',checkTokenexist, (req, res) => {
+router.delete('/:id',checkTokenexist,checkId, (req, res) => {
     let sportId = parseInt(req.params.id)
 
     // Vérification si le champ id est présent et cohérent

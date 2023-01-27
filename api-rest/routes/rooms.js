@@ -7,6 +7,7 @@ const rooms = require('../models/room')
 
 
 const db = require('../db.config')
+const checkId = require('../JWT/checkAdmin')
 
 // mon middleware pour Room selon la route
 
@@ -59,7 +60,7 @@ router.get('/:id', checkTokenexist, async (req, res) => {
     }
 })
 
-router.post('/',checkTokenexist, async (req, res) => {
+router.post('/',checkTokenexist,checkId, async (req, res) => {
     const { name} = req.body
 
 
@@ -86,7 +87,7 @@ router.post('/',checkTokenexist, async (req, res) => {
 
 
 
-router.patch('/:id',checkTokenexist, async (req, res) => {
+router.patch('/:id',checkTokenexist,checkId, async (req, res) => {
     let roomId = parseInt(req.params.id)
 
     // Vérification si le champ id est présent et cohérent
@@ -115,7 +116,7 @@ router.patch('/:id',checkTokenexist, async (req, res) => {
 
 
 
-router.delete('/:id',checkTokenexist, (req, res) => {
+router.delete('/:id',checkTokenexist,checkId, (req, res) => {
     let roomId = parseInt(req.params.id)
 
     // Vérification si le champ id est présent et cohérent
