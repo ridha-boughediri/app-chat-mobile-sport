@@ -31,7 +31,7 @@ import { useState } from 'react'
 const drawerWidth = 240;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
-    
+
     ({ theme, open }) => ({
         flexGrow: 1,
         padding: theme.spacing(3),
@@ -91,8 +91,21 @@ export default function PersistentDrawerLeft() {
     };
     const handleButton = (e) => {
         console.log(e.target.innerText)
-        if(e.target.innerText=="Utilisateurs"){
+
+        if (e.target.innerText == "Utilisateurs") {
             router.push('/user');
+        }
+        else if (e.target.innerText == "Messages") {
+            router.push('/messages');
+        }
+        else if (e.target.innerText == "Groupes") {
+            router.push('/groupes');
+        }
+        else if (e.target.innerText == "Stats") {
+            router.push('/dashboardadmin');
+        }
+        else {
+            router.push('/dashboardadmin');
         }
     }
     return (
@@ -114,7 +127,7 @@ export default function PersistentDrawerLeft() {
                             <MenuIcon />
                         </IconButton>
                         <Typography variant="h6" noWrap component="div">
-                            Persistent drawer
+                            Dasboard admin
                         </Typography>
                     </Toolbar>
                 </AppBar>
