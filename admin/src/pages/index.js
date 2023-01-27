@@ -10,7 +10,10 @@ import { useState } from 'react'
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import jwt from 'jwt-decode';
-
+import NFL from '../../public/NFL-Logo-650x366.png'
+import NBA from '../../public/nba.png'
+import NHL from '../../public/Logo_LNH.svg.png'
+import Logo from '../../public/logo-white.png'
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
@@ -21,7 +24,7 @@ export default function Home() {
 
 
   const checkRole = async () => {
-    const response = await fetch('http://10.10.62.94:8888/auth/login', {
+    const response = await fetch('http://10.10.64.231:8888/auth/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -71,7 +74,26 @@ export default function Home() {
           }}
           autoComplete="off"
         >
+          <Stack
+            className={styles.icon}
+            direction="row"
+            justifyContent="center"
+            alignItems="center"
+            spacing={0.5}
+            position="relative">
+            <Image src={NBA}></Image>
+            <Image src={NFL}></Image>
+            <Image src={NHL}></Image>
 
+          </Stack>
+          <Stack
+            className={styles.logo}
+            direction="row"
+            justifyContent="center"
+            alignItems="center"
+            position="relative">
+            <Image className={styles.logo} src={Logo}></Image>
+          </Stack>
           <Stack
             direction="column"
             justifyContent="center"
@@ -101,4 +123,6 @@ export default function Home() {
       </main>
     </>
   )
+
 }
+

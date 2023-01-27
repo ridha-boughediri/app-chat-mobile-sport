@@ -7,3 +7,32 @@
   min-height: 100vh;
   background-color: #CBD6D5;
 }
+
+.icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+  flex-wrap: nowrap;
+  margin-left: 4%
+
+  /* ou une taille de votre choix */
+}
+
+.icon img {
+  height: 100%;
+  object-fit: contain;
+}
+
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+  flex-wrap: nowrap;
+}
+
+.logo img {
+  height: 100%;
+  object-fit: contain;
+}
