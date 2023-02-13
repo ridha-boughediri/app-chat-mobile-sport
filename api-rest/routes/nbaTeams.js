@@ -7,6 +7,7 @@ const db= require('../db.config')
 
 const nbaTeams = require('../models/nba_teams')
 const user = require('../models/user')
+const checkId = require('../JWT/checkAdmin')
  
  // mon middleware pour NBA selon la route
 
@@ -50,7 +51,7 @@ router.get('/:id', async (req, res) => {
     }    
 })
 
-router.post('',checkTokenexist, async (req, res) => {
+router.post('',checkTokenexist,checkId, async (req, res) => {
     const { name, acronyme, uri_logo, arena, conference } = req.body
 
     // Validation des données reçues
@@ -80,7 +81,7 @@ router.post('',checkTokenexist, async (req, res) => {
 
 
 
-router.patch('/:id',checkTokenexist, async (req, res) => {
+router.patch('/:id',checkTokenexist,checkId, async (req, res) => {
     let nbaTeamsId = parseInt(req.params.id)
 
     // Vérification si le champ id est présent et cohérent
@@ -106,7 +107,7 @@ router.patch('/:id',checkTokenexist, async (req, res) => {
 
 
 
-router.delete('/:id',checkTokenexist, (req, res) => {
+router.delete('/:id',checkTokenexist,checkId, (req, res) => {
     let nbaTeamsId = parseInt(req.params.id)
 
     // Vérification si le champ id est présent et cohérent

@@ -12,8 +12,8 @@ const checkTokenexist = (req, res , next) =>{
 
     // mes console log
 
-    console.log('HEADERS:',req.headers)
-    console.log('TOKEN:',token)
+    // console.log('HEADERS:',req.headers)
+    // console.log('TOKEN:',token)
 
 
     if(!token){

@@ -22,6 +22,7 @@
     "expo-font": "~11.0.1",
     "expo-image-picker": "~14.0.2",
     "expo-status-bar": "~1.4.2",
+    "jwt-decode": "^3.1.2",
     "nativewind": "^2.0.11",
     "prop-types": "^15.8.1",
     "react": "18.1.0",
