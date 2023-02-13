@@ -32,7 +32,7 @@ const EditProfilScreen = () => {
   //Pour modifier les infos user
   const updateUserInfos = async () => {
     try {
-      let response = await axios.post('http://10.10.57.98:8888/', {
+      let response = await axios.post('http://10.10.21.26:8888/', {
         email: email,
         password: password,
       });
