@@ -39,6 +39,9 @@ app.use(express.static(__dirname + '/public'));
 //   res.sendFile(path.resolve('./public/index.html'))
 // })
 
+// var cors = require('cors');
+// app.use(cors());
+
 io.on('connection', (socket) => {
     socket.on("disconnect", () => {
         console.log('utilis deco')

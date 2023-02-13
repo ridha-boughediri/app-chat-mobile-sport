@@ -6,7 +6,7 @@ import { request } from '../../service/request';
 const GeneralScreen = () => {
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
-    const socket = io('http://10.10.57.45:8888', {transports: ['websocket']});
+    const socket = io('http://10.10.57.98:8888', {transports: ['websocket']});
 
     useEffect(() => {
         socket.on('message', (data) => {

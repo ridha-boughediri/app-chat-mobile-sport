@@ -8,7 +8,7 @@ import Layouts from '../../components/constants/Layout';
 export default function GroupsScreen() {
 
   async function findAll(){
-    const res = await axios.get(`http://10.10.4.237:8888/groupes/`);
+    const res = await axios.get(`http://10.10.57.98:8888/groupes/`);
     return res.data;
 }
 
