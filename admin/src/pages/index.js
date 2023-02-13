@@ -24,7 +24,7 @@ export default function Home() {
 
 
   const checkRole = async () => {
-    const response = await fetch('http://10.10.64.231:8888/auth/login', {
+    const response = await fetch('http://10.10.20.160:8888/auth/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -45,12 +45,21 @@ export default function Home() {
           alert('Vous n\'êtes pas admin')
         }
       }
-    }else{
+    } else {
       alert(json.message)
     }
   };
 
-
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      if (!email || !password) {
+        alert('Veuillez remplir tout les champs')
+      } else {
+        checkRole();
+      }
+    }
+  }
 
 
   const handleSubmit = (e) => {
@@ -110,6 +119,7 @@ export default function Home() {
               id="standard-required"
               label="Email"
               variant="standard"
+              onKeyDown={handleKeyDown}
               onChange={e => setEmail(e.target.value)}
             />
 
@@ -119,6 +129,7 @@ export default function Home() {
               type="password"
               autoComplete="current-password"
               variant="standard"
+              onKeyDown={handleKeyDown}
               onChange={e => setPassword(e.target.value)}
             />
             <Button onClick={handleSubmit} variant="contained">Se connecter</Button>
