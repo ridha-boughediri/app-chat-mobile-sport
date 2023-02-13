@@ -80,16 +80,17 @@ router.post('/register', async (req, res) => {
         }
 
         // Hashage du mot de passe utilisateur
+
         let hash = await bcrypt.hash(password, parseInt(process.env.BCRYPT_SALT_ROUND))
         req.body.password = hash
-
         // Céation de l'utilisateur
+        
         let userc = await db.user.create(req.body)
         return res.json({ message: 'User Created', data: userc }), res.status(200);
 
     } catch (err) {
-        if (err.name == 'SequelizeDatabaseError') {
-           return res.status(500).json({ message: 'Database Error', error: err })
+        if (err.name == 'SequelizeDatabasFeError') {
+            return res.status(500).json({ message: 'Database Error', error: err })
         }
         return res.status(500).json({ message: 'Hash Process Error', error: err })
     }
