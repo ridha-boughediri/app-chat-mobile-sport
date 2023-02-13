@@ -92,7 +92,24 @@ export default function PersistentDrawerLeft() {
 
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
+    const [token, setToken] = React.useState();
 
+    // const token = window.localStorage.getItem('token');
+    React.useEffect(() => {
+        setToken(window.localStorage.getItem('token'))
+    }, [])
+
+
+    const response = fetch('http://10.10.20.160:8888/users/', {
+        headers: {
+            'authorization': token
+        }
+    })
+        .then(response => response.json)
+        .then(data =>
+            console.log(data))
+
+    
     const handleDrawerOpen = () => {
         setOpen(true);
     };
@@ -200,7 +217,7 @@ export default function PersistentDrawerLeft() {
                         <Card sx={{ minWidth: 350 }}>
                             <CardContent>
                                 <Typography variant="h5" component="div">
-                                    
+
                                 </Typography>
                                 <Typography variant="body2">
                                     utilisateurs Inscrits

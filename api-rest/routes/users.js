@@ -24,11 +24,6 @@ router.use((req, res, next) => {
 
 })
 
-router.get('/', (req, res) => {
-    db.user.findAll()
-        .then(users => res.json({ data: users }), res.status(200))
-        .catch(err => res.status(500).json({ message: 'Database Error', error: err }))
-});
 
 router.get('/', checkTokenexist, (req, res) => {
     db.user.findAll()
