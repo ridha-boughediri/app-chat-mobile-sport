@@ -10,7 +10,7 @@ const GeneralScreen = () => {
 
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
-    const socket = io('http://10.10.60.118:8888', { transports: ['websocket'] });
+    const socket = io('http://10.10.20.160:8888', { transports: ['websocket'] });
 
     useEffect(() => {
 
