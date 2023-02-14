@@ -89,6 +89,7 @@ router.post('/register', async (req, res) => {
         return res.json({ message: 'User Created', data: userc }), res.status(200);
 
     } catch (err) {
+        console.log(err)
         if (err.name == 'SequelizeDatabasFeError') {
             return res.status(500).json({ message: 'Database Error', error: err })
         }
