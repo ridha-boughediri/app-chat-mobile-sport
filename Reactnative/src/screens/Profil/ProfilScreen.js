@@ -2,8 +2,12 @@ import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity } from 'rea
 import React, {useState} from 'react'
 import * as ImagePicker from 'expo-image-picker';
 import { assets } from '../../../react-native.config';
+import jwt from 'jwt-decode'
 
 const ProfilScreen = ({navigation}) => {
+
+  var token =  AsyncStorage.getItem('access_token')
+  var decoded = jwt(token);
 
 
   return (
@@ -19,7 +23,7 @@ const ProfilScreen = ({navigation}) => {
           </Text>
           </View>
           <Text style={styles.infosUser}>
-            Aurélus
+            {decoded.login}
           </Text>
           <View style={styles.label}>
           <Text style={{fontSize: 30, fontFamily: 'Chalkduster'}}>
@@ -27,7 +31,7 @@ const ProfilScreen = ({navigation}) => {
           </Text>
           </View>
           <Text style={styles.infosUser}>
-            Aurélien
+          {decoded.firstname}
           </Text>
           <View style={styles.label}>
           <Text style={{fontSize: 30, fontFamily: 'Chalkduster'}}>
@@ -35,7 +39,7 @@ const ProfilScreen = ({navigation}) => {
           </Text>
           </View>
           <Text style={styles.infosUser}>
-            Adjimi
+          {decoded.lastname}
           </Text>
           <View style={styles.label}>
           <Text style={{fontSize: 30, fontFamily: 'Chalkduster'}}>
@@ -43,7 +47,7 @@ const ProfilScreen = ({navigation}) => {
           </Text>
           </View>
           <Text style={styles.infosUser}>
-            aurelien.adjimi@coucou.fr
+          {decoded.mail}
           </Text>
           <View style={styles.label}>
           <Text style={{fontSize: 30, fontFamily: 'Chalkduster'}}>
@@ -51,7 +55,7 @@ const ProfilScreen = ({navigation}) => {
           </Text>
           </View>
           <Text style={styles.infosUser}>
-            Basketball
+          {decoded.sport}
           </Text>
           <View style={styles.label}>
           <Text style={{fontSize: 30, fontFamily: 'Chalkduster'}}>
@@ -59,7 +63,9 @@ const ProfilScreen = ({navigation}) => {
           </Text>
           </View>
           <Text style={styles.infosUser}>
-           Chicago Bulls
+          {decoded.nba_team}
+          {decoded.nfl_team}
+          {decoded.nhl_team}
           </Text>
           <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('EditProfil')}>
             <Text style={{fontFamily: 'Chalkduster', fontSize: 11, textAlign: 'center', fontWeight: 'bold'}}>Modifiez votre profil</Text>

@@ -68,24 +68,6 @@ const InscriptionScreen = ({ navigation }) => {
     // envoi de la data vers le lien
 
 
-    try {
-      const response = await axios.post('http://10.10.21.26:8888/users/register', {
-        email: email,
-        password: password,
-        lastname: lastname,
-        firstname: firstname,
-        login: login
-      });
-      // const data = response.data;
-      console.log(response.status);
-      navigation.navigate("login")
-      return response.json({ message: 'User Created' });
-      
-    } catch (error) {
-      console.log(error.message);
-    }
-
-
     const call = await axios.post('http://10.10.21.26:8888/users/register', {
       email: email,
       password: password,

@@ -47,7 +47,7 @@ const GeneralScreen = () => {
                 alert(err.response.data.message)
             })
             setMessage('');
-
+            
         }
     };
 
