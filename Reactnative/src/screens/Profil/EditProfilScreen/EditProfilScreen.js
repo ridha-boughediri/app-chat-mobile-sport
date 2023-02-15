@@ -55,7 +55,7 @@ const EditProfilScreen = () => {
 
       <View style={styles.containerForm}>
         <View style={styles.label}>
-        <Text style={{fontSize: 30, fontFamily: 'Chalkduster'}}>
+        <Text style={{fontSize: 30 }}>
             Login
           </Text>
         </View>
@@ -65,7 +65,7 @@ const EditProfilScreen = () => {
           onChangeText={(text) => setLogin(text)}/>
 
 <View style={styles.label}>
-        <Text style={{fontSize: 30, fontFamily: 'Chalkduster'}}>
+        <Text style={{fontSize: 30 }}>
             Prénom
           </Text>
         </View>
@@ -75,7 +75,7 @@ const EditProfilScreen = () => {
           onChangeText={(text) => setFirstname(text)}/>
 
 <View style={styles.label}>
-        <Text style={{fontSize: 30, fontFamily: 'Chalkduster'}}>
+        <Text style={{fontSize: 30 }}>
             Nom
           </Text>
         </View>
@@ -85,7 +85,7 @@ const EditProfilScreen = () => {
           onChangeText={(text) => setLastname(text)}/>
 
 <View style={styles.label}>
-        <Text style={{fontSize: 30, fontFamily: 'Chalkduster'}}>
+        <Text style={{fontSize: 30}}>
             Email
           </Text>
         </View>
@@ -97,7 +97,7 @@ const EditProfilScreen = () => {
           keyboardType='email-address'/>
 
 <View style={styles.label}>
-        <Text style={{fontSize: 30, fontFamily: 'Chalkduster'}}>
+        <Text style={{fontSize: 30 }}>
             Mot de Passe
           </Text>
         </View>
@@ -108,7 +108,7 @@ const EditProfilScreen = () => {
           secureTextEntry={passwordVisibility}/>
 
 <View style={styles.label}>
-        <Text style={{fontSize: 30, fontFamily: 'Chalkduster'}}>
+        <Text style={{fontSize: 30 }}>
             Confirmation
           </Text>
         </View>
@@ -119,7 +119,7 @@ const EditProfilScreen = () => {
           secureTextEntry={passwordVisibility}/>
 
 <View style={styles.label}>
-        <Text style={{fontSize: 30, fontFamily: 'Chalkduster'}}>
+        <Text style={{fontSize: 30 }}>
             Sports
           </Text>
         </View>
@@ -129,7 +129,7 @@ const EditProfilScreen = () => {
           onChangeText={(text) => setSports(text)}/>
 
 <View style={styles.label}>
-        <Text style={{fontSize: 30, fontFamily: 'Chalkduster'}}>
+        <Text style={{fontSize: 30 }}>
             Equipes
           </Text>
         </View>
@@ -139,7 +139,7 @@ const EditProfilScreen = () => {
           onChangeText={(text) => setTeams(text)}/>
 
 <TouchableOpacity style={styles.button} onPress={updateUserInfos}>
-        <Text style={{fontFamily: 'Chalkduster', fontSize: 11, textAlign: 'center', fontWeight: 'bold'}}>Modifier</Text>
+        <Text style={{ fontSize: 11, textAlign: 'center', fontWeight: 'bold'}}>Modifier</Text>
       </TouchableOpacity>
       </View>
 

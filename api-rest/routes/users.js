@@ -45,7 +45,7 @@ router.get('/firstlast', (req, res) => {
 
 router.get('/:id', checkTokenexist, async (req, res) => {
     let userId = parseInt(req.params.id)
-
+    console.log(userId)
     // Vérification si le champ id est présent et cohérent
     if (!userId) {
         return res.json(400).json({ message: 'Missing Parameter' })
@@ -89,7 +89,7 @@ router.post('/register', async (req, res) => {
 
     } catch (err) {
         if (err.name == 'SequelizeDatabaseError') {
-           return res.status(500).json({ message: 'Database Error', error: err })
+            return res.status(500).json({ message: 'Database Error', error: err })
         }
         return res.status(500).json({ message: 'Hash Process Error', error: err })
     }
