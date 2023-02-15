@@ -19,6 +19,7 @@ const EditProfilScreen = () => {
   const [teams, setTeams] = useState('');
   const [token, setToken] = useState('');
   const [data, setData] = useState([]);
+  const [idsport,setIdsport]=useState('')
 
   useEffect(() => {
     const getInfo = async () => {
