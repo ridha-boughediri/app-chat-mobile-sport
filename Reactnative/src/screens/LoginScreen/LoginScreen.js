@@ -4,7 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import { MaterialCommunityIcons } from '@expo/vector-icons/';
 import { root } from 'postcss';
-
+import * as SecureStore from 'expo-secure-store';
 
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
@@ -24,13 +24,13 @@ const LoginScreen = ({ navigation }) => {
   };
   const handleLogin = async () => {
     try {
-      let response = await axios.post('http://10.10.21.26:8888/auth/login', {
+      let response = await axios.post('http://10.10.25.195:8888/auth/login', {
         email: email,
         password: password
       });
 
       let data = response.data;
-      await AsyncStorage.setItem('access_token', data.access_token);
+      await SecureStore.setItemAsync('access_token', data.access_token);
       navigation.navigate("Groups")
     } catch (error) {
       console.error(error);
@@ -39,7 +39,7 @@ const LoginScreen = ({ navigation }) => {
 
   useEffect(() => {
     const getInfo = async () => {
-      const res = await AsyncStorage.getItem('access_token');
+      const res = await SecureStore.getItemAsync('access_token');
       setToken(res);
       console.log('token :'+res)
     };

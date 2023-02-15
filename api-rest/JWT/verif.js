@@ -9,7 +9,6 @@ const jwt = require('jsonwebtoken')
 
 const checkTokenexist = (req, res , next) =>{
     const token =req.headers.authorization
-
     // mes console log
 
     // console.log('HEADERS:',req.headers)
@@ -23,6 +22,7 @@ const checkTokenexist = (req, res , next) =>{
 
     // verifier la durée et la validité du token
     jwt.verify(token, process.env.JWT_SECRET,(err,decodeToken) =>{
+        console.log(token)
         if(err){
             return res.status(401).json({message: "mauvais token"})
         }
