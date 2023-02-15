@@ -11,12 +11,14 @@ const ProfilScreen = ({ navigation }) => {
   const [username, setUsername] = useState('')
   const [last, setLast] = useState('')
   const [mail, setMail] = useState('')
+  
   useEffect(() => {
     const getInfo = async () => {
       const res = await SecureStore.getItemAsync('access_token');
       const decoded = jwt(res)
       request('users/' + decoded.id, 'get', '')
         .then(response => {
+
           console.log(response.data)
           setFirst(response.data.firstname)
           setLast(response.data.lastname)
@@ -24,6 +26,13 @@ const ProfilScreen = ({ navigation }) => {
           setUsername(response.data.login)
 
         })
+        .catch(err=>{
+          
+           alert(err.response.data.message)
+           if(err.response.status==401){
+            navigation.navigate('Login')
+           }
+      })
     }
     getInfo()
   }, []);
