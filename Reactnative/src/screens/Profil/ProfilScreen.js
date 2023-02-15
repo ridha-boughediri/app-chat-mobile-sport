@@ -6,20 +6,27 @@ import { request } from '../../service/request';
 import * as SecureStore from 'expo-secure-store';
 import jwt from 'jwt-decode';
 
-const ProfilScreen = ({ navigation }) => {  
-
-  useEffect( () => {
+const ProfilScreen = ({ navigation }) => {
+  const [first, setFirst] = useState('')
+  const [username, setUsername] = useState('')
+  const [last, setLast] = useState('')
+  const [mail, setMail] = useState('')
+  useEffect(() => {
     const getInfo = async () => {
       const res = await SecureStore.getItemAsync('access_token');
       const decoded = jwt(res)
-      console.log(decoded)
       request('users/' + decoded.id, 'get', '')
-        .then(response => response.json())
-        .then(data =>console.log(data))
+        .then(response => {
+          console.log(response.data)
+          setFirst(response.data.firstname)
+          setLast(response.data.lastname)
+          setMail(response.data.email)
+          setUsername(response.data.login)
+
+        })
     }
     getInfo()
   }, []);
-
   return (
     <ScrollView>
       <View style={styles.container}>
@@ -33,35 +40,35 @@ const ProfilScreen = ({ navigation }) => {
             </Text>
           </View>
           <Text style={styles.infosUser}>
-login           </Text>
+          {username}        </Text>
           <View style={styles.label}>
             <Text style={{ fontSize: 30 }}>
               Prénom
             </Text>
           </View>
           <Text style={styles.infosUser}>
-first          </Text>
+            {first}        </Text>
           <View style={styles.label}>
             <Text style={{ fontSize: 30 }}>
               Nom
             </Text>
           </View>
           <Text style={styles.infosUser}>
-last          </Text>
+            {last}     </Text>
           <View style={styles.label}>
             <Text style={{ fontSize: 30 }}>
               Email
             </Text>
           </View>
           <Text style={styles.infosUser}>
-mail          </Text>
+            {mail}         </Text>
           <View style={styles.label}>
             <Text style={{ fontSize: 30 }}>
               Sport(s)
             </Text>
           </View>
           <Text style={styles.infosUser}>
-q          </Text>
+            q          </Text>
           <View style={styles.label}>
             <Text style={{ fontSize: 30 }}>
               Equipes(s)

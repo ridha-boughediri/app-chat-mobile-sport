@@ -30,6 +30,7 @@ const LoginScreen = ({ navigation }) => {
       });
 
       let data = response.data;
+      console.log(data)
       await SecureStore.setItemAsync('access_token', data.access_token);
       navigation.navigate("Groups")
     } catch (error) {
@@ -41,7 +42,6 @@ const LoginScreen = ({ navigation }) => {
     const getInfo = async () => {
       const res = await SecureStore.getItemAsync('access_token');
       setToken(res);
-      console.log('token :'+res)
     };
     getInfo();
   }, []);
@@ -57,7 +57,7 @@ const LoginScreen = ({ navigation }) => {
         value={email}
         onChangeText={(text) => setEmail(text)}
         placeholder='Email'
-        placeholderTextColor={'white'} 
+        placeholderTextColor={'white'}
         autoCapitalize='none'
         keyboardType='email-address'
       />
@@ -67,7 +67,7 @@ const LoginScreen = ({ navigation }) => {
           value={password}
           onChangeText={(text) => setPassword(text)}
           placeholder='Mot de passe'
-          placeholderTextColor={'white'} 
+          placeholderTextColor={'white'}
           secureTextEntry={passwordVisibility}
         />
         <Pressable style={styles.icon} onPress={handlePasswordVisibility}>
@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
     color: '#fbb034'
   },
 
-  pass:{
+  pass: {
     width: '100%',
     flexDirection: 'row',
   },
