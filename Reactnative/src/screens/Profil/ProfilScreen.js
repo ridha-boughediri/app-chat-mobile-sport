@@ -6,15 +6,16 @@ import { request } from '../../service/request';
 import * as SecureStore from 'expo-secure-store';
 import jwt from 'jwt-decode';
 
-const ProfilScreen = ({ navigation }) => {
+const ProfilScreen = ({ navigation }) => {  
 
-  useEffect(async () => {
+  useEffect( () => {
     const getInfo = async () => {
       const res = await SecureStore.getItemAsync('access_token');
       const decoded = jwt(res)
       console.log(decoded)
       request('users/' + decoded.id, 'get', '')
-        .then(response => console.log(response))
+        .then(response => response.json())
+        .then(data =>console.log(data))
     }
     getInfo()
   }, []);
@@ -32,40 +33,35 @@ const ProfilScreen = ({ navigation }) => {
             </Text>
           </View>
           <Text style={styles.infosUser}>
-            {decoded.login}
-          </Text>
+login           </Text>
           <View style={styles.label}>
             <Text style={{ fontSize: 30 }}>
               Prénom
             </Text>
           </View>
           <Text style={styles.infosUser}>
-          {decoded.firstname}
-          </Text>
+first          </Text>
           <View style={styles.label}>
             <Text style={{ fontSize: 30 }}>
               Nom
             </Text>
           </View>
           <Text style={styles.infosUser}>
-          {decoded.lastname}
-          </Text>
+last          </Text>
           <View style={styles.label}>
             <Text style={{ fontSize: 30 }}>
               Email
             </Text>
           </View>
           <Text style={styles.infosUser}>
-          {decoded.mail}
-          </Text>
+mail          </Text>
           <View style={styles.label}>
             <Text style={{ fontSize: 30 }}>
               Sport(s)
             </Text>
           </View>
           <Text style={styles.infosUser}>
-          {decoded.sport}
-          </Text>
+q          </Text>
           <View style={styles.label}>
             <Text style={{ fontSize: 30 }}>
               Equipes(s)

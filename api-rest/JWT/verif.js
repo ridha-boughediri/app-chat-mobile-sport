@@ -14,7 +14,7 @@ const checkTokenexist = (req, res , next) =>{
     // console.log('HEADERS:',req.headers)
     // console.log('TOKEN:',token)
 
-
+ 
     if(!token){
         return res.status(401).json({message: "slt petit loup"})
     }
@@ -22,8 +22,9 @@ const checkTokenexist = (req, res , next) =>{
 
     // verifier la durée et la validité du token
     jwt.verify(token, process.env.JWT_SECRET,(err,decodeToken) =>{
-        console.log(token)
+       
         if(err){
+            console.log(err)
             return res.status(401).json({message: "mauvais token"})
         }
 
