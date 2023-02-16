@@ -1,6 +1,11 @@
 import { View, Text, Image, TextInput, ScrollView, StyleSheet, TouchableOpacity } from 'react-native'
-import React, {useState} from 'react'
+import React, { useState, useEffect } from 'react'
 import * as ImagePicker from 'expo-image-picker';
+import * as SecureStore from 'expo-secure-store';
+import jwt from 'jwt-decode';
+import { request } from '../../../service/request';
+import { SelectList } from 'react-native-dropdown-select-list';
+
 
 const EditProfilScreen = () => {
   const [image, setImage] = useState(null);
@@ -10,11 +15,38 @@ const EditProfilScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordVisibility, setPasswordVisibility] = useState(true);
-  const [sports, setSports] = useState('');
+  const [sports, setSports] = useState('option1');
   const [teams, setTeams] = useState('');
   const [token, setToken] = useState('');
+  const [data, setData] = useState([]);
+  const [idsport, setIdsport] = useState('')
+
+  useEffect(() => {
+    const getInfo = async () => {
+      const res = await SecureStore.getItemAsync('access_token');
+      const decoded = jwt(res)
+      request('users/' + decoded.id, 'get', '')
+        .then(response => {
+          setFirstname(response.data.firstname)
+          setLastname(response.data.lastname)
+          setEmail(response.data.email)
+          setLogin(response.data.login)
+
+        })
+    }
+    getInfo()
+  }, []);
+  useEffect(() => {
+    request('sports/', 'get', '')
+      .then(response => {
+        const newArray = response.data.map((item) => {
+          return { key: item.id, value: item.league_name }
+        })
+        setData(newArray)
+      })
 
 
+  }, [])
   //Pour modifier l'image depuis la gallerie user
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -24,126 +56,174 @@ const EditProfilScreen = () => {
       quality: 1,
     });
 
-    if(!result.canceled) {
+    if (!result.canceled) {
       setImage(result.assets[0].uri);
     }
   };
+  const sportChose = () => {
+    for (const id of data) {
 
+      if (sports == id.value) {
+
+        setIdsport(id.value)
+      }
+    }
+  }
+  const teamChose = () => {
+    //meme chose qu au dessus mais pour les équipes
+  }
   //Pour modifier les infos user
   const updateUserInfos = async () => {
     try {
-      let response = await axios.post('http://192.168.1.79:8888/auth/login', {
+      if (!lastname.trim()) {
+        alert('Rentrer votre nom');
+        return;
+      }
+
+      if (!firstname.trim()) {
+        alert('Rentrer votre prenom ');
+        return;
+      }
+      if (!login.trim()) {
+        alert('Rentrer votre login ');
+        return;
+      }
+      if (!email.trim()) {
+        alert('Enter Email');
+        return;
+      }
+      if (!password.trim()) {
+        alert('Rentrer votre mot de passe ');
+        return;
+      }
+      if (!sports.trim()) {
+        alert('choisissez un sport')
+        return
+      }
+      if (!teams.trim()) {
+        alert('choisissez une équipe favorite')
+        return
+      }
+      let response = await axios.post('http://10.10.25.195:8888/', {
         email: email,
         password: password,
       });
       let data = response.data;
       console.log(data);
+
     } catch (error) {
       console.error(error);
     }
+
+
+
+   
   }
 
   return (
     <ScrollView>
-    <View style={styles.container}>
-            <Image 
-      source={require('../../../../assets/image/logo-black.png')}
-      style={styles.profilPics}/>
+      <View style={styles.container}>
+        <Image
+          source={require('../../../../assets/image/logo-black.png')}
+          style={styles.profilPics} />
 
-      <Text style={styles.icon} onPress={pickImage}>+</Text>
-      {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
+        <Text style={styles.icon} onPress={pickImage}>+</Text>
+        {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
 
-      <View style={styles.containerForm}>
-        <View style={styles.label}>
-        <Text style={{fontSize: 30, fontFamily: 'Chalkduster'}}>
-            Login
-          </Text>
+        <View style={styles.containerForm}>
+          <View style={styles.label}>
+            <Text style={{ fontSize: 30 }}>
+              Login
+            </Text>
+          </View>
+          <TextInput
+            style={styles.input}
+            value={login}
+            onChangeText={(text) => setLogin(text)} />
+
+          <View style={styles.label}>
+            <Text style={{ fontSize: 30 }}>
+              Prénom
+            </Text>
+          </View>
+          <TextInput
+            style={styles.input}
+            value={firstname}
+            onChangeText={(text) => setFirstname(text)} />
+
+          <View style={styles.label}>
+            <Text style={{ fontSize: 30 }}>
+              Nom
+            </Text>
+          </View>
+          <TextInput
+            style={styles.input}
+            value={lastname}
+            onChangeText={(text) => setLastname(text)} />
+
+          <View style={styles.label}>
+            <Text style={{ fontSize: 30 }}>
+              Email
+            </Text>
+          </View>
+          <TextInput
+            style={styles.input}
+            value={email}
+            onChangeText={(text) => setEmail(text)}
+            autoCapitalize='none'
+            keyboardType='email-address' />
+
+          <View style={styles.label}>
+            <Text style={{ fontSize: 30 }}>
+              Mot de Passe
+            </Text>
+          </View>
+          <TextInput
+            style={styles.input}
+
+            onChangeText={(text) => setPassword(text)}
+            secureTextEntry={passwordVisibility} />
+
+          <View style={styles.label}>
+            <Text style={{ fontSize: 30 }}>
+              Confirmation
+            </Text>
+          </View>
+          <TextInput
+            style={styles.input}
+
+            onChangeText={(text) => setPassword(text)}
+            secureTextEntry={passwordVisibility} />
+
+          <View style={styles.label}>
+            <Text style={{ fontSize: 30 }}>
+              Sports
+            </Text>
+          </View>
+          <SelectList
+            onSelect={() => sportChose()}
+            setSelected={(val) => setSports(val)}
+            data={data}
+            save="value"
+            boxStyles={{ backgroundColor: 'white', padding: 100 }}
+            dropdownItemStyles={{ backgroundColor: 'white' }}
+          />
+          <View style={styles.label}>
+            <Text style={{ fontSize: 30 }}>
+              Equipes
+            </Text>
+          </View>
+          <TextInput
+            style={styles.input}
+
+            onChangeText={(text) => setTeams(text)} />
+
+          <TouchableOpacity style={styles.button} onPress={updateUserInfos}>
+            <Text style={{ fontSize: 11, textAlign: 'center', fontWeight: 'bold' }}>Modifier</Text>
+          </TouchableOpacity>
         </View>
-      <TextInput
-          style={styles.input}
-          value={'Aurélus'}
-          onChangeText={(text) => setLogin(text)}/>
 
-<View style={styles.label}>
-        <Text style={{fontSize: 30, fontFamily: 'Chalkduster'}}>
-            Prénom
-          </Text>
-        </View>
-      <TextInput
-          style={styles.input}
-          value={'Aurélien'}
-          onChangeText={(text) => setFirstname(text)}/>
-
-<View style={styles.label}>
-        <Text style={{fontSize: 30, fontFamily: 'Chalkduster'}}>
-            Nom
-          </Text>
-        </View>
-      <TextInput
-          style={styles.input}
-          value={'Adjimi'}
-          onChangeText={(text) => setLastname(text)}/>
-
-<View style={styles.label}>
-        <Text style={{fontSize: 30, fontFamily: 'Chalkduster'}}>
-            Email
-          </Text>
-        </View>
-      <TextInput
-          style={styles.input}
-          value={'aurelien.adjimi@coucou.fr'}
-          onChangeText={(text) => setEmail(text)}
-          autoCapitalize='none'
-          keyboardType='email-address'/>
-
-<View style={styles.label}>
-        <Text style={{fontSize: 30, fontFamily: 'Chalkduster'}}>
-            Mot de Passe
-          </Text>
-        </View>
-      <TextInput
-          style={styles.input}
-          value={'crotte de chameau'}
-          onChangeText={(text) => setPassword(text)}
-          secureTextEntry={passwordVisibility}/>
-
-<View style={styles.label}>
-        <Text style={{fontSize: 30, fontFamily: 'Chalkduster'}}>
-            Confirmation
-          </Text>
-        </View>
-      <TextInput
-          style={styles.input}
-          value={'crotte de chameau'}
-          onChangeText={(text) => setPassword(text)}
-          secureTextEntry={passwordVisibility}/>
-
-<View style={styles.label}>
-        <Text style={{fontSize: 30, fontFamily: 'Chalkduster'}}>
-            Sports
-          </Text>
-        </View>
-      <TextInput
-          style={styles.input}
-          value={'Basketball, Hockey'}
-          onChangeText={(text) => setSports(text)}/>
-
-<View style={styles.label}>
-        <Text style={{fontSize: 30, fontFamily: 'Chalkduster'}}>
-            Equipes
-          </Text>
-        </View>
-      <TextInput
-          style={styles.input}
-          value={'Chicago Bulls, Pittsburgh Penguins'}
-          onChangeText={(text) => setTeams(text)}/>
-
-<TouchableOpacity style={styles.button} onPress={updateUserInfos}>
-        <Text style={{fontFamily: 'Chalkduster', fontSize: 11, textAlign: 'center', fontWeight: 'bold'}}>Modifier</Text>
-      </TouchableOpacity>
       </View>
-
-    </View>
     </ScrollView>
 
   );
@@ -215,6 +295,7 @@ const styles = StyleSheet.create({
     borderColor: 'white',
     borderRadius: 30,
   },
+
 })
 
 export default EditProfilScreen

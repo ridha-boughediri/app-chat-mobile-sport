@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { View, TextInput, Button, FlatList, Text, StyleSheet } from 'react-native';
 import io from 'socket.io-client';
 import { request } from '../../service/request';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as SecureStore from 'expo-secure-store';
 import jwt from 'jwt-decode'
 
 const GeneralScreen = () => {
@@ -10,7 +10,7 @@ const GeneralScreen = () => {
 
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
-    const socket = io('http://10.10.20.160:8888', { transports: ['websocket'] });
+    const socket = io('http://10.10.25.195:8888', { transports: ['websocket'] });
 
     useEffect(() => {
 
@@ -34,7 +34,7 @@ const GeneralScreen = () => {
         if (socket) {
 
             console.log(`Sending message: ${message}`);
-            var token = await AsyncStorage.getItem('access_token')
+            var token = await SecureStore.getItemAsync('access_token');
             var decoded = jwt(token);
             const mess = {
                 'content': message,
@@ -47,7 +47,7 @@ const GeneralScreen = () => {
                 alert(err.response.data.message)
             })
             setMessage('');
-
+            
         }
     };
 

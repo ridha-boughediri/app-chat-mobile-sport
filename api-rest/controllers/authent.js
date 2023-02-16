@@ -10,6 +10,7 @@ const User = DB.User
 /*** Routage de la ressource Auth */
 
 exports.login = async (req, res) => {
+    
     const { email, password } = req.body
 
     // Validation des données reçues

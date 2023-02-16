@@ -71,7 +71,7 @@ router.post('/login', async (req, res) => {
                         // etape suivante jwt.sign({payload}, secret phrase, temps expiration)
 
 
-                    }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_DURING })
+                    }, process.env.JWT_SECRET, { expiresIn: "3 hours" })
                     return res.json({ access_token: thetoken })
 
                 })
