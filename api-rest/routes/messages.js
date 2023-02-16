@@ -61,6 +61,7 @@ router.get('/:id', async (req, res) => {
 router.post('/', checkTokenexist, async (req, res) => {
     const { content, user_id } = req.body
 
+
     // Validation des données reçues
     if (content == undefined || user_id == null) {
         return res.status(400).json({ message: 'Missing Data' })
@@ -81,7 +82,12 @@ router.post('/', checkTokenexist, async (req, res) => {
     }
 })
 
-
+router.get('/bymonth',checkTokenexist,checkId,async(req, res)=>{
+    db.message.findAll({order:['createdAt','desc']})
+    .then(messages => res.json({ data: messages }))
+    .catch(err => res.status(500).json({ message: 'Database Error', error: err }))
+    
+}) 
 
 router.patch('/:id', checkTokenexist, async (req, res) => {
     let messageId = parseInt(req.params.id)

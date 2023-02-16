@@ -32,14 +32,13 @@ export default function Home() {
       body: JSON.stringify(data),
     });
     const json = await response.json();
-    console.log(json)
     if (!json.message) {
       localStorage.setItem('token', json.access_token);
       const token = localStorage.getItem('token');
       const decode = jwt(json.access_token);
       if (token != undefined) {
         if (decode.role_id === 2) {
-          router.push('/dashboardadmin');
+         router.push('/dashboardadmin');
         }
         else {
           alert('Vous n\'êtes pas admin')

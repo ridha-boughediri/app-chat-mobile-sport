@@ -54,22 +54,22 @@ const options = {
         legend: {
             position: 'top',
         },
-       
+
     },
 };
-const labels = ['janvier', 'fevrier', 'mars', 'avril', 'mai', 'juin', 'juillet','aout','septembre','novembre','décembre'];
+const labels = ['janvier', 'fevrier', 'mars', 'avril', 'mai', 'juin', 'juillet', 'aout', 'septembre', 'novembre', 'décembre'];
 const drawerWidth = 240;
 const data = {
     labels,
     datasets: [
-      {
-        label: 'messages par mois',
-        data: 0,
-        backgroundColor: 'rgba(255, 99, 132, 0.5)',
-      },
-      
+        {
+            label: 'messages par mois',
+            data: 0,
+            backgroundColor: 'rgba(255, 99, 132, 0.5)',
+        },
+
     ],
-  };
+};
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
 
     ({ theme, open }) => ({
@@ -130,44 +130,65 @@ export default function PersistentDrawerLeft() {
     const [open, setOpen] = React.useState(false);
     const [usercount, setUsercount] = React.useState()
     const [roomcount, setRoomcount] = React.useState()
-    const token = window.localStorage.getItem('token');
+    // const [token, setToken] = React.useState()
     // React.useEffect(() => {
     //     setToken(window.localStorage.getItem('token'))
     // }, [])
 
     React.useEffect(() => {
+        const token = window.localStorage.getItem('token');
 
-        const userNumber = fetch('http://10.10.28.53:8888/users/', {
-            headers: {
-                'authorization': token
-            }
-        })
-            .then(response => response.json())
-            .then(data => {
-
-                setUsercount(data.data.length)
+        const userNumber = async () => {
+            fetch('http://10.10.28.53:8888/users/', {
+                headers: {
+                    'authorization': token
+                }
             })
+                .then(response => response.json())
+                .then(data => {
 
-        const roomNumber = fetch('http://10.10.28.53:8888/rooms', {
-            headers: {
-                'authorization': token
-            }
+                    setUsercount(data.data.length)
+                })
+        }
 
-        })
-            .then(response => response.json())
-            .then(data => {
+        userNumber()
 
-                setRoomcount(data.data.length)
-            })
-        const bestSport = fetch('', {
+        // const roomNumber = async () => {
+        //     fetch('http://10.10.28.53:8888/rooms', {
+        //         headers: {
+        //             'authorization': token
+        //         }
 
-        })
-        const bestEquipe = fetch('', {
+        //     })
+        //         .then(response => response.json())
+        //         .then(data => {
 
-        })
+        //             setRoomcount(data.data.length)
+        //         })
+        // }
+        // roomNumber()
+        // const bestSport = fetch('', {
 
+        // })
+        // const bestEquipe = fetch('', {
+
+        // })
+        // const bymonth = async () => {
+        //     fetch('http://10.10.28.53:8888/messages/bymonth', {
+        //         headers: {
+        //             'authorization': token
+        //         }
+        //     })
+        //     .then(response => response.json())
+        //     .then(data => {
+        //         console.log(data)
+
+
+        //     })
+        // }
+
+        // bymonth()
     }, [])
-
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -305,7 +326,7 @@ export default function PersistentDrawerLeft() {
                         </Card>
                     </Stack>
                     <Stack sx={{ minWidth: 1000 }}>
-                        <Bar  options={options} data={data} />;
+                        <Bar options={options} data={data} />;
                     </Stack>
                 </Main>
             </Box>
