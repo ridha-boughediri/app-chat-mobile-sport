@@ -69,6 +69,9 @@ const EditProfilScreen = () => {
       }
     }
   }
+  const teamChose = () => {
+    //meme chose qu au dessus mais pour les équipes
+  }
   //Pour modifier les infos user
   const updateUserInfos = async () => {
     try {
@@ -114,9 +117,7 @@ const EditProfilScreen = () => {
 
 
 
-    const teamChose = () => {
-      //meme chose qu au dessus mais pour les équipes
-    }
+   
   }
 
   return (
