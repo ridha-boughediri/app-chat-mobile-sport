@@ -65,7 +65,7 @@ const EditProfilScreen = () => {
 
       if (sports == id.value) {
 
-        console.log(id.key)
+        setIdsport(id.value)
       }
     }
   }
