@@ -31,9 +31,45 @@ import Stack from '@mui/material/Stack';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
-
+import {
+    Chart as ChartJS,
+    CategoryScale,
+    LinearScale,
+    BarElement,
+    Tooltip,
+    Legend,
+} from 'chart.js';
+import { Bar } from 'react-chartjs-2';
+import { minWidth } from "@mui/system";
+ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    BarElement,
+    Tooltip,
+    Legend
+);
+const options = {
+    responsive: true,
+    plugins: {
+        legend: {
+            position: 'top',
+        },
+       
+    },
+};
+const labels = ['janvier', 'fevrier', 'mars', 'avril', 'mai', 'juin', 'juillet','aout','septembre','novembre','décembre'];
 const drawerWidth = 240;
-
+const data = {
+    labels,
+    datasets: [
+      {
+        label: 'messages par mois',
+        data: 0,
+        backgroundColor: 'rgba(255, 99, 132, 0.5)',
+      },
+      
+    ],
+  };
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
 
     ({ theme, open }) => ({
@@ -92,24 +128,47 @@ export default function PersistentDrawerLeft() {
 
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
-    const [token, setToken] = React.useState();
+    const [usercount, setUsercount] = React.useState()
+    const [roomcount, setRoomcount] = React.useState()
+    const token = window.localStorage.getItem('token');
+    // React.useEffect(() => {
+    //     setToken(window.localStorage.getItem('token'))
+    // }, [])
 
-    // const token = window.localStorage.getItem('token');
     React.useEffect(() => {
-        setToken(window.localStorage.getItem('token'))
+
+        const userNumber = fetch('http://10.10.28.53:8888/users/', {
+            headers: {
+                'authorization': token
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+
+                setUsercount(data.data.length)
+            })
+
+        const roomNumber = fetch('http://10.10.28.53:8888/rooms', {
+            headers: {
+                'authorization': token
+            }
+
+        })
+            .then(response => response.json())
+            .then(data => {
+
+                setRoomcount(data.data.length)
+            })
+        const bestSport = fetch('', {
+
+        })
+        const bestEquipe = fetch('', {
+
+        })
+
     }, [])
 
 
-    const response = fetch('http://10.10.20.160:8888/users/', {
-        headers: {
-            'authorization': token
-        }
-    })
-        .then(response => response.json)
-        .then(data =>
-            console.log(data))
-
-    
     const handleDrawerOpen = () => {
         setOpen(true);
     };
@@ -217,7 +276,7 @@ export default function PersistentDrawerLeft() {
                         <Card sx={{ minWidth: 350 }}>
                             <CardContent>
                                 <Typography variant="h5" component="div">
-
+                                    {usercount}
                                 </Typography>
                                 <Typography variant="body2">
                                     utilisateurs Inscrits
@@ -226,46 +285,27 @@ export default function PersistentDrawerLeft() {
                         </Card>
                         <Card sx={{ minWidth: 275 }}>
                             <CardContent>
-                                <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                                    Word of the Day
-                                </Typography>
                                 <Typography variant="h5" component="div">
-                                    be{bull}nev{bull}o{bull}lent
-                                </Typography>
-                                <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                                    adjective
+                                    {roomcount}
                                 </Typography>
                                 <Typography variant="body2">
-                                    well meaning and kindly.
-                                    <br />
-                                    {'"a benevolent smile"'}
+                                    Rooms créées
                                 </Typography>
                             </CardContent>
-                            <CardActions>
-                                <Button size="small">Learn More</Button>
-                            </CardActions>
                         </Card>
                         <Card sx={{ minWidth: 275 }}>
                             <CardContent>
-                                <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                                    Word of the Day
-                                </Typography>
                                 <Typography variant="h5" component="div">
-                                    be{bull}nev{bull}o{bull}lent
-                                </Typography>
-                                <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                                    adjective
+                                    {roomcount}
                                 </Typography>
                                 <Typography variant="body2">
-                                    well meaning and kindly.
-                                    <br />
-                                    {'"a benevolent smile"'}
+                                    Sport favori
                                 </Typography>
                             </CardContent>
-                            <CardActions>
-                                <Button size="small">Learn More</Button>
-                            </CardActions>
                         </Card>
+                    </Stack>
+                    <Stack sx={{ minWidth: 1000 }}>
+                        <Bar  options={options} data={data} />;
                     </Stack>
                 </Main>
             </Box>
