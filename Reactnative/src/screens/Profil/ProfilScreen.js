@@ -16,6 +16,7 @@ const ProfilScreen = ({ navigation }) => {
     const getInfo = async () => {
       const res = await SecureStore.getItemAsync('access_token');
       const decoded = jwt(res)
+      console.log(res)
       request('users/' + decoded.id, 'get', '')
         .then(response => {
 
