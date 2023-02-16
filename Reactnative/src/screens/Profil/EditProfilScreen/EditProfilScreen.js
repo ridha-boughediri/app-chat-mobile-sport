@@ -19,7 +19,7 @@ const EditProfilScreen = () => {
   const [teams, setTeams] = useState('');
   const [token, setToken] = useState('');
   const [data, setData] = useState([]);
-  const [idsport,setIdsport]=useState('')
+  const [idsport, setIdsport] = useState('')
 
   useEffect(() => {
     const getInfo = async () => {
@@ -60,7 +60,15 @@ const EditProfilScreen = () => {
       setImage(result.assets[0].uri);
     }
   };
+  const sportChose = () => {
+    for (const id of data) {
 
+      if (sports == id.value) {
+
+        console.log(id.key)
+      }
+    }
+  }
   //Pour modifier les infos user
   const updateUserInfos = async () => {
     try {
@@ -103,10 +111,10 @@ const EditProfilScreen = () => {
     } catch (error) {
       console.error(error);
     }
-    const sportChose = () => {
-        //comparaison de sports et de data pour recup l id sports
-    }
-    const teamChose=()=>{
+
+
+
+    const teamChose = () => {
       //meme chose qu au dessus mais pour les équipes
     }
   }
