@@ -1,71 +1,96 @@
 import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity } from 'react-native'
-import React, {useState} from 'react'
+import React, { useState, useEffect } from 'react'
 import * as ImagePicker from 'expo-image-picker';
 import { assets } from '../../../react-native.config';
+import { request } from '../../service/request';
+import * as SecureStore from 'expo-secure-store';
+import jwt from 'jwt-decode';
 
-const ProfilScreen = ({navigation}) => {
+const ProfilScreen = ({ navigation }) => {
+  const [first, setFirst] = useState('')
+  const [username, setUsername] = useState('')
+  const [last, setLast] = useState('')
+  const [mail, setMail] = useState('')
+  
+  useEffect(() => {
+    const getInfo = async () => {
+      const res = await SecureStore.getItemAsync('access_token');
+      const decoded = jwt(res)
+      request('users/' + decoded.id, 'get', '')
+        .then(response => {
 
+          console.log(response.data)
+          setFirst(response.data.firstname)
+          setLast(response.data.lastname)
+          setMail(response.data.email)
+          setUsername(response.data.login)
 
+        })
+        .catch(err=>{
+          
+           alert(err.response.data.message)
+           if(err.response.status==401){
+            navigation.navigate('Login')
+           }
+      })
+    }
+    getInfo()
+  }, []);
   return (
     <ScrollView>
-    <View style={styles.container}>
-      <Image 
-      source={require('../../../assets/image/logo-black.png')}
-      style={styles.profilPics}/>
+      <View style={styles.container}>
+        <Image
+          source={require('../../../assets/image/logo-black.png')}
+          style={styles.profilPics} />
         <View style={styles.infos}>
           <View style={styles.label}>
-          <Text style={{fontSize: 30, fontFamily: 'Chalkduster'}}>
-            Login
-          </Text>
+            <Text style={{ fontSize: 30 }}>
+              Login
+            </Text>
           </View>
           <Text style={styles.infosUser}>
-            Aurélus
-          </Text>
+          {username}        </Text>
           <View style={styles.label}>
-          <Text style={{fontSize: 30, fontFamily: 'Chalkduster'}}>
-            Prénom
-          </Text>
+            <Text style={{ fontSize: 30 }}>
+              Prénom
+            </Text>
           </View>
           <Text style={styles.infosUser}>
-            Aurélien
-          </Text>
+            {first}        </Text>
           <View style={styles.label}>
-          <Text style={{fontSize: 30, fontFamily: 'Chalkduster'}}>
-            Nom
-          </Text>
+            <Text style={{ fontSize: 30 }}>
+              Nom
+            </Text>
           </View>
           <Text style={styles.infosUser}>
-            Adjimi
-          </Text>
+            {last}     </Text>
           <View style={styles.label}>
-          <Text style={{fontSize: 30, fontFamily: 'Chalkduster'}}>
-            Email
-          </Text>
+            <Text style={{ fontSize: 30 }}>
+              Email
+            </Text>
           </View>
           <Text style={styles.infosUser}>
-            aurelien.adjimi@coucou.fr
-          </Text>
+            {mail}         </Text>
           <View style={styles.label}>
-          <Text style={{fontSize: 30, fontFamily: 'Chalkduster'}}>
-            Sport(s)
-          </Text>
+            <Text style={{ fontSize: 30 }}>
+              Sport(s)
+            </Text>
           </View>
           <Text style={styles.infosUser}>
-            Basketball
-          </Text>
+            q          </Text>
           <View style={styles.label}>
-          <Text style={{fontSize: 30, fontFamily: 'Chalkduster'}}>
-            Equipes(s)
-          </Text>
+            <Text style={{ fontSize: 30 }}>
+              Equipes(s)
+            </Text>
           </View>
           <Text style={styles.infosUser}>
-           Chicago Bulls
+            Chicago Bulls
           </Text>
           <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('EditProfil')}>
-            <Text style={{fontFamily: 'Chalkduster', fontSize: 11, textAlign: 'center', fontWeight: 'bold'}}>Modifiez votre profil</Text>
+            <Text style={{ fontSize: 11, textAlign: 'center', fontWeight: 'bold' }}>Modifiez votre profil</Text>
           </TouchableOpacity>
         </View>
-    </View>
+      </View>
     </ScrollView>
 
 
@@ -115,7 +140,6 @@ const styles = StyleSheet.create({
     fontSize: 25,
     color: 'white',
     marginBottom: 10,
-    fontFamily: 'Copperplate',
   },
 
   button: {

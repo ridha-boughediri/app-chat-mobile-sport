@@ -1,9 +1,9 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as SecureStore from 'expo-secure-store';
 import axios from 'axios';
 import { URL_USER } from './config';
 
 export const request = async (url, method, data) => {
-    var token = await AsyncStorage.getItem('access_token')
+    var token = await SecureStore.getItemAsync('access_token');
     if (token) {
         if (method === 'get') {
             return axios({

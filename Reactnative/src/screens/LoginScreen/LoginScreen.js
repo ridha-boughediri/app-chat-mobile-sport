@@ -4,7 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import { MaterialCommunityIcons } from '@expo/vector-icons/';
 import { root } from 'postcss';
-
+import * as SecureStore from 'expo-secure-store';
 
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
@@ -30,7 +30,8 @@ const LoginScreen = ({ navigation }) => {
       });
 
       let data = response.data;
-      await AsyncStorage.setItem('access_token', data.access_token);
+      console.log(data)
+      await SecureStore.setItemAsync('access_token', data.access_token);
       navigation.navigate("Groups")
     } catch (error) {
       console.error(error);
@@ -39,9 +40,8 @@ const LoginScreen = ({ navigation }) => {
 
   useEffect(() => {
     const getInfo = async () => {
-      const res = await AsyncStorage.getItem('access_token');
+      const res = await SecureStore.getItemAsync('access_token');
       setToken(res);
-      console.log('token :'+res)
     };
     getInfo();
   }, []);
@@ -57,7 +57,7 @@ const LoginScreen = ({ navigation }) => {
         value={email}
         onChangeText={(text) => setEmail(text)}
         placeholder='Email'
-        placeholderTextColor={'white'} 
+        placeholderTextColor={'white'}
         autoCapitalize='none'
         keyboardType='email-address'
       />
@@ -67,7 +67,7 @@ const LoginScreen = ({ navigation }) => {
           value={password}
           onChangeText={(text) => setPassword(text)}
           placeholder='Mot de passe'
-          placeholderTextColor={'white'} 
+          placeholderTextColor={'white'}
           secureTextEntry={passwordVisibility}
         />
         <Pressable style={styles.icon} onPress={handlePasswordVisibility}>
@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
     color: '#fbb034'
   },
 
-  pass:{
+  pass: {
     width: '100%',
     flexDirection: 'row',
   },
