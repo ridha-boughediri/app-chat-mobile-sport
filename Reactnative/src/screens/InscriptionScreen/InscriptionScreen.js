@@ -68,7 +68,9 @@ const InscriptionScreen = ({ navigation }) => {
     // envoi de la data vers le lien
 
 
-    const call = await axios.post('http://10.10.21.26:8888/users/register', {
+
+
+    const call = await axios.post('http://10.10.28.37:8888/users/register', {
       email: email,
       password: password,
       lastname: lastname,
@@ -77,9 +79,9 @@ const InscriptionScreen = ({ navigation }) => {
       role_id: 1
     })
       .then(response => {
-
         alert(response.data.message)
       }).catch(err => {
+        console.error(err.data)
         alert(err.response.data.message)
       })
   }
