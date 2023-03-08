@@ -84,7 +84,10 @@ router.post('/', checkTokenexist, async (req, res) => {
 
 router.get('/bymonth',checkTokenexist,checkId,async(req, res)=>{
     db.message.findAll({order:['createdAt','desc']})
-    .then(messages => res.json({ data: messages }))
+    .then(messages => {
+        console.log('messages', messages)
+        // return res.json({ data: messages })
+    })
     .catch(err => res.status(500).json({ message: 'Database Error', error: err }))
     
 }) 

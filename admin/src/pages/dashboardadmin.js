@@ -139,7 +139,7 @@ export default function PersistentDrawerLeft() {
         const token = window.localStorage.getItem('token');
 
         const userNumber = async () => {
-            fetch('http://10.10.28.53:8888/users/', {
+            fetch('http://10.10.0.148:8888/users/', {
                 headers: {
                     'authorization': token
                 }
@@ -154,7 +154,7 @@ export default function PersistentDrawerLeft() {
         userNumber()
 
         // const roomNumber = async () => {
-        //     fetch('http://10.10.28.53:8888/rooms', {
+        //     fetch('http://10.10.0.148:8888/rooms', {
         //         headers: {
         //             'authorization': token
         //         }
@@ -174,17 +174,17 @@ export default function PersistentDrawerLeft() {
 
         // })
         // const bymonth = async () => {
-        //     fetch('http://10.10.28.53:8888/messages/bymonth', {
+        //     fetch('http://10.10.0.148:8888/messages/bymonth', {
         //         headers: {
         //             'authorization': token
         //         }
         //     })
-        //     .then(response => response.json())
-        //     .then(data => {
-        //         console.log(data)
+        //         .then(response => response.json())
+        //         .then(data => {
+        //             console.log(data)
 
 
-        //     })
+        //         })
         // }
 
         // bymonth()
