@@ -130,6 +130,7 @@ export default function PersistentDrawerLeft() {
     const [open, setOpen] = React.useState(false);
     const [usercount, setUsercount] = React.useState()
     const [roomcount, setRoomcount] = React.useState()
+    cont [usermonth, setUsermonth] = React.useState()
     // const [token, setToken] = React.useState()
     // React.useEffect(() => {
     //     setToken(window.localStorage.getItem('token'))
@@ -139,7 +140,7 @@ export default function PersistentDrawerLeft() {
         const token = window.localStorage.getItem('token');
 
         const userNumber = async () => {
-            fetch('http://10.10.0.148:8888/users/', {
+            fetch('http://10.10.2.1:8888/admin/', {
                 headers: {
                     'authorization': token
                 }
@@ -147,47 +148,13 @@ export default function PersistentDrawerLeft() {
                 .then(response => response.json())
                 .then(data => {
 
-                    setUsercount(data.data.length)
+                    console.log(data)
                 })
         }
 
         userNumber()
 
-        // const roomNumber = async () => {
-        //     fetch('http://10.10.0.148:8888/rooms', {
-        //         headers: {
-        //             'authorization': token
-        //         }
 
-        //     })
-        //         .then(response => response.json())
-        //         .then(data => {
-
-        //             setRoomcount(data.data.length)
-        //         })
-        // }
-        // roomNumber()
-        // const bestSport = fetch('', {
-
-        // })
-        // const bestEquipe = fetch('', {
-
-        // })
-        // const bymonth = async () => {
-        //     fetch('http://10.10.0.148:8888/messages/bymonth', {
-        //         headers: {
-        //             'authorization': token
-        //         }
-        //     })
-        //         .then(response => response.json())
-        //         .then(data => {
-        //             console.log(data)
-
-
-        //         })
-        // }
-
-        // bymonth()
     }, [])
 
     const handleDrawerOpen = () => {
@@ -317,10 +284,10 @@ export default function PersistentDrawerLeft() {
                         <Card sx={{ minWidth: 275 }}>
                             <CardContent>
                                 <Typography variant="h5" component="div">
-                                    {roomcount}
+                                    {usermonth}
                                 </Typography>
                                 <Typography variant="body2">
-                                    Sport favori
+                                    Nouvel Utilisateurs ce mois ci
                                 </Typography>
                             </CardContent>
                         </Card>

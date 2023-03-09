@@ -24,7 +24,7 @@ export default function Home() {
 
 
   const checkRole = async () => {
-    const response = await fetch('http://10.10.0.148:8888/auth/login', {
+    const response = await fetch('http://10.10.2.1:8888/auth/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
