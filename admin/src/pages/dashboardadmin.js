@@ -56,15 +56,21 @@ const options = {
         },
 
     },
+    scales: {
+        y: {
+            beginAtZero: true
+        }
+    }
 };
 const labels = ['janvier', 'fevrier', 'mars', 'avril', 'mai', 'juin', 'juillet', 'aout', 'septembre', 'novembre', 'décembre'];
 const drawerWidth = 240;
+
 const data = {
     labels,
     datasets: [
         {
             label: 'messages par mois',
-            data: 0,
+            data: [1, 2, 5, 3, 4, 5, 4, 4, 4, 4, 45, 0],
             backgroundColor: 'rgba(255, 99, 132, 0.5)',
         },
 
@@ -130,33 +136,40 @@ export default function PersistentDrawerLeft() {
     const [open, setOpen] = React.useState(false);
     const [usercount, setUsercount] = React.useState()
     const [roomcount, setRoomcount] = React.useState()
-    cont [usermonth, setUsermonth] = React.useState()
-    // const [token, setToken] = React.useState()
-    // React.useEffect(() => {
-    //     setToken(window.localStorage.getItem('token'))
-    // }, [])
+    const [usermonth, setUsermonth] = React.useState()
+    const [messagemonth, setMessagemonth] = React.useState()
+    const [dataGraph, setDataGraph] = React.useState({})
+
 
     React.useEffect(() => {
         const token = window.localStorage.getItem('token');
 
-        const userNumber = async () => {
-            fetch('http://10.10.2.1:8888/admin/', {
-                headers: {
-                    'authorization': token
-                }
-            })
-                .then(response => response.json())
-                .then(data => {
 
-                    console.log(data)
+        fetch('http://10.10.2.1:8888/admin/', {
+            headers: {
+                'authorization': token
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+
+                setUsercount(data[0].userCount)
+                setRoomcount(data[1].roomCount)
+                setUsermonth(data[2].userMonth)
+                setMessagemonth(data[3])
+                setDataGraph({
+                    data: data[3].map((item) => item.count),
+
                 })
-        }
-
-        userNumber()
 
 
+
+
+
+
+            })
     }, [])
-
+    console.log(dataGraph)
     const handleDrawerOpen = () => {
         setOpen(true);
     };
@@ -293,7 +306,20 @@ export default function PersistentDrawerLeft() {
                         </Card>
                     </Stack>
                     <Stack sx={{ minWidth: 1000 }}>
-                        <Bar options={options} data={data} />;
+                        <Bar options={options} data={{
+
+                            labels,
+                            datasets: [
+                                {
+                                    label: 'messages par mois',
+                                    data: dataGraph.data,
+                                    backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                                },
+
+                            ],
+
+
+                        }} />;
                     </Stack>
                 </Main>
             </Box>

@@ -22,9 +22,9 @@ router.get('/', checkTokenexist, checkId, async (req, res) => {
     var date = new Date(), y = date.getFullYear(), m = date.getMonth();
     var firstDay = new Date(y, m, 1);
     var lastDay = new Date();
-     
-    users = await db.user.count()
-    usersMonth = await db.user.count({
+
+    let users = await db.user.count()
+    let usersMonth = await db.user.count({
         order: [
             ['createdAt', 'DESC']
         ],
@@ -35,7 +35,7 @@ router.get('/', checkTokenexist, checkId, async (req, res) => {
         }
     })
     admin.push({ "userCount": users })
-    rooms = await db.room.count()
+    let rooms = await db.room.count()
     admin.push({ "roomCount": rooms })
     admin.push({ "userMonth": usersMonth })
     const year = new Date().getFullYear(); // l'année pour laquelle vous souhaitez obtenir le nombre de messages
