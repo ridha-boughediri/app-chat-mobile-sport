@@ -57,9 +57,12 @@ const EditProfilScreen = () => {
 
       if (sports == id.value) {
 
-        console.log(id.key)
+        setIdsport(id.value)
       }
     }
+  }
+  const teamChose = () => {
+    //meme chose qu au dessus mais pour les équipes
   }
   //Pour modifier les infos user
   const updateUserInfos = async () => {
