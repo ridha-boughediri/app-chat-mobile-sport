@@ -6,7 +6,7 @@ const bcrypt = require('bcrypt')
 /*******************************/
 /*** Définition du modèle NbaTeams */
 module.exports = (sequelize) => {
-    const NbaTeams = sequelize.define('nbateams', {
+    const teams = sequelize.define('teams', {
        
             id: {
                 type: DataTypes.INTEGER(10),
@@ -47,7 +47,7 @@ module.exports = (sequelize) => {
     
 
 
-    return NbaTeams
+    return teams
 }
 
 

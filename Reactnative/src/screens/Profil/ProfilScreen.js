@@ -11,7 +11,9 @@ const ProfilScreen = ({ navigation }) => {
   const [username, setUsername] = useState('')
   const [last, setLast] = useState('')
   const [mail, setMail] = useState('')
-  
+  // const [sport, setSport] = useState('')
+  // const [team, setTeam] = useState('')
+
   useEffect(() => {
     const getInfo = async () => {
       const res = await SecureStore.getItemAsync('access_token');
@@ -70,8 +72,9 @@ const ProfilScreen = ({ navigation }) => {
             </Text>
           </View>
           <Text style={styles.infosUser}>
-            {mail}         </Text>
-          <View style={styles.label}>
+            {mail}         
+          </Text>
+          {/* <View style={styles.label}>
             <Text style={{ fontSize: 30 }}>
               Sport(s)
             </Text>
@@ -85,7 +88,7 @@ const ProfilScreen = ({ navigation }) => {
           </View>
           <Text style={styles.infosUser}>
             Chicago Bulls
-          </Text>
+          </Text> */}
           <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('EditProfil')}>
             <Text style={{ fontSize: 11, textAlign: 'center', fontWeight: 'bold' }}>Modifiez votre profil</Text>
           </TouchableOpacity>

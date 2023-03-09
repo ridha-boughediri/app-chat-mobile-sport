@@ -8,6 +8,7 @@ const db= require('../db.config')
 const nbaTeams = require('../models/nba_teams')
 const user = require('../models/user')
 const checkId = require('../JWT/checkAdmin')
+const sport = require('../models/sport')
  
  // mon middleware pour NBA selon la route
 

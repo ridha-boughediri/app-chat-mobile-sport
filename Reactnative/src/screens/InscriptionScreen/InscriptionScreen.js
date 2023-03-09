@@ -68,7 +68,7 @@ const InscriptionScreen = ({ navigation }) => {
     // envoi de la data vers le lien
 
 
-    const call = await axios.post('http://10.10.21.26:8888/users/register', {
+    const call = await axios.post('http://10.10.2.70:8888/users/register', {
       email: email,
       password: password,
       lastname: lastname,

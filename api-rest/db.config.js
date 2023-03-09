@@ -19,9 +19,7 @@ const db = {}
 db.sequelize = sequelize
 db.user = require('./models/user')(sequelize)
 db.message = require('./models/messages')(sequelize)
-db.nbaTeams =require('./models/nba_teams')(sequelize)
-db.nflTeams =require('./models/nfl_teams')(sequelize)
-db.nhlTeams =require('./models/nhl_teams')(sequelize)
+db.teams = require('./models/teams')(sequelize)
 db.privateMessage = require('./models/private_message')(sequelize)
 db.room = require('./models/room')(sequelize)
 db.Sport = require('./models/sport')(sequelize)
@@ -32,20 +30,6 @@ db.role = require('./models/role')(sequelize)
 db.Sport.hasMany(db.user, {foreignKey: 'sport_id', onDelete: 'cascade'})
 db.user.belongsTo(db.Sport, {foreignKey: 'sport_id'})
 
-// 2 relation user et nba
-
-
-db.nbaTeams.hasMany(db.user, {foreignKey: 'nbateam_id', onDelete: 'cascade'})
-db.user.belongsTo(db.nbaTeams, {foreignKey: 'nbateam_id'})
-
-// 3 relation user et nfl
-
-db.nflTeams.hasMany(db.user, {foreignKey: 'nflteam_id', onDelete: 'cascade'})
-db.user.belongsTo(db.nflTeams, {foreignKey: 'nflteam_id'})
-
-// 4 relation user et nhl
-db.nhlTeams.hasMany(db.user, {foreignKey: 'nhlteam_id', onDelete: 'cascade'})
-db.user.belongsTo(db.nhlTeams, {foreignKey: 'nhlteam_id'})
 
 // 5 relation private-message et  user
 db.user.hasMany(db.privateMessage, {foreignKey: 'user_id', onDelete: 'cascade'})

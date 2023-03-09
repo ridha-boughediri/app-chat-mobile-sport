@@ -36,6 +36,11 @@ module.exports = (sequelize) => {
         conference: {
             type: DataTypes.STRING,
             allowNull: false
+        },
+
+        id_sport: {
+            type: DataTypes.INTEGER(10),
+            allowNull: false
         }
         
             

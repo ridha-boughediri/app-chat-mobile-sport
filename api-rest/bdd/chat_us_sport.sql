@@ -168,40 +168,101 @@ CREATE TABLE `nhlteams` (
 -- Déchargement des données de la table `nhlteams`
 --
 
-INSERT INTO `nhlteams` (`id`, `name`, `acronyme`, `uri_logo`, `arena`, `conference`, `createdAt`, `updatedAt`, `deletedAt`) VALUES
-(1, 'Arizona Coyotes', 'ARI', 'coyotes.png', 'Gila River Arena', 'West', '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
-(2, 'Boston Bruins', 'BOS', 'bruins.png', 'TD Garden', 'East', '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
-(3, 'Buffalo Sabres', 'BUF', 'sabres.png', 'KeyBank Center', 'East', '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
-(4, 'Chicago Blackhawks', 'CHI', 'blackhawks.png', 'United Center', 'West', '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
-(5, 'Colorado Avalanche', 'CLD', 'avalanche.png', 'Ball Arena', 'West', '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
-(6, 'Dallas Stars', 'DAL', 'stars.png', 'American Airlines Center', 'West', '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
-(7, 'Detroit Red Wings', 'DET', 'redwings.png', 'Little Caesars Arena', 'East', '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
-(8, 'Florida Panthers', 'FLO', 'panthers.png', 'BB&T Center', 'East', '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
-(9, 'Montreal Canadiens', 'MON', 'canadiens.png', 'Center Bell Arena', 'East', '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
-(10, 'Ottawa Senators', 'OTT', 'senators.png', 'Centre Canadian Tire', 'East', '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
-(11, 'Tampa Bay Lightning', 'TAM', 'lightning.png', 'Amalie Arena', 'East', '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
-(12, 'Toronto Maple Leafs', 'TOR', 'maple.png', 'Scotiabank Arena', 'East', '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
-(13, 'Carolina Hurricanes', 'CAR', 'hurricanes.png', 'PNC Arena', 'East', '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
-(14, 'Columbus Blue Jackets', 'CLB', 'bluejackets.png', 'Nationwide Arena', 'East', '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
-(15, 'New Jersey Devils', 'NJD', 'devils.png', 'Prudential Center', 'East', '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
-(16, 'New York Islanders', 'NYI', 'islanders.png', 'UBS Arena', 'East', '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
-(17, 'New York Rangers', 'NYR', 'rangers.png', 'Madison Square Garden', 'East', '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
-(18, 'Philadelphia Flyers', 'PHI', 'flyers.png', 'Wells Fargo Center', 'East', '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
-(19, 'Pittsburgh Penguins', 'PIT', 'pens.png', 'PPG Paints Arena', 'East', '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
-(20, 'Washington Capitals', 'WAS', 'capitals.png', 'Capital One Arena', 'East', '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
-(21, 'Minnesota Wild', 'MIN', 'wild.png', 'Xcel Energy Center', 'West', '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
-(22, 'Nashville Predators', 'NAS', 'predators.png', 'Bridgestone Arena', 'West', '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
-(23, 'Saint Louis Blues', 'SLB', 'blues.png', 'Enterprise Center', 'West', '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
-(24, 'Winnipeg Jets', 'WIN', 'jets.png', 'Canada Life Center', 'West', '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
-(25, 'Anaheim Ducks', 'ANA', 'ducks.png', 'Honda Center', 'West', '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
-(26, 'Calgary Flames', 'CAL', 'flames.png', 'Scotiabank Saddledome', 'West', '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
-(27, 'Edmonton Oilers', 'EDM', 'oilers.png', 'Rogers Place', 'West', '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
-(28, 'Las Vegas Golden Knights', 'LVG', 'gn.png', 'T-Mobile Arena', 'West', '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
-(29, 'Los Angeles Kings', 'LAK', 'kings.png', 'Crypto.com Arena', 'West', '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
-(30, 'San Jose Sharks', 'SJS', 'sharks.png', 'SAP Center at San Jose', 'West', '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
-(31, 'Seattle Kraken', 'SEA', 'kraken.png', 'KeyArena at Seattle Center', 'West', '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
-(32, 'Vancouver Canucks', 'VAN', 'canucks.png', 'Rogers Arena', 'West', '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL);
-
+INSERT INTO `teams` (`id`, `name`, `acronyme`, `uri_logo`, `arena`, `conference`, `id_sport`, `createdAt`, `updatedAt`, `deletedAt`) VALUES
+(1, 'Arizona Coyotes', 'ARI', 'coyotes.png', 'Gila River Arena', 'West', 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(2, 'Boston Bruins', 'BOS', 'bruins.png', 'TD Garden', 'East', 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(3, 'Buffalo Sabres', 'BUF', 'sabres.png', 'KeyBank Center', 'East', 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(4, 'Chicago Blackhawks', 'CHI', 'blackhawks.png', 'United Center', 'West', 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(5, 'Colorado Avalanche', 'CLD', 'avalanche.png', 'Ball Arena', 'West', 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(6, 'Dallas Stars', 'DAL', 'stars.png', 'American Airlines Center', 'West', 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(7, 'Detroit Red Wings', 'DET', 'redwings.png', 'Little Caesars Arena', 'East', 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(8, 'Florida Panthers', 'FLO', 'panthers.png', 'BB&T Center', 'East', 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(9, 'Montreal Canadiens', 'MON', 'canadiens.png', 'Center Bell Arena', 'East', 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(10, 'Ottawa Senators', 'OTT', 'senators.png', 'Centre Canadian Tire', 'East', 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(11, 'Tampa Bay Lightning', 'TAM', 'lightning.png', 'Amalie Arena', 'East', 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(12, 'Toronto Maple Leafs', 'TOR', 'maple.png', 'Scotiabank Arena', 'East', 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(13, 'Carolina Hurricanes', 'CAR', 'hurricanes.png', 'PNC Arena', 'East', 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(14, 'Columbus Blue Jackets', 'CLB', 'bluejackets.png', 'Nationwide Arena', 'East',  3, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(15, 'New Jersey Devils', 'NJD', 'devils.png', 'Prudential Center', 'East', 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(16, 'New York Islanders', 'NYI', 'islanders.png', 'UBS Arena', 'East', 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(17, 'New York Rangers', 'NYR', 'rangers.png', 'Madison Square Garden', 'East', 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(18, 'Philadelphia Flyers', 'PHI', 'flyers.png', 'Wells Fargo Center', 'East', 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(19, 'Pittsburgh Penguins', 'PIT', 'pens.png', 'PPG Paints Arena', 'East', 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(20, 'Washington Capitals', 'WAS', 'capitals.png', 'Capital One Arena', 'East', 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(21, 'Minnesota Wild', 'MIN', 'wild.png', 'Xcel Energy Center', 'West', 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(22, 'Nashville Predators', 'NAS', 'predators.png', 'Bridgestone Arena', 'West', 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(23, 'Saint Louis Blues', 'SLB', 'blues.png', 'Enterprise Center', 'West', 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(24, 'Winnipeg Jets', 'WIN', 'jets.png', 'Canada Life Center', 'West', 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(25, 'Anaheim Ducks', 'ANA', 'ducks.png', 'Honda Center', 'West', 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(26, 'Calgary Flames', 'CAL', 'flames.png', 'Scotiabank Saddledome', 'West', 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(27, 'Edmonton Oilers', 'EDM', 'oilers.png', 'Rogers Place', 'West', 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(28, 'Las Vegas Golden Knights', 'LVG', 'gn.png', 'T-Mobile Arena', 'West', 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(29, 'Los Angeles Kings', 'LAK', 'kings.png', 'Crypto.com Arena', 'West', 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(30, 'San Jose Sharks', 'SJS', 'sharks.png', 'SAP Center at San Jose', 'West', 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(31, 'Seattle Kraken', 'SEA', 'kraken.png', 'KeyArena at Seattle Center', 'West', 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(32, 'Vancouver Canucks', 'VAN', 'canucks.png', 'Rogers Arena', 'West', 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(33, 'Buffalo Bills', 'BUF', 'bills.png', 'Highmark Stadium', 'AFC', 2, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(34, 'Miami Dolphins', 'MIA', 'dolphins.png', 'Sun Life Stadium', 'AFC', 2, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(35, 'New England Patriots', 'NEP', 'patriots.png', 'Gillette Stadium', 'AFC', 2, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(36, 'New York Jets', 'NYJ', 'jets.png', 'MetLife Stadium', 'AFC', 2, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(37, 'Baltimore Ravens', 'BAL', 'ravens.png', 'M&T Bank Stadium', 'AFC', 2, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(38, 'Cincinnati Bengals', 'CIN', 'bengals.png', 'Paul Brown Stadium', 'AFC', 2, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(39, 'Cleveland Browns', 'CLE', 'browns.png', 'Cleveland Stadium', 'AFC', 2, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(40, 'Pittsburgh Steelers', 'PIT', 'steelers.png', 'Heinz Field', 'AFC', 2, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(41, 'Houston Texans', 'HOU', 'texans.png', 'NRG Stadium', 'AFC', 2, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(42, 'Indianapolis Colts', 'IND', 'colts.png', 'Lucas Oil Stadium', 'AFC', 2, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(43, 'Tennessee Titans', 'TEN', 'titans.png', 'Nissan Stadium', 'AFC', 2, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(44, 'Denver Broncos', 'DEN', 'broncos.png', 'Empower Field at Mile High', 'AFC', 2, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(45, 'Kansas City Chiefs', 'KCC', 'chiefs.png', 'Arrowhead Stadium', 'AFC', 2, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(46, 'Las Vegas Raiders', 'LVR', 'raiders.png', 'Allegiant Stadium', 'AFC', 2, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(47, 'Los Angeles Chargers', 'LAC', 'chargers.png', 'SoFi Stadium', 'AFC', 2, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(48, 'Jacksonville Jaguars', 'JAC', 'jaguars.png', 'EverBank Field', 'AFC', 2, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(49, 'Dallas Cowboys', 'DAL', 'cowboys.png', 'AT&T Stadium', 'NFC', 2, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(50, 'New York Giants', 'NYG', 'giants.png', 'MetLife Stadium', 'NFC', 2, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(51, 'Philadelphia Eagles', 'PHI', 'eagles.png', 'Lincoln Financial Field', 'NFC', 2, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(52, 'Washington Commanders', 'WAS', 'commanders.png', 'FedEx Field', 'NFC', 2, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(53, 'Chicago Bears', 'CHI', 'bears.png', 'Soldier Field', 'NFC', 2, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(54, 'Detroit Lions', 'DET', 'lions.png', 'Ford Field', 'NFC', 2, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(55, 'Green Bay Packers', 'GBP', 'packers.png', 'Lambeau Field', 'NFC', 2, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(56, 'Minnesota Vikings', 'MIN', 'vikes.png', 'U.S. Bank Stadium', 'NFC', 2, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(57, 'Atlanta Falcons', 'ATL', 'falcons.png', 'Mercedes Benz stadium Atlanta', 'NFC', 2, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(58, 'Carolina Panthers', 'CAR', 'panthers.png', 'Bank of America Stadium', 'NFC', 2, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(59, 'New Orleans Saints', 'NOS', 'saints.jpg', 'Mercedes-Benz Superdome', 'NFC', 2, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(60, 'Tampa Bay Buccaneers', 'TBB', 'buccaneers.png', 'Raymond James Stadium', 'NFC', 2, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(61, 'Arizona Cardinals', 'ARI', 'cardinals.png', 'University of Phoenix Stadium', 'NFC', 2, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(62, 'Los Angeles Rams', 'LAR', 'rams.png', 'SoFi Stadium', 'NFC', 2, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(63, 'San Francisco 49ers', 'SAF', '49ers', 'Levi\'s Stadium', 'NFC', 2, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(64, 'Seattle Seahawks', 'SEA', 'seahawks.png', 'Lumen Field', 'NFC', 2, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(65, 'Atlanta Hawks', 'ATL', 'hawks.png', 'State Farm Arena', 'East', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(66, 'Boston Celtics', 'BOS', 'celtics.png', 'TD Garden', 'East', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(67, 'Brooklyn Nets', 'BRO', 'nets.png', 'Barclay Center', 'East', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(68, 'Charlotte Hornets', 'CHA', 'hornets.png', 'Spectrum Center', 'East', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(69, 'Chicago Bulls', 'CHI', 'bulls.png', 'United Center', 'East', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(70, 'Cleveland Cavaliers', 'CLE', 'cavs.png', 'Rocket Mortgage FieldHouse', 'East', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(71, 'Dallas Mavericks', 'DAL', 'mavs.png', 'American Airlines Center', 'West', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(72, 'Denver Nuggets', 'DEN', 'nuggets.png', 'Ball Arena', 'West', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(73, 'Detroit Pistons', 'DET', 'pistons.png', 'Little Caesars Arena', 'East', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(74, 'Golden State Warriors', 'GSW', 'warriors.png', 'Chase Center', 'West', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(75, 'Houston Rockets', 'HOU', 'rockets.png', 'Toyota Center', 'West', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(76, 'Indiana Pacers', 'IND', 'pacers.png', 'Bankers Life Fieldhouse', 'East', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(77, 'Los Angeles Clippers', 'LAC', 'clippers.png', 'Crypto.com Arena', 'West', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(78, 'Los Angeles Lakers', 'LAL', 'lakers.png', 'Crypto.com Arena', 'West', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(79, 'Memphis Grizzlies', 'MEM', 'grizzlies.png', 'FedExForum', 'West', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(80, 'Miami Heat', 'MIA', 'heat.png', 'FTX Arena', 'East', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(81, 'Milwaukee Bucks', 'MIL', 'bucks.webp', 'Fiserv Forum', 'East', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(82, 'Minnesota Timberwolves', 'MIN', 'wolves.png', 'Target Center', 'West', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(83, 'New Orleans Pelicans', 'NOP', 'pels.png', 'New Orleans Arena', 'West', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(84, 'New York Knicks', 'NYK', 'knicks.png', 'Madison Square Garden', 'East', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(85, 'Oklahoma City Thunder', 'OKC', 'thunder.png', 'Paycom Center', 'West', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(86, 'Orlando Magic', 'ORL', 'magic.png', 'Amway Center', 'East', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(87, 'Philadelphia 76ers', 'PHI', '76ers.png', 'Wells Fargo Center', 'East', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(88, 'Phoenix Suns', 'PHO', 'suns.png', 'Footprint Center', 'West', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(89, 'Portland Trail Blazers', 'POR', 'blazers.png', 'Moda Center', 'West', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(90, 'Sacramento Kings', 'SAC', 'kings.png', 'Golden 1 Center', 'West', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(91, 'San Antonio Spurs', 'SAN', 'spurs.png', 'AT&T Center', 'West', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(92, 'Toronto Raptors', 'TOR', 'raptors.png', 'Scotiabank Arena', 'East', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(93, 'Utah Jazz', 'UTA', 'jazz.png', 'EnergySolutions Arena', 'West', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(94, 'Washington Wizards', 'WAS', 'wizards.png', 'Capital One Arena', 'East', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL);
 -- --------------------------------------------------------
 
 --
@@ -247,6 +308,23 @@ CREATE TABLE `sports` (
   `deletedAt` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Structure de la table `teams`
+--
+
+CREATE TABLE `teams` (
+  `id` int(10) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `acronyme` varchar(255) NOT NULL,
+  `uri_logo` varchar(255) NOT NULL,
+  `arena` varchar(255) DEFAULT NULL,
+  `conference` varchar(255) NOT NULL,
+  `id_sport` SMALLINT(10) NOT NULL,
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL,
+  `deletedAt` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 -- --------------------------------------------------------
 
 --
@@ -286,20 +364,9 @@ ALTER TABLE `messages`
 --
 -- Index pour la table `nbateams`
 --
-ALTER TABLE `nbateams`
-  ADD PRIMARY KEY (`id`);
-
---
--- Index pour la table `nflteams`
---
-ALTER TABLE `nflteams`
-  ADD PRIMARY KEY (`id`);
-
---
--- Index pour la table `nhlteams`
---
-ALTER TABLE `nhlteams`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE `teams`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_sport` (`id_sport`);
 
 --
 -- Index pour la table `privatemessages`

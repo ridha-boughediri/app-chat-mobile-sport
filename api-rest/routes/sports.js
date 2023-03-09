@@ -7,11 +7,12 @@ const checkTokenexist= require('../JWT/verif')
 
 const Sport = require('../models/sport')
 
-const user=require('../models/user')
+const user = require('../models/user')
 
 
 const db = require('../db.config')
 const checkId = require('../JWT/checkAdmin')
+const { nbaTeams } = require('../db.config')
 
 
 // mon middleware pour sport selon la route
@@ -60,6 +61,24 @@ router.get('/:id', async (req, res) => {
     }catch(err){
         return res.status(500).json({ message: 'Database Error', error: err })
     }    
+})
+
+router.get('/:id_sport/teams', async (req, res) => {
+    let nbaTeamsSport = parseInt(req.params.id_sport)
+
+    if(!nbaTeamsSport) {
+        return res.json(400).json({message: 'Missing Parameter'})
+    }
+
+    try {
+        let nbaT = await db.nbaTeams.findAll({where: {id_sport: nbaTeamsSport}, include:Sport})
+        if(nbaT === null) {
+            return res.status(404).json({message: 'This sport does not exists !'})
+        }
+        return res.json({data: nbaT})
+    } catch (err) {
+        return res.status(500).json({message: 'Database error', error: err})
+    }
 })
 
 router.post('/',checkTokenexist,checkId, async (req, res) => {

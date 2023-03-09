@@ -19,7 +19,6 @@ const EditProfilScreen = () => {
   const [teams, setTeams] = useState('');
   const [token, setToken] = useState('');
   const [data, setData] = useState([]);
-  const [idsport, setIdsport] = useState('')
 
   useEffect(() => {
     const getInfo = async () => {
@@ -36,17 +35,9 @@ const EditProfilScreen = () => {
     }
     getInfo()
   }, []);
-  useEffect(() => {
-    request('sports/', 'get', '')
-      .then(response => {
-        const newArray = response.data.map((item) => {
-          return { key: item.id, value: item.league_name }
-        })
-        setData(newArray)
-      })
 
 
-  }, [])
+
   //Pour modifier l'image depuis la gallerie user
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -60,6 +51,7 @@ const EditProfilScreen = () => {
       setImage(result.assets[0].uri);
     }
   };
+  
   const sportChose = () => {
     for (const id of data) {
 
@@ -93,15 +85,7 @@ const EditProfilScreen = () => {
         alert('Rentrer votre mot de passe ');
         return;
       }
-      if (!sports.trim()) {
-        alert('choisissez un sport')
-        return
-      }
-      if (!teams.trim()) {
-        alert('choisissez une équipe favorite')
-        return
-      }
-      let response = await axios.post('http://10.10.25.195:8888/', {
+      let response = await axios.post('http://10.10.2.70:8888/', {
         email: email,
         password: password,
       });
@@ -110,12 +94,6 @@ const EditProfilScreen = () => {
 
     } catch (error) {
       console.error(error);
-    }
-
-
-
-    const teamChose = () => {
-      //meme chose qu au dessus mais pour les équipes
     }
   }
 
@@ -194,7 +172,7 @@ const EditProfilScreen = () => {
             onChangeText={(text) => setPassword(text)}
             secureTextEntry={passwordVisibility} />
 
-          <View style={styles.label}>
+          {/* <View style={styles.label}>
             <Text style={{ fontSize: 30 }}>
               Sports
             </Text>
@@ -212,11 +190,14 @@ const EditProfilScreen = () => {
               Equipes
             </Text>
           </View>
-          <TextInput
-            style={styles.input}
-
-            onChangeText={(text) => setTeams(text)} />
-
+          <SelectList
+            onSelect={() => teamChose()}
+            setSelected={(val) => setTeams(val)}
+            data={dataNBA} 
+            save="value"
+            boxStyles={{ backgroundColor: 'white', padding: 100 }}
+            dropdownItemStyles={{ backgroundColor: 'white' }}
+          /> */}
           <TouchableOpacity style={styles.button} onPress={updateUserInfos}>
             <Text style={{ fontSize: 11, textAlign: 'center', fontWeight: 'bold' }}>Modifier</Text>
           </TouchableOpacity>
