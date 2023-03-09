@@ -79,7 +79,7 @@ router.post('/register', async (req, res) => {
         let hash = await bcrypt.hash(password, parseInt(process.env.BCRYPT_SALT_ROUND))
         req.body.password = hash
         // Céation de l'utilisateur
-        
+
         let userc = await db.user.create(req.body)
         return res.json({ message: 'User Created', data: userc }), res.status(200);
 
@@ -119,9 +119,9 @@ router.patch('/:id', checkTokenexist, async (req, res) => {
 })
 
 
-router.delete('/:id', checkTokenexist, checkId, (req, res) => {
+router.delete('/delete/:id', checkTokenexist, checkId, (req, res) => {
     let userId = parseInt(req.params.id)
-
+    console.log(userId)
     // Vérification si le champ id est présent et cohérent
     if (!userId) {
         return res.status(400).json({ message: 'Missing parameter' })

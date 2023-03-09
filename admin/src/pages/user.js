@@ -25,7 +25,8 @@ import BarChartTwoToneIcon from '@mui/icons-material/BarChartTwoTone';
 import GroupTwoToneIcon from '@mui/icons-material/GroupTwoTone';
 import Groups2TwoToneIcon from '@mui/icons-material/Groups2TwoTone';
 import { useRouter } from 'next/router';
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { Table, TableHead, TableBody, TableRow, TableCell, Button, TextField } from '@mui/material/'
 
 
 const drawerWidth = 240;
@@ -77,7 +78,52 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 export default function PersistentDrawerLeft() {
-    const router = useRouter();
+
+    const [users, setUsers] = useState([]);
+    const [searchText, setSearchText] = useState('');
+
+    useEffect(() => {
+        const token = window.localStorage.getItem('token');
+        const fetchUsers = async () => {
+            const response = await fetch('http://10.10.2.1:8888/users', {
+                headers: {
+                    'authorization': token
+                }
+            });
+            const data = await response.json();
+            console.log(data.data)
+            setUsers(data.data);
+        }
+        fetchUsers();
+    }, []);
+
+    const handleSearchTextChange = (event) => {
+        setSearchText(event.target.value);
+    }
+
+    const handleDeleteUser = (userId) => {
+        const token = window.localStorage.getItem('token');
+        fetch('http://10.10.2.1:8888/users/delete/' + userId, {
+        method:"delete" ,   
+        headers: {
+                'authorization': token
+            }
+
+        })
+            .then(data =>  window.location.href = window.location.href)
+            .catch(err => {
+                console.log(err)
+            });
+    }
+
+    const handlePatchUser = () => {
+        // Ajouter un nouvel utilisateur
+    }
+
+    const filteredUsers = users.filter((user) => {
+        return user.lastname.toLowerCase().includes(searchText.toLowerCase()) ||
+            user.email.toLowerCase().includes(searchText.toLowerCase());
+    });
 
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
@@ -178,33 +224,37 @@ export default function PersistentDrawerLeft() {
                 </Drawer>
                 <Main open={open} className={styles.main}>
                     <DrawerHeader />
-                    <Typography paragraph>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                        tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non
-                        enim praesent elementum facilisis leo vel. Risus at ultrices mi tempus
-                        imperdiet. Semper risus in hendrerit gravida rutrum quisque non tellus.
-                        Convallis convallis tellus id interdum velit laoreet id donec ultrices.
-                        Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl suscipit
-                        adipiscing bibendum est ultricies integer quis. Cursus euismod quis viverra
-                        nibh cras. Metus vulputate eu scelerisque felis imperdiet proin fermentum
-                        leo. Mauris commodo quis imperdiet massa tincidunt. Cras tincidunt lobortis
-                        feugiat vivamus at augue. At augue eget arcu dictum varius duis at
-                        consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa
-                        sapien faucibus et molestie ac.
-                    </Typography>
-                    <Typography paragraph>
-                        Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper
-                        eget nulla facilisi etiam dignissim diam. Pulvinar elementum integer enim
-                        neque volutpat ac tincidunt. Ornare suspendisse sed nisi lacus sed viverra
-                        tellus. Purus sit amet volutpat consequat mauris. Elementum eu facilisis
-                        sed odio morbi. Euismod lacinia at quis risus sed vulputate odio. Morbi
-                        tincidunt ornare massa eget egestas purus viverra accumsan in. In hendrerit
-                        gravida rutrum quisque non tellus orci ac. Pellentesque nec nam aliquam sem
-                        et tortor. Habitant morbi tristique senectus et. Adipiscing elit duis
-                        tristique sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis
-                        eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
-                        posuere sollicitudin aliquam ultrices sagittis orci a.
-                    </Typography>
+                    <div>
+                        <h1>Gestion des utilisateurs</h1>
+                        <TextField label="Rechercher" value={searchText} onChange={handleSearchTextChange} />
+                        <Table>
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell>ID</TableCell>
+                                    <TableCell>Nom</TableCell>
+                                    <TableCell>Prénom</TableCell>
+                                    <TableCell>Email</TableCell>
+                                    <TableCell>Role</TableCell>
+                                    <TableCell>Action</TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {filteredUsers.map((user) => (
+                                    <TableRow key={user.id}>
+                                        <TableCell>{user.id}</TableCell>
+                                        <TableCell>{user.lastname}</TableCell>
+                                        <TableCell>{user.firstname}</TableCell>
+                                        <TableCell>{user.email}</TableCell>
+                                        <TableCell>{user.role_id}</TableCell>
+                                        <TableCell>
+                                            <Button variant="contained" color="primary" onClick={() => handlePatchUser(user.id)}>Modifier</Button>
+                                            <Button variant="contained" color="secondary" onClick={() => handleDeleteUser(user.id)}>Supprimer</Button>
+                                        </TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </div>
                 </Main>
             </Box>
         </>

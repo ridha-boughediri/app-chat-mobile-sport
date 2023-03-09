@@ -152,7 +152,6 @@ export default function PersistentDrawerLeft() {
         })
             .then(response => response.json())
             .then(data => {
-
                 setUsercount(data[0].userCount)
                 setRoomcount(data[1].roomCount)
                 setUsermonth(data[2].userMonth)
@@ -161,12 +160,9 @@ export default function PersistentDrawerLeft() {
                     data: data[3].map((item) => item.count),
 
                 })
-
-
-
-
-
-
+            })
+            .catch(err=>{
+                document.location.href='http://localhost:3000/admin'
             })
     }, [])
     console.log(dataGraph)
