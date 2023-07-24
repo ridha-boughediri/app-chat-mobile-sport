@@ -22,6 +22,15 @@ export const request = async (url, method, data) => {
                 url: `${URL_USER}${url}`,
                 data
             });
+        } else if (method === 'patch') {
+            return axios ({
+                headers: { 'authorization': token},
+                method: method,
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                url: `${URL_USER}${url}`,
+                data
+            });
         }
     } else {
         throw new Error("Token not found")

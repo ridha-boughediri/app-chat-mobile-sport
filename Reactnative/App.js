@@ -12,11 +12,14 @@ import LoginScreen from './src/screens/LoginScreen/LoginScreen';
 import InscriptionScreen from './src/screens/InscriptionScreen/InscriptionScreen';
 import EditProfilScreen from './src/screens/Profil/EditProfilScreen/EditProfilScreen';
 import AnnuaireScreen from './src/screens/Annuaire/AnnuaireScreen';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 // import AmiSreen from './src/screens/AmiSreen/AmiSreen';
 
 
 const Drawer = createDrawerNavigator();
 const Tab = createBottomTabNavigator();
+const Stack = createNativeStackNavigator();
+
 
 const App = () => {
   return (

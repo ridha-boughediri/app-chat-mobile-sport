@@ -26,6 +26,7 @@ const ProfilScreen = ({ navigation }) => {
           setLast(response.data.lastname)
           setMail(response.data.email)
           setUsername(response.data.login)
+          
 
         })
         .catch(err=>{

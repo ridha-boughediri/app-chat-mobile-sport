@@ -3,13 +3,13 @@ const express = require('express')
 
 const bcrypt = require('bcrypt')
 
-let router = express.Router()
-
 const db = require('../db.config')
-
+let router = express.Router()
 
 const checkTokenexist = require('../JWT/verif')
 const checkId = require('../JWT/checkAdmin')
+
+
 
 
 // mon middleware pour user selon la route
@@ -30,11 +30,14 @@ router.get('/', (req, res) => {
         .catch(err => res.status(500).json({ message: 'Database Error', error: err }))
 });
 
+
+
 router.get('/', checkTokenexist, (req, res) => {
     db.user.findAll()
         .then(users => res.json({ data: users }), res.status(200))
         .catch(err => res.status(500).json({ message: 'Database Error', error: err }))
 });
+
 
 router.get('/firstlast', (req, res) => {
     db.user.findAll({ attributes: ['firstname', 'lastname', 'uri_avatar'] })
@@ -53,7 +56,7 @@ router.get('/:id', checkTokenexist, async (req, res) => {
 
     try {
         // Récupération de l'utilisateur et vérification
-        let user = await db.user.findOne({ where: { id: userId }, attributes: ['login', 'email', 'password', 'firstname', 'lastname', 'uri_avatar', 'sport_id', 'nbateam_id', 'nflteam_id', 'nhlteam_id'] })
+        let user = await db.user.findOne({ where: { id: userId }, attributes: ['login', 'email', 'password', 'firstname', 'lastname', 'uri_avatar', 'sport_id',] })
         if (user === null) {
             return res.status(404).json({ message: 'This user does not exist !' })
         }
@@ -83,6 +86,7 @@ router.post('/register', async (req, res) => {
 
         let hash = await bcrypt.hash(password, parseInt(process.env.BCRYPT_SALT_ROUND))
         req.body.password = hash
+        
         // Céation de l'utilisateur
         
         let userc = await db.user.create(req.body)
@@ -100,7 +104,7 @@ router.post('/register', async (req, res) => {
 
 
 
-router.patch('/:id', checkTokenexist, async (req, res) => {
+router.patch('/update/:id', checkTokenexist, async (req, res) => {
     let userId = parseInt(req.params.id)
 
     // Vérification si le champ id est présent et cohérent
@@ -117,6 +121,8 @@ router.patch('/:id', checkTokenexist, async (req, res) => {
 
         // Mise à jour de l'utilisateur
         await db.user.update(req.body, { where: { id: userId } })
+        console.log(req.body)
+        console.log(userId)
         return res.json({ message: 'User Updated' }), res.status(200);
     } catch (err) {
         return res.status(500).json({ message: 'Database Error', error: err })

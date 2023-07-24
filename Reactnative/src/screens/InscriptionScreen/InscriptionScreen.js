@@ -8,9 +8,6 @@ import {
   StyleSheet,
   TextInput,
 } from 'react-native';
-import Layouts from '../../components/constants/Layout';
-import Button from '../../components/CustomButon/CustomButton';
-import Input from '../../components/CustomInput/CustomInput';
 import { useState } from 'react';
 import axios from 'axios';
 
@@ -40,7 +37,7 @@ const InscriptionScreen = ({ navigation }) => {
   const onSubmit = async ({ navigation }) => {
 
 
-    // verification des inputes 
+    // verification des inputs 
     if (!lastname.trim()) {
       alert('Rentrer votre nom');
       return;
@@ -62,10 +59,6 @@ const InscriptionScreen = ({ navigation }) => {
       alert('Rentrer votre mot de passe ');
       return;
     }
-    //  SI tout est bien rempli
-
-
-    // envoi de la data vers le lien
 
 
     const call = await axios.post('http://10.10.2.70:8888/users/register', {

@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react'
 import * as ImagePicker from 'expo-image-picker';
 import * as SecureStore from 'expo-secure-store';
 import jwt from 'jwt-decode';
+import axios from 'axios';
 import { request } from '../../../service/request';
 import { SelectList } from 'react-native-dropdown-select-list';
 
@@ -15,8 +16,6 @@ const EditProfilScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordVisibility, setPasswordVisibility] = useState(true);
-  const [sports, setSports] = useState('option1');
-  const [teams, setTeams] = useState('');
   const [token, setToken] = useState('');
   const [data, setData] = useState([]);
 
@@ -51,21 +50,11 @@ const EditProfilScreen = () => {
       setImage(result.assets[0].uri);
     }
   };
-  
-  const sportChose = () => {
-    for (const id of data) {
 
-      if (sports == id.value) {
-
-        setIdsport(id.value)
-      }
-    }
-  }
-  const teamChose = () => {
-    //meme chose qu au dessus mais pour les équipes
-  }
   //Pour modifier les infos user
   const updateUserInfos = async () => {
+    const res = await SecureStore.getItemAsync('access_token');
+    const decoded = jwt(res)
     try {
       if (!lastname.trim()) {
         alert('Rentrer votre nom');
@@ -88,18 +77,33 @@ const EditProfilScreen = () => {
         alert('Rentrer votre mot de passe ');
         return;
       }
-      let response = await axios.post('http://10.10.2.70:8888/', {
+      const body = {
+        lastname: lastname,
+        firstname: firstname,
+        login: login,
         email: email,
-        password: password,
-      });
-      let data = response.data;
-      console.log(data);
+        password: password
+      }
+      request('users/update' + decoded.id, 'patch', body)
+      .then(response => {
+        console.log(response.data)
+        setLogin(response.data.login)
+        setFirstname(response.data.firstname)
+        setLastname(response.data.lastname)
+        setEmail(response.data.email)
+        setPassword(response.data.password)
+      })
+      .catch(err => {
+        alert(err.response.data.message)
+        if(err.response.status == 401) {
+          console.log('Erreur')
+        }
+      })
 
     } catch (error) {
       console.error(error);
     }
   }
-
   return (
     <ScrollView>
       <View style={styles.container}>
@@ -160,7 +164,7 @@ const EditProfilScreen = () => {
           </View>
           <TextInput
             style={styles.input}
-
+            isPassword = {true}
             onChangeText={(text) => setPassword(text)}
             secureTextEntry={passwordVisibility} />
 
@@ -171,36 +175,9 @@ const EditProfilScreen = () => {
           </View>
           <TextInput
             style={styles.input}
-
+            isPassword = {true}
             onChangeText={(text) => setPassword(text)}
             secureTextEntry={passwordVisibility} />
-
-          {/* <View style={styles.label}>
-            <Text style={{ fontSize: 30 }}>
-              Sports
-            </Text>
-          </View>
-          <SelectList
-            onSelect={() => sportChose()}
-            setSelected={(val) => setSports(val)}
-            data={data}
-            save="value"
-            boxStyles={{ backgroundColor: 'white', padding: 100 }}
-            dropdownItemStyles={{ backgroundColor: 'white' }}
-          />
-          <View style={styles.label}>
-            <Text style={{ fontSize: 30 }}>
-              Equipes
-            </Text>
-          </View>
-          <SelectList
-            onSelect={() => teamChose()}
-            setSelected={(val) => setTeams(val)}
-            data={dataNBA} 
-            save="value"
-            boxStyles={{ backgroundColor: 'white', padding: 100 }}
-            dropdownItemStyles={{ backgroundColor: 'white' }}
-          /> */}
           <TouchableOpacity style={styles.button} onPress={updateUserInfos}>
             <Text style={{ fontSize: 11, textAlign: 'center', fontWeight: 'bold' }}>Modifier</Text>
           </TouchableOpacity>

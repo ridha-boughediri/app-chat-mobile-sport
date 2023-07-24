@@ -28,7 +28,6 @@ app.use('/messages', routeMessages)
 app.use('/teams', routeTeams)
 app.use('/privateMessages', routePriveM)
 app.use('/roles', routeRole)
-
 app.use('/auth', routeLogin)
 app.use('/users', router)
 
