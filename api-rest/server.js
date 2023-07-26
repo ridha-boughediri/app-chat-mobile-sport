@@ -17,6 +17,7 @@ const routeNFl = require('./routes/nflTeams')
 const routeNHl = require('./routes/nhlTeams')
 const routePriveM = require('./routes/privateMessage')
 const routeLogin = require('./routes/auth')
+const routeAdmin = require('./routes/admin')
 
 const routeRole = require('./routes/roles')
 app.use(cors({
@@ -32,7 +33,7 @@ app.use('/nflTeams', routeNFl)
 app.use('/nhlTeams', routeNHl)
 app.use('/privateMessages', routePriveM)
 app.use('/roles', routeRole)
-
+app.use('/admin',routeAdmin)
 app.use('/auth', routeLogin)
 app.use('/users', router)
 

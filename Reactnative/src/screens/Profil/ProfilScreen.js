@@ -16,6 +16,7 @@ const ProfilScreen = ({ navigation }) => {
     const getInfo = async () => {
       const res = await SecureStore.getItemAsync('access_token');
       const decoded = jwt(res)
+      console.log(res)
       request('users/' + decoded.id, 'get', '')
         .then(response => {
 
@@ -49,28 +50,32 @@ const ProfilScreen = ({ navigation }) => {
             </Text>
           </View>
           <Text style={styles.infosUser}>
-          {username}        </Text>
+          {username}        
+          </Text>
           <View style={styles.label}>
             <Text style={{ fontSize: 30 }}>
               Prénom
             </Text>
           </View>
           <Text style={styles.infosUser}>
-            {first}        </Text>
+            {first}        
+          </Text>
           <View style={styles.label}>
             <Text style={{ fontSize: 30 }}>
               Nom
             </Text>
           </View>
           <Text style={styles.infosUser}>
-            {last}     </Text>
+            {last}     
+          </Text>
           <View style={styles.label}>
             <Text style={{ fontSize: 30 }}>
               Email
             </Text>
           </View>
           <Text style={styles.infosUser}>
-            {mail}         </Text>
+            {mail}         
+          </Text>
           <View style={styles.label}>
             <Text style={{ fontSize: 30 }}>
               Sport(s)

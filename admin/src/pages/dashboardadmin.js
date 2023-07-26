@@ -10,7 +10,7 @@ import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
+import MenuIcon from '@mui/material/Icon';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ListItem from '@mui/material/ListItem';
@@ -31,9 +31,51 @@ import Stack from '@mui/material/Stack';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
+import {
+    Chart as ChartJS,
+    CategoryScale,
+    LinearScale,
+    BarElement,
+    Tooltip,
+    Legend,
+} from 'chart.js';
+import { Bar } from 'react-chartjs-2';
+import { minWidth } from "@mui/system";
+ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    BarElement,
+    Tooltip,
+    Legend
+);
+const options = {
+    responsive: true,
+    plugins: {
+        legend: {
+            position: 'top',
+        },
 
+    },
+    scales: {
+        y: {
+            beginAtZero: true
+        }
+    }
+};
+const labels = ['janvier', 'fevrier', 'mars', 'avril', 'mai', 'juin', 'juillet', 'aout', 'septembre', 'novembre', 'décembre'];
 const drawerWidth = 240;
 
+const data = {
+    labels,
+    datasets: [
+        {
+            label: 'messages par mois',
+            data: [1, 2, 5, 3, 4, 5, 4, 4, 4, 4, 45, 0],
+            backgroundColor: 'rgba(255, 99, 132, 0.5)',
+        },
+
+    ],
+};
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
 
     ({ theme, open }) => ({
@@ -92,7 +134,38 @@ export default function PersistentDrawerLeft() {
 
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
+    const [usercount, setUsercount] = React.useState()
+    const [roomcount, setRoomcount] = React.useState()
+    const [usermonth, setUsermonth] = React.useState()
+    const [messagemonth, setMessagemonth] = React.useState()
+    const [dataGraph, setDataGraph] = React.useState({})
 
+
+    React.useEffect(() => {
+        const token = window.localStorage.getItem('token');
+
+
+        fetch('http://10.10.30.125:8888/admin/', {
+            headers: {
+                'authorization': token
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                setUsercount(data[0].userCount)
+                setRoomcount(data[1].roomCount)
+                setUsermonth(data[2].userMonth)
+                setMessagemonth(data[3])
+                setDataGraph({
+                    data: data[3].map((item) => item.count),
+
+                })
+            })
+            .catch(err=>{
+                document.location.href='http://localhost:3000/admin'
+            })
+    }, [])
+    console.log(dataGraph)
     const handleDrawerOpen = () => {
         setOpen(true);
     };
@@ -200,7 +273,7 @@ export default function PersistentDrawerLeft() {
                         <Card sx={{ minWidth: 350 }}>
                             <CardContent>
                                 <Typography variant="h5" component="div">
-                                    
+                                    {usercount}
                                 </Typography>
                                 <Typography variant="body2">
                                     utilisateurs Inscrits
@@ -209,46 +282,40 @@ export default function PersistentDrawerLeft() {
                         </Card>
                         <Card sx={{ minWidth: 275 }}>
                             <CardContent>
-                                <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                                    Word of the Day
-                                </Typography>
                                 <Typography variant="h5" component="div">
-                                    be{bull}nev{bull}o{bull}lent
-                                </Typography>
-                                <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                                    adjective
+                                    {roomcount}
                                 </Typography>
                                 <Typography variant="body2">
-                                    well meaning and kindly.
-                                    <br />
-                                    {'"a benevolent smile"'}
+                                    Rooms créées
                                 </Typography>
                             </CardContent>
-                            <CardActions>
-                                <Button size="small">Learn More</Button>
-                            </CardActions>
                         </Card>
                         <Card sx={{ minWidth: 275 }}>
                             <CardContent>
-                                <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                                    Word of the Day
-                                </Typography>
                                 <Typography variant="h5" component="div">
-                                    be{bull}nev{bull}o{bull}lent
-                                </Typography>
-                                <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                                    adjective
+                                    {usermonth}
                                 </Typography>
                                 <Typography variant="body2">
-                                    well meaning and kindly.
-                                    <br />
-                                    {'"a benevolent smile"'}
+                                    Nouvel Utilisateurs ce mois ci
                                 </Typography>
                             </CardContent>
-                            <CardActions>
-                                <Button size="small">Learn More</Button>
-                            </CardActions>
                         </Card>
+                    </Stack>
+                    <Stack sx={{ minWidth: 1000 }}>
+                        <Bar options={options} data={{
+
+                            labels,
+                            datasets: [
+                                {
+                                    label: 'messages par mois',
+                                    data: dataGraph.data,
+                                    backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                                },
+
+                            ],
+
+
+                        }} />;
                     </Stack>
                 </Main>
             </Box>

@@ -24,11 +24,6 @@ router.use((req, res, next) => {
 
 })
 
-router.get('/', (req, res) => {
-    db.user.findAll()
-        .then(users => res.json({ data: users }), res.status(200))
-        .catch(err => res.status(500).json({ message: 'Database Error', error: err }))
-});
 
 router.get('/', checkTokenexist, (req, res) => {
     db.user.findAll()
@@ -76,7 +71,7 @@ router.post('/register', async (req, res) => {
         // Vérification si l'utilisateur existe déjà
         const user = await db.user.findOne({ where: { email: email }, raw: true })
         if (user !== null) {
-            return res.status(409).json({ message: `The user ${lastname} already exists !` })
+            return res.status(409).json({ message: `The user ${email} already exists !` })
         }
 
         // Hashage du mot de passe utilisateur
@@ -84,7 +79,7 @@ router.post('/register', async (req, res) => {
         let hash = await bcrypt.hash(password, parseInt(process.env.BCRYPT_SALT_ROUND))
         req.body.password = hash
         // Céation de l'utilisateur
-        
+
         let userc = await db.user.create(req.body)
         return res.json({ message: 'User Created', data: userc }), res.status(200);
 
@@ -114,19 +109,23 @@ router.patch('/:id', checkTokenexist, async (req, res) => {
         if (user === null) {
             return res.status(404).json({ message: 'This user does not exist !' })
         }
+// Hashage du mot de passe utilisateur
+        let hash = await bcrypt.hash(req.body.password, parseInt(process.env.BCRYPT_SALT_ROUND))
+        req.body.password = hash
 
-        // Mise à jour de l'utilisateur
+    // Céation de l'utilisateur
+
         await db.user.update(req.body, { where: { id: userId } })
-        return res.json({ message: 'User Updated' }), res.status(200);
+        return res.json({ message: 'Utilisateur mis à jour' }), res.status(200);
     } catch (err) {
         return res.status(500).json({ message: 'Database Error', error: err })
     }
 })
 
 
-router.delete('/:id', checkTokenexist, checkId, (req, res) => {
+router.delete('/delete/:id', checkTokenexist, checkId, (req, res) => {
     let userId = parseInt(req.params.id)
-
+    console.log(userId)
     // Vérification si le champ id est présent et cohérent
     if (!userId) {
         return res.status(400).json({ message: 'Missing parameter' })

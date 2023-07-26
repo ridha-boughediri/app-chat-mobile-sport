@@ -61,6 +61,7 @@ router.get('/:id', async (req, res) => {
 router.post('/', checkTokenexist, async (req, res) => {
     const { content, user_id } = req.body
 
+
     // Validation des données reçues
     if (content == undefined || user_id == null) {
         return res.status(400).json({ message: 'Missing Data' })
@@ -69,19 +70,29 @@ router.post('/', checkTokenexist, async (req, res) => {
     try {
         // Céation de l'message
         let messages = await db.message.create(req.body)
-
-        return res.json({ message: 'message Created', data: messages }), res.status(200)
+        console.log('Message created:', messages);
+        return res.status(200).json({ message: 'message Created', data: messages })
     }
 
     catch (err) {
-        if (err.name == 'SequelizeDatabaseError') {
-            res.status(500).json({ message: 'Database Error', error: err })
+        if (err.name === 'SequelizeDatabaseError') {
+          console.error('Database Error:', err);
+          return res.status(500).json({ message: 'Database Error', error: err });
         }
-        res.status(500).json({ message: 'Hash Process Error', error: err })
-    }
+        console.error('Hash Process Error:', err);
+        return res.status(500).json({ message: 'Hash Process Error', error: err });
+      }
 })
 
-
+router.get('/bymonth',checkTokenexist,checkId,async(req, res)=>{
+    db.message.findAll({order:['createdAt','desc']})
+    .then(messages => {
+        console.log('messages', messages)
+        // return res.json({ data: messages })
+    })
+    .catch(err => res.status(500).json({ message: 'Database Error', error: err }))
+    
+}) 
 
 router.patch('/:id', checkTokenexist, async (req, res) => {
     let messageId = parseInt(req.params.id)
