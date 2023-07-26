@@ -71,7 +71,7 @@ router.post('/register', async (req, res) => {
         // Vérification si l'utilisateur existe déjà
         const user = await db.user.findOne({ where: { email: email }, raw: true })
         if (user !== null) {
-            return res.status(409).json({ message: `The user ${lastname} already exists !` })
+            return res.status(409).json({ message: `The user ${email} already exists !` })
         }
 
         // Hashage du mot de passe utilisateur
@@ -109,10 +109,14 @@ router.patch('/:id', checkTokenexist, async (req, res) => {
         if (user === null) {
             return res.status(404).json({ message: 'This user does not exist !' })
         }
+// Hashage du mot de passe utilisateur
+        let hash = await bcrypt.hash(req.body.password, parseInt(process.env.BCRYPT_SALT_ROUND))
+        req.body.password = hash
 
-        // Mise à jour de l'utilisateur
+    // Céation de l'utilisateur
+
         await db.user.update(req.body, { where: { id: userId } })
-        return res.json({ message: 'User Updated' }), res.status(200);
+        return res.json({ message: 'Utilisateur mis à jour' }), res.status(200);
     } catch (err) {
         return res.status(500).json({ message: 'Database Error', error: err })
     }

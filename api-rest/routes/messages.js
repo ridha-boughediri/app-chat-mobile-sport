@@ -70,16 +70,18 @@ router.post('/', checkTokenexist, async (req, res) => {
     try {
         // Céation de l'message
         let messages = await db.message.create(req.body)
-
-        return res.json({ message: 'message Created', data: messages }), res.status(200)
+        console.log('Message created:', messages);
+        return res.status(200).json({ message: 'message Created', data: messages })
     }
 
     catch (err) {
-        if (err.name == 'SequelizeDatabaseError') {
-            res.status(500).json({ message: 'Database Error', error: err })
+        if (err.name === 'SequelizeDatabaseError') {
+          console.error('Database Error:', err);
+          return res.status(500).json({ message: 'Database Error', error: err });
         }
-        res.status(500).json({ message: 'Hash Process Error', error: err })
-    }
+        console.error('Hash Process Error:', err);
+        return res.status(500).json({ message: 'Hash Process Error', error: err });
+      }
 })
 
 router.get('/bymonth',checkTokenexist,checkId,async(req, res)=>{

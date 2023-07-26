@@ -5,7 +5,7 @@ import axios from "axios";
 
 
 async function findOneUser(id){
-    const res = await axios.get(`http://10.10.21.26:8888/users/register`);
+    const res = await axios.get(`http://10.10.30.125:8888/users/register`);
     return res.data;
 }
 

@@ -24,7 +24,7 @@ import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import BarChartTwoToneIcon from '@mui/icons-material/BarChartTwoTone';
 import GroupTwoToneIcon from '@mui/icons-material/GroupTwoTone';
 import Groups2TwoToneIcon from '@mui/icons-material/Groups2TwoTone';
-import { useRouter } from 'next/router';
+import { router } from 'next/router';
 import { useState, useEffect } from 'react'
 import { Table, TableHead, TableBody, TableRow, TableCell, Button, TextField } from '@mui/material/'
 
@@ -85,7 +85,7 @@ export default function PersistentDrawerLeft() {
     useEffect(() => {
         const token = window.localStorage.getItem('token');
         const fetchUsers = async () => {
-            const response = await fetch('http://10.10.2.1:8888/users', {
+            const response = await fetch('http://10.10.30.125:8888/users', {
                 headers: {
                     'authorization': token
                 }
@@ -103,7 +103,7 @@ export default function PersistentDrawerLeft() {
 
     const handleDeleteUser = (userId) => {
         const token = window.localStorage.getItem('token');
-        fetch('http://10.10.2.1:8888/users/delete/' + userId, {
+        fetch('http://10.10.30.125:8888/users/delete/' + userId, {
         method:"delete" ,   
         headers: {
                 'authorization': token

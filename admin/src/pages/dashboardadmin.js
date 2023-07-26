@@ -145,7 +145,7 @@ export default function PersistentDrawerLeft() {
         const token = window.localStorage.getItem('token');
 
 
-        fetch('http://10.10.2.1:8888/admin/', {
+        fetch('http://10.10.30.125:8888/admin/', {
             headers: {
                 'authorization': token
             }
